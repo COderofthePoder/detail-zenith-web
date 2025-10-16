@@ -113,7 +113,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Before/After Grid */}
+      {/* Before/After Slider */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
@@ -124,22 +124,34 @@ const Gallery = () => {
               </p>
             </div>
 
-            {/* Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-              {beforeAfterPairs.map((pair, index) => (
-                <div 
-                  key={index} 
-                  className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
-                  onClick={() => handleBeforeAfterClick(pair)}
-                >
-                  <BeforeAfterSlider
-                    beforeImage={pair.before}
-                    afterImage={pair.after}
-                    alt={pair.alt}
-                  />
-                </div>
-              ))}
-            </div>
+            {/* Carousel Slider */}
+            <Carousel
+              opts={{
+                align: 'start',
+                loop: true,
+              }}
+              className="w-full max-w-6xl mx-auto"
+            >
+              <CarouselContent className="-ml-4">
+                {beforeAfterPairs.map((pair, index) => (
+                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <div 
+                      className="cursor-pointer transition-all duration-300 hover:scale-[1.02] animate-fade-up"
+                      style={{ animationDelay: `${(index % 3) * 100}ms` }}
+                      onClick={() => handleBeforeAfterClick(pair)}
+                    >
+                      <BeforeAfterSlider
+                        beforeImage={pair.before}
+                        afterImage={pair.after}
+                        alt={pair.alt}
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0 -translate-x-12 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg" />
+              <CarouselNext className="right-0 translate-x-12 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg" />
+            </Carousel>
           </div>
         </div>
       </section>
