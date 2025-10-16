@@ -27,8 +27,13 @@ import gallery3 from '@/assets/gallery-3.jpg';
 import amgFertig from '@/assets/AMG_Fertig.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Instagram } from 'lucide-react';
+import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from '@/components/ui/dialog';
 import {
   Carousel,
   CarouselContent,
@@ -39,6 +44,8 @@ import {
 
 const Gallery = () => {
   const [selectedService, setSelectedService] = useState<string>('Alle');
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const services = [
     'Alle',
@@ -114,6 +121,19 @@ const Gallery = () => {
   const filteredPairs = selectedService === 'Alle' 
     ? beforeAfterPairs 
     : beforeAfterPairs.filter(pair => pair.service === selectedService);
+
+  const handleImageClick = (index: number) => {
+    setSelectedImage(index);
+    setIsLightboxOpen(true);
+  };
+
+  const handlePrevImage = () => {
+    setSelectedImage((prev) => (prev === 0 ? galleryImages.length - 1 : (prev ?? 0) - 1));
+  };
+
+  const handleNextImage = () => {
+    setSelectedImage((prev) => ((prev ?? 0) + 1) % galleryImages.length);
+  };
 
   // Placeholder images for masonry grid
   const galleryImages = [
@@ -246,8 +266,9 @@ const Gallery = () => {
             {galleryImages.map((image, index) => (
               <div
                 key={index}
-                className="relative overflow-hidden rounded-lg aspect-square group animate-fade-up"
+                className="relative overflow-hidden rounded-lg aspect-square group animate-fade-up cursor-pointer"
                 style={{ animationDelay: `${index * 80}ms` }}
+                onClick={() => handleImageClick(index)}
               >
                 <img
                   src={image.src}
@@ -309,6 +330,52 @@ const Gallery = () => {
       </section>
 
       <Footer />
+
+      {/* Lightbox Dialog */}
+      <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
+        <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background/95 border-0">
+          <DialogClose className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+            <X className="h-6 w-6 text-foreground" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          
+          {selectedImage !== null && (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* Previous Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-background/80 hover:bg-background"
+                onClick={handlePrevImage}
+              >
+                <ChevronLeft className="h-8 w-8" />
+              </Button>
+
+              {/* Image */}
+              <div className="relative max-h-full max-w-full">
+                <img
+                  src={galleryImages[selectedImage].src}
+                  alt={galleryImages[selectedImage].alt}
+                  className="max-h-[80vh] max-w-full object-contain rounded-lg"
+                />
+                <p className="text-center text-muted-foreground mt-4">
+                  {galleryImages[selectedImage].alt}
+                </p>
+              </div>
+
+              {/* Next Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-background/80 hover:bg-background"
+                onClick={handleNextImage}
+              >
+                <ChevronRight className="h-8 w-8" />
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
