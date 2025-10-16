@@ -52,9 +52,9 @@ const Gallery = () => {
       const rect = gallerySection.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate scroll progress from 0 to 1 (adjusted to finish much earlier)
+      // Calculate scroll progress from 0 to 1 (very fast completion)
       const scrollStart = rect.top + window.scrollY - windowHeight;
-      const scrollEnd = rect.top + window.scrollY + (rect.height * 0.2); // Reduced from 0.35 to 0.2
+      const scrollEnd = rect.top + window.scrollY + (rect.height * 0.1); // Reduced from 0.2 to 0.1
       const currentScroll = window.scrollY;
       
       const progress = Math.min(Math.max((currentScroll - scrollStart) / (scrollEnd - scrollStart), 0), 1);
