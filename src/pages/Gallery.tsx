@@ -198,6 +198,7 @@ const Gallery = () => {
                   opts={{
                     align: 'start',
                     loop: true,
+                    watchDrag: false,
                   }}
                   className="w-full max-w-6xl mx-auto"
                 >
