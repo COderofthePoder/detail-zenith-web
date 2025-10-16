@@ -157,44 +157,39 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid */}
+      {/* Gallery Grid - Diagonal Scroll Effect */}
       <section className="py-20 bg-secondary overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="mb-4">Impressionen</h2>
             <p className="text-muted-foreground">
               Einblicke in unsere Arbeit und unsere Werkstatt
             </p>
           </div>
 
-          <div className="max-w-7xl mx-auto">
-            {/* Bento Grid Layout */}
-            <div className="grid grid-cols-12 gap-4 md:gap-6">
-              {/* Large Featured Image - AMG */}
+          <div className="max-w-7xl mx-auto space-y-8">
+            {/* Row 1 - Left to Right */}
+            <div className="flex gap-6 items-center justify-start animate-fade-up" style={{ animationDelay: '0ms' }}>
               <div
-                className="col-span-12 md:col-span-8 row-span-2 relative overflow-hidden rounded-2xl group cursor-pointer animate-fade-up"
-                style={{ animationDelay: '0ms', minHeight: '400px' }}
+                className="w-full md:w-[45%] relative overflow-hidden rounded-2xl group cursor-pointer transform -rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '350px' }}
                 onClick={() => handleImageClick(0)}
               >
                 <img
                   src={galleryImages[0].src}
                   alt={galleryImages[0].alt}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-8">
-                  <p className="text-foreground text-lg font-semibold px-4 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     {galleryImages[0].alt}
                   </p>
                 </div>
-                <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-4 py-2 rounded-full text-primary-foreground text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Vergrößern
-                </div>
               </div>
-
-              {/* Tall Image - Urus & Huracan */}
               <div
-                className="col-span-12 md:col-span-4 row-span-2 relative overflow-hidden rounded-2xl group cursor-pointer animate-fade-up"
-                style={{ animationDelay: '100ms', minHeight: '400px' }}
+                className="hidden md:block w-[45%] relative overflow-hidden rounded-2xl group cursor-pointer transform rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '300px' }}
                 onClick={() => handleImageClick(1)}
               >
                 <img
@@ -202,45 +197,47 @@ const Gallery = () => {
                   alt={galleryImages[1].alt}
                   className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-8">
-                  <p className="text-foreground text-lg font-semibold px-4 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <div className="absolute inset-0 bg-gradient-to-tl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     {galleryImages[1].alt}
                   </p>
                 </div>
               </div>
+            </div>
 
-              {/* Medium Image - Lambo */}
+            {/* Row 2 - Right to Left */}
+            <div className="flex gap-6 items-center justify-end animate-fade-up" style={{ animationDelay: '200ms' }}>
               <div
-                className="col-span-6 md:col-span-5 relative overflow-hidden rounded-2xl group cursor-pointer animate-fade-up"
-                style={{ animationDelay: '200ms', minHeight: '300px' }}
+                className="hidden md:block w-[40%] relative overflow-hidden rounded-2xl group cursor-pointer transform -rotate-1 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '280px' }}
                 onClick={() => handleImageClick(2)}
               >
                 <img
                   src={galleryImages[2].src}
                   alt={galleryImages[2].alt}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-foreground text-base font-semibold px-4 text-center bg-background/80 backdrop-blur-sm py-2 rounded-lg">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     {galleryImages[2].alt}
                   </p>
                 </div>
               </div>
-
-              {/* Medium Image - Workshop */}
               <div
-                className="col-span-6 md:col-span-7 relative overflow-hidden rounded-2xl group cursor-pointer animate-fade-up"
-                style={{ animationDelay: '300ms', minHeight: '300px' }}
+                className="w-full md:w-[50%] relative overflow-hidden rounded-2xl group cursor-pointer transform rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '380px' }}
                 onClick={() => handleImageClick(3)}
               >
                 <img
                   src={galleryImages[3].src}
                   alt={galleryImages[3].alt}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tl from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
-                  <p className="text-foreground text-lg font-semibold transform translate-x-4 group-hover:translate-x-0 transition-transform duration-500">
+                <div className="absolute inset-0 bg-gradient-to-bl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     {galleryImages[3].alt}
                   </p>
                 </div>
