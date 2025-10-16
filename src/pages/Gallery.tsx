@@ -21,10 +21,9 @@ import after8 from '@/assets/after-8.jpg';
 import before9 from '@/assets/before-9.jpg';
 import after9 from '@/assets/after-9.jpg';
 import workshopImage from '@/assets/workshop.jpg';
-import gallery1 from '@/assets/gallery-1.jpg';
-import gallery2 from '@/assets/gallery-2.jpg';
-import gallery3 from '@/assets/gallery-3.jpg';
 import amgFertig from '@/assets/AMG_Fertig.jpeg';
+import urusHuracan from '@/assets/Urus_Huracan.jpg';
+import lamboFertig from '@/assets/Lambo_Fertig.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -138,10 +137,9 @@ const Gallery = () => {
   // Placeholder images for masonry grid
   const galleryImages = [
     { src: amgFertig, alt: 'Mercedes AMG - Perfekte Aufbereitung' },
+    { src: urusHuracan, alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen' },
+    { src: lamboFertig, alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung' },
     { src: workshopImage, alt: 'Unsere moderne Werkstatt' },
-    { src: gallery1, alt: 'Felgenpflege und Keramikversiegelung' },
-    { src: gallery2, alt: 'Professionelle Lackpolitur' },
-    { src: gallery3, alt: 'Erstklassige Lederaufbereitung' },
     { src: after1, alt: 'Perfekt aufbereiteter Lack' },
     { src: after2, alt: 'Makellose Innenraumaufbereitung' },
   ];
