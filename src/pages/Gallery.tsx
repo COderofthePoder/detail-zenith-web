@@ -20,6 +20,16 @@ import before8 from '@/assets/before-8.jpg';
 import after8 from '@/assets/after-8.jpg';
 import before9 from '@/assets/before-9.jpg';
 import after9 from '@/assets/after-9.jpg';
+import amgLenkradVorher from '@/assets/AMG_Lenkrad_Vorher.jpeg';
+import amgLenkradNachher from '@/assets/AMG_Lenkrad_Nachher.jpeg';
+import amgLenkradVorher2 from '@/assets/AMG_Lenkrad_Vorher2.jpeg';
+import amgLenkradNachher2 from '@/assets/AMG_Lenkrad_Nachher2.jpeg';
+import bmwLenkradVorher from '@/assets/BMW_Lenkrad_Vorher.jpeg';
+import bmwLenkradNachher from '@/assets/BMW_Lenkrad_Nachher.jpeg';
+import vorher2 from '@/assets/Vorher_2.jpeg';
+import nachher2 from '@/assets/Nachher_2.jpeg';
+import innenVorher from '@/assets/Innen_Vorher.jpeg';
+import innenFertig from '@/assets/Innen_Fertig.jpeg';
 import workshopImage from '@/assets/workshop.jpg';
 import amgFertig from '@/assets/AMG_Fertig.jpeg';
 import urusHuracan from '@/assets/Urus_Huracan.jpg';
@@ -42,84 +52,88 @@ import {
 } from '@/components/ui/carousel';
 
 const Gallery = () => {
-  const [selectedService, setSelectedService] = useState<string>('Alle');
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
-  const services = [
-    'Alle',
-    'Aussenreinigung',
-    'Innenreinigung',
-    'Politur & Lackkorrektur',
-    'Keramikversiegelung',
-    'Felgenreinigung',
-    'Fahrzeugaufbereitung',
-    'Window Tinting',
-    'Leder/Alcantara/Polster',
-    'Lenkradaufbereitung',
-    'MFK-Vorbereitung',
-  ];
+  const [selectedBeforeAfter, setSelectedBeforeAfter] = useState<{before: string, after: string, alt: string} | null>(null);
+  const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
 
   const beforeAfterPairs = [
     {
       before: before1,
       after: after1,
-      alt: 'Aussenreinigung - Lackaufbereitung',
-      service: 'Aussenreinigung',
+      alt: 'Fahrzeugaufbereitung',
     },
     {
       before: before2,
       after: after2,
-      alt: 'Innenreinigung - Komplette Aufbereitung',
-      service: 'Innenreinigung',
+      alt: 'Innenraumaufbereitung',
     },
     {
       before: before3,
       after: after3,
-      alt: 'Felgenreinigung - Bremsstaub-Entfernung',
-      service: 'Felgenreinigung',
+      alt: 'Felgenreinigung',
     },
     {
       before: before4,
       after: after4,
-      alt: 'Politur & Lackkorrektur - Kratzerentfernung',
-      service: 'Politur & Lackkorrektur',
+      alt: 'Lackkorrektur',
     },
     {
       before: before5,
       after: after5,
-      alt: 'Keramikversiegelung - Lack-Versiegelung',
-      service: 'Keramikversiegelung',
+      alt: 'Keramikversiegelung',
     },
     {
       before: before6,
       after: after6,
-      alt: 'Innenreinigung - Teppichreinigung',
-      service: 'Innenreinigung',
+      alt: 'Teppichreinigung',
     },
     {
       before: before7,
       after: after7,
-      alt: 'Innenreinigung - Armaturenbrett-Aufbereitung',
-      service: 'Innenreinigung',
+      alt: 'Armaturenbrett-Aufbereitung',
     },
     {
       before: before8,
       after: after8,
-      alt: 'Lenkradaufbereitung - Leder-Auffrischung',
-      service: 'Lenkradaufbereitung',
+      alt: 'Lenkradaufbereitung',
     },
     {
       before: before9,
       after: after9,
-      alt: 'MFK-Vorbereitung - Motorwäsche',
-      service: 'MFK-Vorbereitung',
+      alt: 'Motorwäsche',
+    },
+    {
+      before: amgLenkradVorher,
+      after: amgLenkradNachher,
+      alt: 'AMG Lenkradaufbereitung',
+    },
+    {
+      before: amgLenkradVorher2,
+      after: amgLenkradNachher2,
+      alt: 'AMG Lenkradaufbereitung Detail',
+    },
+    {
+      before: bmwLenkradVorher,
+      after: bmwLenkradNachher,
+      alt: 'BMW Lenkradaufbereitung',
+    },
+    {
+      before: vorher2,
+      after: nachher2,
+      alt: 'Komplettaufbereitung',
+    },
+    {
+      before: innenVorher,
+      after: innenFertig,
+      alt: 'Innenraumaufbereitung',
     },
   ];
 
-  const filteredPairs = selectedService === 'Alle' 
-    ? beforeAfterPairs 
-    : beforeAfterPairs.filter(pair => pair.service === selectedService);
+  const handleBeforeAfterClick = (pair: {before: string, after: string, alt: string}) => {
+    setSelectedBeforeAfter(pair);
+    setIsBeforeAfterLightboxOpen(true);
+  };
 
   const handleImageClick = (index: number) => {
     setSelectedImage(index);
@@ -164,88 +178,33 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Before/After Carousel with Filters */}
+      {/* Before/After Grid */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
+            <div className="text-center mb-12">
               <h2 className="mb-4">Vorher / Nachher</h2>
               <p className="text-muted-foreground mb-8">
-                Ziehen Sie den Regler, um den Unterschied zu sehen
+                Ziehen Sie den Regler, um den Unterschied zu sehen. Klicken Sie auf ein Bild, um es zu vergrößern.
               </p>
             </div>
 
-            {/* Service Filter Buttons */}
-            <div className="flex flex-wrap gap-2 justify-center mb-8">
-              {services.map((service) => (
-                <Button
-                  key={service}
-                  variant={selectedService === service ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedService(service)}
-                  className="transition-all duration-300"
+            {/* Grid Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {beforeAfterPairs.map((pair, index) => (
+                <div 
+                  key={index} 
+                  className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+                  onClick={() => handleBeforeAfterClick(pair)}
                 >
-                  {service}
-                </Button>
+                  <BeforeAfterSlider
+                    beforeImage={pair.before}
+                    afterImage={pair.after}
+                    alt={pair.alt}
+                  />
+                </div>
               ))}
             </div>
-
-            {/* Selected Service Title */}
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gradient">
-                {selectedService === 'Alle' ? 'Alle Leistungen' : selectedService}
-              </h3>
-            </div>
-
-            {/* Carousel */}
-            {filteredPairs.length > 0 ? (
-              filteredPairs.length <= 2 ? (
-                // Zentrierte Anzeige für 1-2 Bilder
-                <div className="flex justify-center gap-4 flex-wrap max-w-4xl mx-auto">
-                  {filteredPairs.map((pair, index) => (
-                    <div key={index} className="w-full md:w-[calc(50%-0.5rem)] max-w-xl">
-                      <BeforeAfterSlider
-                        beforeImage={pair.before}
-                        afterImage={pair.after}
-                        alt={pair.alt}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                // Carousel für 3+ Bilder
-                <Carousel
-                  opts={{
-                    align: 'start',
-                    loop: true,
-                    watchDrag: false,
-                  }}
-                  className="w-full max-w-6xl mx-auto"
-                >
-                  <CarouselContent>
-                    {filteredPairs.map((pair, index) => (
-                      <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                        <div className="p-2">
-                          <BeforeAfterSlider
-                            beforeImage={pair.before}
-                            afterImage={pair.after}
-                            alt={pair.alt}
-                          />
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="hidden md:flex" />
-                  <CarouselNext className="hidden md:flex" />
-                </Carousel>
-              )
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">
-                  Keine Referenzen für diese Leistung verfügbar
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -329,7 +288,7 @@ const Gallery = () => {
 
       <Footer />
 
-      {/* Lightbox Dialog */}
+      {/* Gallery Lightbox Dialog */}
       <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
         <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background/95 border-0">
           <DialogClose className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
@@ -370,6 +329,31 @@ const Gallery = () => {
               >
                 <ChevronRight className="h-8 w-8" />
               </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Before/After Lightbox Dialog */}
+      <Dialog open={isBeforeAfterLightboxOpen} onOpenChange={setIsBeforeAfterLightboxOpen}>
+        <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background/95 border-0">
+          <DialogClose className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+            <X className="h-6 w-6 text-foreground" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          
+          {selectedBeforeAfter && (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              <div className="w-full max-w-5xl">
+                <BeforeAfterSlider
+                  beforeImage={selectedBeforeAfter.before}
+                  afterImage={selectedBeforeAfter.after}
+                  alt={selectedBeforeAfter.alt}
+                />
+                <p className="text-center text-foreground mt-6 text-lg font-medium">
+                  {selectedBeforeAfter.alt}
+                </p>
+              </div>
             </div>
           )}
         </DialogContent>
