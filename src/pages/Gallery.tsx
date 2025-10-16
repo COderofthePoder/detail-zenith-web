@@ -2,24 +2,6 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
-import before1 from '@/assets/before-1.jpg';
-import after1 from '@/assets/after-1.jpg';
-import before2 from '@/assets/before-2.jpg';
-import after2 from '@/assets/after-2.jpg';
-import before3 from '@/assets/before-3.jpg';
-import after3 from '@/assets/after-3.jpg';
-import before4 from '@/assets/before-4.jpg';
-import after4 from '@/assets/after-4.jpg';
-import before5 from '@/assets/before-5.jpg';
-import after5 from '@/assets/after-5.jpg';
-import before6 from '@/assets/before-6.jpg';
-import after6 from '@/assets/after-6.jpg';
-import before7 from '@/assets/before-7.jpg';
-import after7 from '@/assets/after-7.jpg';
-import before8 from '@/assets/before-8.jpg';
-import after8 from '@/assets/after-8.jpg';
-import before9 from '@/assets/before-9.jpg';
-import after9 from '@/assets/after-9.jpg';
 import amgLenkradVorher from '@/assets/AMG_Lenkrad_Vorher.jpeg';
 import amgLenkradNachher from '@/assets/AMG_Lenkrad_Nachher.jpeg';
 import amgLenkradVorher2 from '@/assets/AMG_Lenkrad_Vorher2.jpeg';
@@ -58,51 +40,6 @@ const Gallery = () => {
   const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
 
   const beforeAfterPairs = [
-    {
-      before: before1,
-      after: after1,
-      alt: 'Fahrzeugaufbereitung',
-    },
-    {
-      before: before2,
-      after: after2,
-      alt: 'Innenraumaufbereitung',
-    },
-    {
-      before: before3,
-      after: after3,
-      alt: 'Felgenreinigung',
-    },
-    {
-      before: before4,
-      after: after4,
-      alt: 'Lackkorrektur',
-    },
-    {
-      before: before5,
-      after: after5,
-      alt: 'Keramikversiegelung',
-    },
-    {
-      before: before6,
-      after: after6,
-      alt: 'Teppichreinigung',
-    },
-    {
-      before: before7,
-      after: after7,
-      alt: 'Armaturenbrett-Aufbereitung',
-    },
-    {
-      before: before8,
-      after: after8,
-      alt: 'Lenkradaufbereitung',
-    },
-    {
-      before: before9,
-      after: after9,
-      alt: 'Motorwäsche',
-    },
     {
       before: amgLenkradVorher,
       after: amgLenkradNachher,
@@ -154,8 +91,6 @@ const Gallery = () => {
     { src: urusHuracan, alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen' },
     { src: lamboFertig, alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung' },
     { src: workshopImage, alt: 'Unsere moderne Werkstatt' },
-    { src: after1, alt: 'Perfekt aufbereiteter Lack' },
-    { src: after2, alt: 'Makellose Innenraumaufbereitung' },
   ];
 
   return (
