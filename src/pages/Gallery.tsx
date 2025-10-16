@@ -23,7 +23,7 @@ import lamboFertigInnen from '@/assets/Lambo_Fertig_Innen_New.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -42,6 +42,16 @@ const Gallery = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [selectedBeforeAfter, setSelectedBeforeAfter] = useState<{before: string, after: string, alt: string} | null>(null);
   const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const beforeAfterPairs = [
     {
@@ -165,8 +175,8 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid - Uniform Grid Layout */}
-      <section className="py-20 bg-secondary overflow-hidden">
+      {/* Gallery Grid - Parallax Scroll Reveal with Diagonal Motion */}
+      <section className="py-20 bg-secondary overflow-hidden relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="mb-4">Impressionen</h2>
@@ -176,25 +186,40 @@ const Gallery = () => {
           </div>
 
           <div className="max-w-7xl mx-auto">
-            {/* Uniform Grid Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {galleryImages.map((image, index) => (
-                <div 
-                  key={index}
-                  className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 aspect-square"
-                  onClick={() => handleImageClick(index)}
-                >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="text-foreground text-sm font-semibold">{image.alt}</p>
+            {/* Parallax Grid Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {galleryImages.map((image, index) => {
+                // Calculate parallax offset based on scroll and index
+                const speed = (index % 3) * 0.15 + 0.1;
+                const diagonalX = Math.sin(index) * (scrollY * speed * 0.3);
+                const diagonalY = scrollY * speed * 0.5;
+                const rotation = (scrollY * speed * 0.02) * (index % 2 === 0 ? 1 : -1);
+                
+                return (
+                  <div 
+                    key={index}
+                    className="relative overflow-visible group cursor-pointer"
+                    style={{
+                      transform: `translate(${diagonalX}px, ${-diagonalY}px) rotate(${rotation}deg)`,
+                      transition: 'transform 0.1s linear',
+                    }}
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/30 transition-all duration-700 aspect-square">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        <p className="text-foreground text-sm font-semibold">{image.alt}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
