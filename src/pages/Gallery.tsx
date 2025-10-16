@@ -165,7 +165,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid - Clean Masonry Collage */}
+      {/* Gallery Grid - Uniform Grid Layout */}
       <section className="py-20 bg-secondary overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -176,135 +176,25 @@ const Gallery = () => {
           </div>
 
           <div className="max-w-7xl mx-auto">
-            {/* Masonry Grid Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {/* Large - Spans 2 columns and 2 rows */}
-              <div 
-                className="col-span-2 row-span-2 relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(0)}
-              >
-                <img
-                  src={galleryImages[0].src}
-                  alt={galleryImages[0].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground font-semibold">{galleryImages[0].alt}</p>
+            {/* Uniform Grid Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {galleryImages.map((image, index) => (
+                <div 
+                  key={index}
+                  className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 aspect-square"
+                  onClick={() => handleImageClick(index)}
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-foreground text-sm font-semibold">{image.alt}</p>
+                  </div>
                 </div>
-              </div>
-
-              {/* Small - 1 column, 1 row */}
-              <div 
-                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(1)}
-              >
-                <img
-                  src={galleryImages[1].src}
-                  alt={galleryImages[1].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground text-sm font-semibold">{galleryImages[1].alt}</p>
-                </div>
-              </div>
-
-              {/* Small - 1 column, 1 row */}
-              <div 
-                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(2)}
-              >
-                <img
-                  src={galleryImages[2].src}
-                  alt={galleryImages[2].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground text-sm font-semibold">{galleryImages[2].alt}</p>
-                </div>
-              </div>
-
-              {/* Tall - 1 column, 2 rows */}
-              <div 
-                className="row-span-2 relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(3)}
-              >
-                <img
-                  src={galleryImages[3].src}
-                  alt={galleryImages[3].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground text-sm font-semibold">{galleryImages[3].alt}</p>
-                </div>
-              </div>
-
-              {/* Wide - 2 columns, 1 row */}
-              <div 
-                className="col-span-2 relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(4)}
-              >
-                <img
-                  src={galleryImages[4].src}
-                  alt={galleryImages[4].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground font-semibold">{galleryImages[4].alt}</p>
-                </div>
-              </div>
-
-              {/* Small - 1 column, 1 row */}
-              <div 
-                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(5)}
-              >
-                <img
-                  src={galleryImages[5].src}
-                  alt={galleryImages[5].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground text-sm font-semibold">{galleryImages[5].alt}</p>
-                </div>
-              </div>
-
-              {/* Small - 1 column, 1 row */}
-              <div 
-                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(6)}
-              >
-                <img
-                  src={galleryImages[6].src}
-                  alt={galleryImages[6].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground text-sm font-semibold">{galleryImages[6].alt}</p>
-                </div>
-              </div>
-
-              {/* Small - 1 column, 1 row */}
-              <div 
-                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-                onClick={() => handleImageClick(7)}
-              >
-                <img
-                  src={galleryImages[7].src}
-                  alt={galleryImages[7].alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-foreground text-sm font-semibold">{galleryImages[7].alt}</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
