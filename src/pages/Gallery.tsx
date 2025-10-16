@@ -1,7 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
-import SectionBlur from '@/components/SectionBlur';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import amgLenkradVorher from '@/assets/AMG_Lenkrad_Vorher.jpeg';
 import amgLenkradNachher from '@/assets/AMG_Lenkrad_Nachher.jpeg';
@@ -129,7 +128,6 @@ const Gallery = () => {
     <>
       <Navigation />
       <StickyCTA />
-      <SectionBlur />
 
       {/* Hero Section */}
       <section className="pt-32 pb-8 bg-background">
