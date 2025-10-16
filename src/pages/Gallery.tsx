@@ -24,6 +24,7 @@ import workshopImage from '@/assets/workshop.jpg';
 import gallery1 from '@/assets/gallery-1.jpg';
 import gallery2 from '@/assets/gallery-2.jpg';
 import gallery3 from '@/assets/gallery-3.jpg';
+import amgFertig from '@/assets/AMG_Fertig.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram } from 'lucide-react';
@@ -116,6 +117,7 @@ const Gallery = () => {
 
   // Placeholder images for masonry grid
   const galleryImages = [
+    { src: amgFertig, alt: 'Mercedes AMG - Perfekte Aufbereitung' },
     { src: workshopImage, alt: 'Unsere moderne Werkstatt' },
     { src: gallery1, alt: 'Felgenpflege und Keramikversiegelung' },
     { src: gallery2, alt: 'Professionelle Lackpolitur' },
