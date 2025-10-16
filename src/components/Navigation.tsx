@@ -33,9 +33,9 @@ const Navigation = () => {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between md:justify-between justify-center w-full h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center md:flex-none absolute md:relative left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0">
             <img 
               src={logo} 
               alt="DS-Detailing Logo" 
