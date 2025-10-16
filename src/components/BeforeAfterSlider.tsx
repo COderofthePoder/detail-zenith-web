@@ -18,25 +18,37 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, alt }: BeforeAfterSliderPr
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isDragging) return;
+    e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
     handleMove(e.clientX, rect);
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isDragging) return;
+    e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
     handleMove(e.touches[0].clientX, rect);
+  };
+
+  const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleEnd = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    setIsDragging(false);
   };
 
   return (
     <div
       className="relative w-full aspect-video overflow-hidden rounded-lg cursor-col-resize select-none"
-      onMouseDown={() => setIsDragging(true)}
-      onMouseUp={() => setIsDragging(false)}
+      onMouseDown={handleStart}
+      onMouseUp={handleEnd}
       onMouseMove={handleMouseMove}
-      onMouseLeave={() => setIsDragging(false)}
-      onTouchStart={() => setIsDragging(true)}
-      onTouchEnd={() => setIsDragging(false)}
+      onMouseLeave={handleEnd}
+      onTouchStart={handleStart}
+      onTouchEnd={handleEnd}
       onTouchMove={handleTouchMove}
     >
       {/* After Image (Full) */}

@@ -179,29 +179,45 @@ const Gallery = () => {
 
             {/* Carousel */}
             {filteredPairs.length > 0 ? (
-              <Carousel
-                opts={{
-                  align: 'start',
-                  loop: true,
-                }}
-                className="w-full max-w-6xl mx-auto"
-              >
-                <CarouselContent>
+              filteredPairs.length <= 2 ? (
+                // Zentrierte Anzeige für 1-2 Bilder
+                <div className="flex justify-center gap-4 flex-wrap max-w-4xl mx-auto">
                   {filteredPairs.map((pair, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-2">
-                        <BeforeAfterSlider
-                          beforeImage={pair.before}
-                          afterImage={pair.after}
-                          alt={pair.alt}
-                        />
-                      </div>
-                    </CarouselItem>
+                    <div key={index} className="w-full md:w-[calc(50%-0.5rem)] max-w-xl">
+                      <BeforeAfterSlider
+                        beforeImage={pair.before}
+                        afterImage={pair.after}
+                        alt={pair.alt}
+                      />
+                    </div>
                   ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </Carousel>
+                </div>
+              ) : (
+                // Carousel für 3+ Bilder
+                <Carousel
+                  opts={{
+                    align: 'start',
+                    loop: true,
+                  }}
+                  className="w-full max-w-6xl mx-auto"
+                >
+                  <CarouselContent>
+                    {filteredPairs.map((pair, index) => (
+                      <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="p-2">
+                          <BeforeAfterSlider
+                            beforeImage={pair.before}
+                            afterImage={pair.after}
+                            alt={pair.alt}
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="hidden md:flex" />
+                  <CarouselNext className="hidden md:flex" />
+                </Carousel>
+              )
             ) : (
               <div className="text-center py-12">
                 <p className="text-muted-foreground">
