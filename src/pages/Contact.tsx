@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import StickyCTA from '@/components/StickyCTA';
 import { Phone, Mail, MapPin, Clock, MessageSquare, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,7 +44,6 @@ const Contact = () => {
   return (
     <>
       <Navigation />
-      <StickyCTA />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-background">
