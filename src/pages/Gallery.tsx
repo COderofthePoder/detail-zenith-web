@@ -42,14 +42,27 @@ const Gallery = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [selectedBeforeAfter, setSelectedBeforeAfter] = useState<{before: string, after: string, alt: string} | null>(null);
   const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      const gallerySection = document.getElementById('gallery-section');
+      if (!gallerySection) return;
+
+      const rect = gallerySection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate scroll progress from 0 to 1
+      const scrollStart = rect.top + window.scrollY - windowHeight;
+      const scrollEnd = rect.top + window.scrollY + rect.height / 2;
+      const currentScroll = window.scrollY;
+      
+      const progress = Math.min(Math.max((currentScroll - scrollStart) / (scrollEnd - scrollStart), 0), 1);
+      setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -175,8 +188,8 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid - Parallax Scroll Reveal with Diagonal Motion */}
-      <section className="py-20 bg-secondary overflow-hidden relative">
+      {/* Gallery Grid - Scattered to Grid Animation */}
+      <section id="gallery-section" className="py-20 bg-secondary overflow-hidden relative min-h-screen">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="mb-4">Impressionen</h2>
@@ -186,22 +199,38 @@ const Gallery = () => {
           </div>
 
           <div className="max-w-7xl mx-auto">
-            {/* Parallax Grid Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {/* Scattered to Grid Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative">
               {galleryImages.map((image, index) => {
-                // Calculate parallax offset based on scroll and index
-                const speed = (index % 3) * 0.15 + 0.1;
-                const diagonalX = Math.sin(index) * (scrollY * speed * 0.3);
-                const diagonalY = scrollY * speed * 0.5;
-                const rotation = (scrollY * speed * 0.02) * (index % 2 === 0 ? 1 : -1);
+                // Define scattered initial positions (random but consistent per index)
+                const scatteredPositions = [
+                  { x: -300, y: -200, rotate: -25 },
+                  { x: 400, y: -150, rotate: 30 },
+                  { x: -200, y: 100, rotate: -15 },
+                  { x: 350, y: 50, rotate: 20 },
+                  { x: -400, y: 200, rotate: -30 },
+                  { x: 300, y: -100, rotate: 25 },
+                  { x: -250, y: 250, rotate: -20 },
+                  { x: 200, y: 150, rotate: 15 },
+                ];
+                
+                const scattered = scatteredPositions[index] || { x: 0, y: 0, rotate: 0 };
+                
+                // Interpolate between scattered and grid position
+                const currentX = scattered.x * (1 - scrollProgress);
+                const currentY = scattered.y * (1 - scrollProgress);
+                const currentRotate = scattered.rotate * (1 - scrollProgress);
+                const currentOpacity = 0.3 + (scrollProgress * 0.7);
+                const currentScale = 0.7 + (scrollProgress * 0.3);
                 
                 return (
                   <div 
                     key={index}
-                    className="relative overflow-visible group cursor-pointer"
+                    className="relative group cursor-pointer"
                     style={{
-                      transform: `translate(${diagonalX}px, ${-diagonalY}px) rotate(${rotation}deg)`,
-                      transition: 'transform 0.1s linear',
+                      transform: `translate(${currentX}px, ${currentY}px) rotate(${currentRotate}deg) scale(${currentScale})`,
+                      opacity: currentOpacity,
+                      transition: 'transform 0.1s linear, opacity 0.1s linear',
                     }}
                     onClick={() => handleImageClick(index)}
                   >
