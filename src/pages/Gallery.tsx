@@ -99,7 +99,7 @@ const Gallery = () => {
       <StickyCTA />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-background">
+      <section className="pt-32 pb-8 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="mb-6">
@@ -114,7 +114,7 @@ const Gallery = () => {
       </section>
 
       {/* Before/After Slider */}
-      <section className="py-24 md:py-32 bg-background">
+      <section className="py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-[1400px] mx-auto">
             <div className="text-center mb-16">
