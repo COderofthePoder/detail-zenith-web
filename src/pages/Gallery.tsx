@@ -16,6 +16,10 @@ import workshopImage from '@/assets/workshop.jpg';
 import amgFertig from '@/assets/AMG_Fertig.jpeg';
 import urusHuracan from '@/assets/Urus_Huracan.jpg';
 import lamboFertig from '@/assets/Lambo_Fertig.jpeg';
+import bmwInnenFertig from '@/assets/BMW_Innen_Fertig_New.jpeg';
+import clsFertig from '@/assets/CLS_Fertig_New.jpeg';
+import clsFertig2 from '@/assets/CLS_Fertig2_New.jpeg';
+import lamboFertigInnen from '@/assets/Lambo_Fertig_Innen_New.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -91,6 +95,10 @@ const Gallery = () => {
     { src: urusHuracan, alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen' },
     { src: lamboFertig, alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung' },
     { src: workshopImage, alt: 'Unsere moderne Werkstatt' },
+    { src: bmwInnenFertig, alt: 'BMW Innenraumaufbereitung - Perfekte Sauberkeit' },
+    { src: clsFertig, alt: 'Mercedes CLS - Hochglanzaufbereitung' },
+    { src: clsFertig2, alt: 'Mercedes CLS - Premium Detailing' },
+    { src: lamboFertigInnen, alt: 'Lamborghini Innenraum - Luxus Detailing' },
   ];
 
   return (
@@ -239,6 +247,82 @@ const Gallery = () => {
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     {galleryImages[3].alt}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 3 - Left to Right */}
+            <div className="flex gap-6 items-center justify-start animate-fade-up" style={{ animationDelay: '400ms' }}>
+              <div
+                className="w-full md:w-[50%] relative overflow-hidden rounded-2xl group cursor-pointer transform -rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '340px' }}
+                onClick={() => handleImageClick(4)}
+              >
+                <img
+                  src={galleryImages[4].src}
+                  alt={galleryImages[4].alt}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    {galleryImages[4].alt}
+                  </p>
+                </div>
+              </div>
+              <div
+                className="hidden md:block w-[40%] relative overflow-hidden rounded-2xl group cursor-pointer transform rotate-1 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '300px' }}
+                onClick={() => handleImageClick(5)}
+              >
+                <img
+                  src={galleryImages[5].src}
+                  alt={galleryImages[5].alt}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    {galleryImages[5].alt}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 4 - Right to Left */}
+            <div className="flex gap-6 items-center justify-end animate-fade-up" style={{ animationDelay: '600ms' }}>
+              <div
+                className="hidden md:block w-[45%] relative overflow-hidden rounded-2xl group cursor-pointer transform -rotate-1 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '320px' }}
+                onClick={() => handleImageClick(6)}
+              >
+                <img
+                  src={galleryImages[6].src}
+                  alt={galleryImages[6].alt}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    {galleryImages[6].alt}
+                  </p>
+                </div>
+              </div>
+              <div
+                className="w-full md:w-[45%] relative overflow-hidden rounded-2xl group cursor-pointer transform rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-105 shadow-2xl"
+                style={{ minHeight: '360px' }}
+                onClick={() => handleImageClick(7)}
+              >
+                <img
+                  src={galleryImages[7].src}
+                  alt={galleryImages[7].alt}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-bl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-foreground text-lg font-bold bg-background/90 backdrop-blur-sm px-4 py-3 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    {galleryImages[7].alt}
                   </p>
                 </div>
               </div>
