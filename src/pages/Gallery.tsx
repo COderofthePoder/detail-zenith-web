@@ -114,12 +114,12 @@ const Gallery = () => {
       </section>
 
       {/* Before/After Slider */}
-      <section className="py-16 bg-background">
+      <section className="py-24 md:py-32 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="mb-4">Vorher / Nachher</h2>
-              <p className="text-muted-foreground mb-8">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="mb-6 text-4xl md:text-5xl">Vorher / Nachher</h2>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8">
                 Ziehen Sie den Regler, um den Unterschied zu sehen. Klicken Sie auf ein Bild, um es zu vergrößern.
               </p>
             </div>
@@ -131,11 +131,11 @@ const Gallery = () => {
                 loop: true,
                 watchDrag: false,
               }}
-              className="w-full max-w-6xl mx-auto"
+              className="w-full"
             >
-              <CarouselContent className="-ml-4">
+              <CarouselContent className="-ml-6">
                 {beforeAfterPairs.map((pair, index) => (
-                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={index} className="pl-6 md:basis-1/2 lg:basis-1/3">
                     <div 
                       className="cursor-pointer transition-all duration-300 hover:scale-[1.02] animate-fade-up"
                       style={{ animationDelay: `${(index % 3) * 100}ms` }}
@@ -150,8 +150,8 @@ const Gallery = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-0 -translate-x-12 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg" />
-              <CarouselNext className="right-0 translate-x-12 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg" />
+              <CarouselPrevious className="left-0 -translate-x-14 h-14 w-14 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselNext className="right-0 translate-x-14 h-14 w-14 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
             </Carousel>
           </div>
         </div>
