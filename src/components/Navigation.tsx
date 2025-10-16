@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import logo from '@/assets/logo.png';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,13 +35,12 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex flex-col items-center leading-none">
-            <span className="text-xl md:text-2xl font-bold tracking-wider text-foreground">
-              DS-DETAILING
-            </span>
-            <span className="text-[10px] md:text-xs font-medium tracking-widest text-muted-foreground mt-0.5">
-              EST. 2024
-            </span>
+          <Link to="/" className="flex items-center">
+            <img 
+              src={logo} 
+              alt="DS-Detailing Logo" 
+              className="h-16 md:h-20 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
