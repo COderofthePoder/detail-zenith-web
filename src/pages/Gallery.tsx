@@ -145,10 +145,10 @@ const Gallery = () => {
       </section>
 
       {/* Before/After Slider */}
-      <section className="py-16 md:py-20 bg-background">
+      <section className="py-24 md:py-40 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-[1400px] mx-auto">
-            <div className="text-center mb-16">
+          <div className="max-w-[1600px] mx-auto">
+            <div className="text-center mb-20">
               <h2 className="mb-6 text-4xl md:text-5xl">Vorher / Nachher</h2>
               <p className="text-lg md:text-xl text-muted-foreground mb-8">
                 Ziehen Sie den Regler, um den Unterschied zu sehen. Klicken Sie auf ein Bild, um es zu vergrößern.
@@ -164,12 +164,12 @@ const Gallery = () => {
               }}
               className="w-full"
             >
-              <CarouselContent className="-ml-6">
+              <CarouselContent className="-ml-8">
                 {beforeAfterPairs.map((pair, index) => (
-                  <CarouselItem key={index} className="pl-6 md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={index} className="pl-8 md:basis-1/2">
                     <div 
                       className="cursor-pointer transition-all duration-300 hover:scale-[1.02] animate-fade-up"
-                      style={{ animationDelay: `${(index % 3) * 100}ms` }}
+                      style={{ animationDelay: `${(index % 2) * 100}ms` }}
                       onClick={() => handleBeforeAfterClick(pair)}
                     >
                       <BeforeAfterSlider
@@ -181,26 +181,26 @@ const Gallery = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-0 -translate-x-14 h-14 w-14 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
-              <CarouselNext className="right-0 translate-x-14 h-14 w-14 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselPrevious className="left-0 -translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselNext className="right-0 translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
             </Carousel>
           </div>
         </div>
       </section>
 
       {/* Gallery Grid - Scattered to Grid Animation */}
-      <section id="gallery-section" className="py-20 bg-secondary overflow-hidden relative min-h-screen">
+      <section id="gallery-section" className="py-12 bg-secondary overflow-hidden relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="mb-4">Impressionen</h2>
+          <div className="text-center mb-12">
+            <h2 className="mb-4 text-3xl">Impressionen</h2>
             <p className="text-muted-foreground">
               Einblicke in unsere Arbeit und unsere Werkstatt
             </p>
           </div>
 
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Scattered to Grid Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative">
               {galleryImages.map((image, index) => {
                 // Define scattered initial positions (random but consistent per index)
                 const scatteredPositions = [
@@ -234,7 +234,7 @@ const Gallery = () => {
                     }}
                     onClick={() => handleImageClick(index)}
                   >
-                    <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/30 transition-all duration-700 aspect-square">
+                    <div className="relative overflow-hidden rounded-xl shadow-2xl hover:shadow-primary/30 transition-all duration-700 aspect-square">
                       <img
                         src={image.src}
                         alt={image.alt}
@@ -242,8 +242,8 @@ const Gallery = () => {
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                        <p className="text-foreground text-sm font-semibold">{image.alt}</p>
+                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        <p className="text-foreground text-xs font-semibold">{image.alt}</p>
                       </div>
                     </div>
                   </div>
