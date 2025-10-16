@@ -6,6 +6,20 @@ import before1 from '@/assets/before-1.jpg';
 import after1 from '@/assets/after-1.jpg';
 import before2 from '@/assets/before-2.jpg';
 import after2 from '@/assets/after-2.jpg';
+import before3 from '@/assets/before-3.jpg';
+import after3 from '@/assets/after-3.jpg';
+import before4 from '@/assets/before-4.jpg';
+import after4 from '@/assets/after-4.jpg';
+import before5 from '@/assets/before-5.jpg';
+import after5 from '@/assets/after-5.jpg';
+import before6 from '@/assets/before-6.jpg';
+import after6 from '@/assets/after-6.jpg';
+import before7 from '@/assets/before-7.jpg';
+import after7 from '@/assets/after-7.jpg';
+import before8 from '@/assets/before-8.jpg';
+import after8 from '@/assets/after-8.jpg';
+import before9 from '@/assets/before-9.jpg';
+import after9 from '@/assets/after-9.jpg';
 import workshopImage from '@/assets/workshop.jpg';
 import gallery1 from '@/assets/gallery-1.jpg';
 import gallery2 from '@/assets/gallery-2.jpg';
@@ -19,12 +33,47 @@ const Gallery = () => {
     {
       before: before1,
       after: after1,
-      alt: 'Aussenreinigung Lackaufbereitung',
+      alt: 'Aussenreinigung',
     },
     {
       before: before2,
       after: after2,
       alt: 'Innenraumaufbereitung',
+    },
+    {
+      before: before3,
+      after: after3,
+      alt: 'Felgenreinigung',
+    },
+    {
+      before: before4,
+      after: after4,
+      alt: 'Lackpolitur',
+    },
+    {
+      before: before5,
+      after: after5,
+      alt: 'Scheinwerferaufbereitung',
+    },
+    {
+      before: before6,
+      after: after6,
+      alt: 'Teppichreinigung',
+    },
+    {
+      before: before7,
+      after: after7,
+      alt: 'Armaturenbrett-Aufbereitung',
+    },
+    {
+      before: before8,
+      after: after8,
+      alt: 'Lenkradaufbereitung',
+    },
+    {
+      before: before9,
+      after: after9,
+      alt: 'Motorwäsche',
     },
   ];
 
@@ -61,7 +110,7 @@ const Gallery = () => {
       {/* Before/After Sliders */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto space-y-12">
+          <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="mb-4">Vorher / Nachher</h2>
               <p className="text-muted-foreground">
@@ -69,15 +118,17 @@ const Gallery = () => {
               </p>
             </div>
 
-            {beforeAfterPairs.map((pair, index) => (
-              <div key={index} className="animate-fade-up" style={{ animationDelay: `${index * 120}ms` }}>
-                <BeforeAfterSlider
-                  beforeImage={pair.before}
-                  afterImage={pair.after}
-                  alt={pair.alt}
-                />
-              </div>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {beforeAfterPairs.map((pair, index) => (
+                <div key={index} className="animate-fade-up" style={{ animationDelay: `${index * 60}ms` }}>
+                  <BeforeAfterSlider
+                    beforeImage={pair.before}
+                    afterImage={pair.after}
+                    alt={pair.alt}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
