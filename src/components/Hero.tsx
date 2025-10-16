@@ -12,7 +12,7 @@ const Hero = () => {
           src={heroImage}
           alt="Luxus Auto Detailing"
           className="w-full h-full object-cover"
-          style={{ objectPosition: 'center 70%' }}
+          style={{ objectPosition: 'center 70%', transform: 'scale(0.95)' }}
         />
         <div className="absolute inset-0 bg-gradient-overlay" />
       </div>
