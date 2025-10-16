@@ -24,39 +24,6 @@ import workshopImage from '@/assets/workshop.jpg';
 import gallery1 from '@/assets/gallery-1.jpg';
 import gallery2 from '@/assets/gallery-2.jpg';
 import gallery3 from '@/assets/gallery-3.jpg';
-import wa1 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.37.jpeg';
-import wa2 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.38 (1).jpeg';
-import wa3 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.38 (2).jpeg';
-import wa4 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.38.jpeg';
-import wa5 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.39 (1).jpeg';
-import wa6 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.39 (2).jpeg';
-import wa7 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.39 (3).jpeg';
-import wa8 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.39 (4).jpeg';
-import wa9 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.39.jpeg';
-import wa10 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.40 (1).jpeg';
-import wa11 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.40 (2).jpeg';
-import wa12 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.40 (3).jpeg';
-import wa13 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.40.jpeg';
-import wa14 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (1).jpeg';
-import wa15 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (2).jpeg';
-import wa16 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (3).jpeg';
-import wa17 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (4).jpeg';
-import wa18 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (5).jpeg';
-import wa19 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (6).jpeg';
-import wa20 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (7).jpeg';
-import wa21 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41 (8).jpeg';
-import wa22 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.41.jpeg';
-import wa23 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (1).jpeg';
-import wa24 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (10).jpeg';
-import wa25 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (2).jpeg';
-import wa26 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (3).jpeg';
-import wa27 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (4).jpeg';
-import wa28 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (5).jpeg';
-import wa29 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (6).jpeg';
-import wa30 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (7).jpeg';
-import wa31 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (8).jpeg';
-import wa32 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42 (9).jpeg';
-import wa33 from '@/assets/WhatsApp Image 2025-10-16 at 12.30.42.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram } from 'lucide-react';
@@ -155,39 +122,6 @@ const Gallery = () => {
     { src: gallery3, alt: 'Erstklassige Lederaufbereitung' },
     { src: after1, alt: 'Perfekt aufbereiteter Lack' },
     { src: after2, alt: 'Makellose Innenraumaufbereitung' },
-    { src: wa1, alt: 'Fahrzeugaufbereitung' },
-    { src: wa2, alt: 'Detailing Arbeiten' },
-    { src: wa3, alt: 'Professionelle Autopflege' },
-    { src: wa4, alt: 'Lackpflege' },
-    { src: wa5, alt: 'Innenraumaufbereitung' },
-    { src: wa6, alt: 'Fahrzeugdetails' },
-    { src: wa7, alt: 'Premium Detailing' },
-    { src: wa8, alt: 'Fahrzeugpflege' },
-    { src: wa9, alt: 'Auto Detailing' },
-    { src: wa10, alt: 'Hochglanzpolitur' },
-    { src: wa11, alt: 'Keramikversiegelung' },
-    { src: wa12, alt: 'Felgenaufbereitung' },
-    { src: wa13, alt: 'Lackaufbereitung' },
-    { src: wa14, alt: 'Innenraumpflege' },
-    { src: wa15, alt: 'Detailarbeit' },
-    { src: wa16, alt: 'Fahrzeugreinigung' },
-    { src: wa17, alt: 'Premium Aufbereitung' },
-    { src: wa18, alt: 'Auto Pflege' },
-    { src: wa19, alt: 'Lackversiegelung' },
-    { src: wa20, alt: 'Professionelles Detailing' },
-    { src: wa21, alt: 'Fahrzeug Detailing' },
-    { src: wa22, alt: 'Autopflege Service' },
-    { src: wa23, alt: 'Detailing Excellence' },
-    { src: wa24, alt: 'Premium Service' },
-    { src: wa25, alt: 'Fahrzeugaufbereitung Premium' },
-    { src: wa26, alt: 'Detailing Perfektion' },
-    { src: wa27, alt: 'Auto Aufbereitung' },
-    { src: wa28, alt: 'Lackpflege Premium' },
-    { src: wa29, alt: 'Detailing Service' },
-    { src: wa30, alt: 'Fahrzeugpflege Premium' },
-    { src: wa31, alt: 'Premium Lackaufbereitung' },
-    { src: wa32, alt: 'Detailing Expertise' },
-    { src: wa33, alt: 'Professionelle Fahrzeugpflege' },
   ];
 
   return (
