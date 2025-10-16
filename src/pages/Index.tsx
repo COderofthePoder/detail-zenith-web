@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
 import ReviewCard from '@/components/ReviewCard';
 import StickyCTA from '@/components/StickyCTA';
+import SectionBlur from '@/components/SectionBlur';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -67,6 +68,7 @@ const Index = () => {
     <>
       <Navigation />
       <StickyCTA />
+      <SectionBlur />
       
       {/* Hero Section */}
       <Hero />
