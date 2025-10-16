@@ -165,8 +165,8 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid - Diagonal Scroll Animation */}
-      <section className="py-20 bg-secondary overflow-hidden relative">
+      {/* Gallery Grid - Clean Masonry Collage */}
+      <section className="py-20 bg-secondary overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="mb-4">Impressionen</h2>
@@ -175,203 +175,134 @@ const Gallery = () => {
             </p>
           </div>
 
-          <div className="max-w-7xl mx-auto relative" style={{ minHeight: '2000px' }}>
-            {/* Image 1 - From Top Left */}
-            <div
-              className="absolute left-0 top-0 w-[45%] md:w-[35%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '0ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(-100px) rotate(-8deg)'
-              }}
-              onClick={() => handleImageClick(0)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+          <div className="max-w-7xl mx-auto">
+            {/* Masonry Grid Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* Large - Spans 2 columns and 2 rows */}
+              <div 
+                className="col-span-2 row-span-2 relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(0)}
+              >
                 <img
                   src={galleryImages[0].src}
                   alt={galleryImages[0].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[0].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground font-semibold">{galleryImages[0].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 2 - From Bottom Right */}
-            <div
-              className="absolute right-0 top-32 md:top-20 w-[48%] md:w-[38%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '200ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(100px) rotate(6deg)'
-              }}
-              onClick={() => handleImageClick(1)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Small - 1 column, 1 row */}
+              <div 
+                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(1)}
+              >
                 <img
                   src={galleryImages[1].src}
                   alt={galleryImages[1].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[1].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground text-sm font-semibold">{galleryImages[1].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 3 - From Top Center-Left */}
-            <div
-              className="absolute left-[8%] md:left-[15%] top-80 md:top-64 w-[42%] md:w-[32%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '400ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(-100px) rotate(-5deg)'
-              }}
-              onClick={() => handleImageClick(2)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Small - 1 column, 1 row */}
+              <div 
+                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(2)}
+              >
                 <img
                   src={galleryImages[2].src}
                   alt={galleryImages[2].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[2].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground text-sm font-semibold">{galleryImages[2].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 4 - From Bottom Right */}
-            <div
-              className="absolute right-[5%] md:right-[10%] top-[500px] md:top-96 w-[50%] md:w-[40%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '600ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(100px) rotate(7deg)'
-              }}
-              onClick={() => handleImageClick(3)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Tall - 1 column, 2 rows */}
+              <div 
+                className="row-span-2 relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(3)}
+              >
                 <img
                   src={galleryImages[3].src}
                   alt={galleryImages[3].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[3].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground text-sm font-semibold">{galleryImages[3].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 5 - From Top Left */}
-            <div
-              className="absolute left-[3%] top-[680px] md:top-[550px] w-[46%] md:w-[36%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '800ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(-100px) rotate(-6deg)'
-              }}
-              onClick={() => handleImageClick(4)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Wide - 2 columns, 1 row */}
+              <div 
+                className="col-span-2 relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(4)}
+              >
                 <img
                   src={galleryImages[4].src}
                   alt={galleryImages[4].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[4].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground font-semibold">{galleryImages[4].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 6 - From Bottom Center-Right */}
-            <div
-              className="absolute right-[8%] md:right-[18%] top-[850px] md:top-[720px] w-[44%] md:w-[34%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '1000ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(100px) rotate(5deg)'
-              }}
-              onClick={() => handleImageClick(5)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Small - 1 column, 1 row */}
+              <div 
+                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(5)}
+              >
                 <img
                   src={galleryImages[5].src}
                   alt={galleryImages[5].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[5].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground text-sm font-semibold">{galleryImages[5].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 7 - From Top Left */}
-            <div
-              className="absolute left-[10%] md:left-[12%] top-[1050px] md:top-[900px] w-[40%] md:w-[30%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '1200ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(-100px) rotate(-7deg)'
-              }}
-              onClick={() => handleImageClick(6)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Small - 1 column, 1 row */}
+              <div 
+                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(6)}
+              >
                 <img
                   src={galleryImages[6].src}
                   alt={galleryImages[6].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[6].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground text-sm font-semibold">{galleryImages[6].alt}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Image 8 - From Bottom Right */}
-            <div
-              className="absolute right-[2%] md:right-[8%] top-[1220px] md:top-[1050px] w-[48%] md:w-[38%] animate-fade-up opacity-0"
-              style={{ 
-                animationDelay: '1400ms',
-                animationFillMode: 'forwards',
-                transform: 'translateY(100px) rotate(6deg)'
-              }}
-              onClick={() => handleImageClick(7)}
-            >
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:scale-105 hover:rotate-0">
+              {/* Small - 1 column, 1 row */}
+              <div 
+                className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                onClick={() => handleImageClick(7)}
+              >
                 <img
                   src={galleryImages[7].src}
                   alt={galleryImages[7].alt}
-                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tl from-primary/40 via-transparent to-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-foreground text-sm font-bold bg-background/90 backdrop-blur-sm px-3 py-2 rounded-lg transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    {galleryImages[7].alt}
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-foreground text-sm font-semibold">{galleryImages[7].alt}</p>
                 </div>
               </div>
             </div>
