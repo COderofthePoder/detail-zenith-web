@@ -34,7 +34,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex flex-col items-start leading-none">
+          <Link to="/" className="flex flex-col items-center leading-none">
             <span className="text-xl md:text-2xl font-bold tracking-wider text-foreground">
               DS-DETAILING
             </span>
