@@ -30,35 +30,26 @@ const About = () => {
       {/* Team Story */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-up">
-                <img
-                  src={teamImage}
-                  alt="DS-Detailing Team"
-                  className="rounded-lg shadow-premium w-full"
-                />
-              </div>
-              <div className="animate-fade-up" style={{ animationDelay: '120ms' }}>
-                <h2 className="mb-6">Unsere Geschichte</h2>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  DS-Detailing wurde von <strong className="text-foreground">Endrit Kastrati</strong> und{' '}
-                  <strong className="text-foreground">Sufjan Kadrija</strong> gegründet – zwei 
-                  Freunde, die ihre Leidenschaft für Autos zum Beruf gemacht haben.
-                </p>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  Was als Hobby begann, entwickelte sich zu einer professionellen 
-                  Kollektivgesellschaft mit modernster Ausrüstung und höchsten Qualitätsstandards.
-                </p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Heute arbeiten wir in unserer modernen Werkstatt in Forch und betreuen 
-                  Kunden in der gesamten Region Zürich mit Präzision, Fachkompetenz 
-                  und echter Liebe zum Detail.
-                </p>
-                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  <Link to="/kontakt">Kontakt aufnehmen</Link>
-                </Button>
-              </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="animate-fade-up">
+              <h2 className="mb-6">Unsere Geschichte</h2>
+              <p className="text-muted-foreground mb-4 leading-relaxed">
+                DS-Detailing wurde von <strong className="text-foreground">Endrit Kastrati</strong> und{' '}
+                <strong className="text-foreground">Sufjan Kadrija</strong> gegründet – zwei 
+                Freunde, die ihre Leidenschaft für Autos zum Beruf gemacht haben.
+              </p>
+              <p className="text-muted-foreground mb-4 leading-relaxed">
+                Was als Hobby begann, entwickelte sich zu einer professionellen 
+                Kollektivgesellschaft mit modernster Ausrüstung und höchsten Qualitätsstandards.
+              </p>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Heute arbeiten wir in unserer modernen Werkstatt in Forch und betreuen 
+                Kunden in der gesamten Region Zürich mit Präzision, Fachkompetenz 
+                und echter Liebe zum Detail.
+              </p>
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Link to="/kontakt">Kontakt aufnehmen</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -116,45 +107,36 @@ const About = () => {
       {/* Workshop */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="order-2 lg:order-1 animate-fade-up" style={{ animationDelay: '120ms' }}>
-                <h2 className="mb-6">Unsere Werkstatt</h2>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  In unserer modern ausgestatteten Werkstatt an der <strong className="text-foreground">Hellstrasse 5 in Forch</strong> verfügen 
-                  wir über alles, was für professionelle Fahrzeugaufbereitung nötig ist.
-                </p>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  Von hochwertigen Poliermaschinen über Keramikversiegelungs-Equipment bis hin zu 
-                  spezialisierten Reinigungsgeräten – wir investieren kontinuierlich in die 
-                  beste Ausrüstung für optimale Ergebnisse.
-                </p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Unser Hauptsitz befindet sich an der <strong className="text-foreground">Willikonerstrasse 78 
-                  in Oetwil am See</strong>. Hier koordinieren wir alle administrativen Aufgaben 
-                  und stehen Ihnen für Fragen zur Verfügung.
-                </p>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-foreground/80">Öffnungszeiten: Mo–Sa 08:00–18:00</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-foreground/80">Termin nach Vereinbarung</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-foreground/80">Individuelle Beratung vor Ort</span>
-                  </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="animate-fade-up">
+              <h2 className="mb-6">Unsere Werkstatt</h2>
+              <p className="text-muted-foreground mb-4 leading-relaxed">
+                In unserer modern ausgestatteten Werkstatt an der <strong className="text-foreground">Hellstrasse 5 in Forch</strong> verfügen 
+                wir über alles, was für professionelle Fahrzeugaufbereitung nötig ist.
+              </p>
+              <p className="text-muted-foreground mb-4 leading-relaxed">
+                Von hochwertigen Poliermaschinen über Keramikversiegelungs-Equipment bis hin zu 
+                spezialisierten Reinigungsgeräten – wir investieren kontinuierlich in die 
+                beste Ausrüstung für optimale Ergebnisse.
+              </p>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Unser Hauptsitz befindet sich an der <strong className="text-foreground">Willikonerstrasse 78 
+                in Oetwil am See</strong>. Hier koordinieren wir alle administrativen Aufgaben 
+                und stehen Ihnen für Fragen zur Verfügung.
+              </p>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-3 justify-center">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span className="text-foreground/80">Öffnungszeiten: Mo–Sa 08:00–18:00</span>
                 </div>
-              </div>
-              <div className="order-1 lg:order-2 animate-fade-up">
-                <img
-                  src={workshopImage}
-                  alt="DS-Detailing Werkstatt"
-                  className="rounded-lg shadow-premium w-full"
-                />
+                <div className="flex items-center gap-3 justify-center">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span className="text-foreground/80">Termin nach Vereinbarung</span>
+                </div>
+                <div className="flex items-center gap-3 justify-center">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span className="text-foreground/80">Individuelle Beratung vor Ort</span>
+                </div>
               </div>
             </div>
           </div>
