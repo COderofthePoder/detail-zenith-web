@@ -213,7 +213,7 @@ const Gallery = () => {
                         className="cursor-pointer transition-all duration-500 hover:scale-[1.02] w-full"
                         onClick={() => handleImageClick(index)}
                       >
-                        <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 aspect-[16/9]">
+                        <div className="relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-700 aspect-[16/9]">
                           <img
                             src={image.src}
                             alt={image.alt}
