@@ -80,7 +80,7 @@ const About = () => {
               {
                 icon: Award,
                 title: 'Qualität',
-                description: 'Nur Premium-Produkte und modernste Technik für beste Ergebnisse und lange Haltbarkeit.',
+                description: 'Nur hochwertige Produkte und modernste Technik für beste Ergebnisse und lange Haltbarkeit.',
               },
               {
                 icon: Target,

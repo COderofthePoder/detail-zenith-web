@@ -24,7 +24,7 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/80 backdrop-blur-sm rounded-full border border-border mb-6">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm text-muted-foreground">Premium Car Detailing</span>
+            <span className="text-sm text-muted-foreground">Professionelles Car Detailing</span>
           </div>
 
           {/* Main Heading */}
@@ -41,7 +41,7 @@ const Hero = () => {
           {/* Value Props */}
           <div className="flex flex-wrap justify-center gap-8 mb-10">
             {[
-              'Premium-Produkte',
+              'Hochwertige Produkte',
               'Moderne Technik',
               'Höchste Präzision',
             ].map((item) => (

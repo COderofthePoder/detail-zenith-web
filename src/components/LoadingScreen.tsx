@@ -9,7 +9,7 @@ const LoadingScreen = () => {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
             <span className="text-gradient">DS-Detailing</span>
           </h2>
-          <p className="text-muted-foreground text-sm">Premium Fahrzeugaufbereitung</p>
+          <p className="text-muted-foreground text-sm">Professionelle Fahrzeugaufbereitung</p>
         </div>
         
         {/* Spinner */}

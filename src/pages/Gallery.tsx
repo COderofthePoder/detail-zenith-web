@@ -121,7 +121,7 @@ const Gallery = () => {
     { 
       src: urusHuracan, 
       alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen',
-      description: 'Zwei absolute Traumwagen in unserer Werkstatt. Beide Lamborghini erhielten eine Premium-Detailing-Behandlung. Beim Urus wurde eine komplette Außenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
+      description: 'Zwei absolute Traumwagen in unserer Werkstatt. Beide Lamborghini erhielten eine professionelle Detailing-Behandlung. Beim Urus wurde eine komplette Außenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
     },
     { 
       src: lamboFertig, 
@@ -140,8 +140,8 @@ const Gallery = () => {
     },
     { 
       src: clsFertig2, 
-      alt: 'Mercedes CLS - Premium Detailing',
-      description: 'Komplette Premium-Aufbereitung dieses CLS. Neben der Lackpflege wurden auch die Chromelemente poliert, die Scheiben versiegelt und der Innenraum detailliert gereinigt. Besonderes Augenmerk lag auf den Ledersitzen, die eine intensive Pflegebehandlung erhielten. Ein makelloses Gesamtbild.'
+      alt: 'Mercedes CLS - Professionelles Detailing',
+      description: 'Komplette professionelle Aufbereitung dieses CLS. Neben der Lackpflege wurden auch die Chromelemente poliert, die Scheiben versiegelt und der Innenraum detailliert gereinigt. Besonderes Augenmerk lag auf den Ledersitzen, die eine intensive Pflegebehandlung erhielten. Ein makelloses Gesamtbild.'
     },
     { 
       src: lamboFertigInnen, 

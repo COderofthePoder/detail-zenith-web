@@ -13,7 +13,7 @@ const Index = () => {
     {
       icon: Droplets,
       title: 'Aussenreinigung',
-      description: 'Professionelle Handwäsche mit Premium-Produkten für streifenfreien Glanz und perfekten Lackschutz.',
+      description: 'Professionelle Handwäsche mit hochwertigen Produkten für streifenfreien Glanz und perfekten Lackschutz.',
     },
     {
       icon: Car,
@@ -112,7 +112,7 @@ const Index = () => {
             {[
               {
                 icon: Award,
-                title: 'Premium-Produkte',
+                title: 'Hochwertige Produkte',
                 description: 'Wir verwenden nur hochwertigste Pflegeprodukte für optimale Ergebnisse',
               },
               {
