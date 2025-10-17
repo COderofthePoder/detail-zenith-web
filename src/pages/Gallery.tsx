@@ -42,6 +42,7 @@ const Gallery = () => {
   const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
   const [selectedBeforeAfter, setSelectedBeforeAfter] = useState<{before: string, after: string, alt: string} | null>(null);
   const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
+  const [isBeforeAfterFullscreenOpen, setIsBeforeAfterFullscreenOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -97,6 +98,10 @@ const Gallery = () => {
   const handleBeforeAfterClick = (pair: {before: string, after: string, alt: string}) => {
     setSelectedBeforeAfter(pair);
     setIsBeforeAfterLightboxOpen(true);
+  };
+
+  const handleBeforeAfterZoom = () => {
+    setIsBeforeAfterFullscreenOpen(true);
   };
 
   const handleImageClick = (index: number) => {
@@ -393,16 +398,38 @@ const Gallery = () => {
       <Dialog open={isBeforeAfterLightboxOpen} onOpenChange={setIsBeforeAfterLightboxOpen}>
         <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background/95 border-0">
           {selectedBeforeAfter && (
-            <div className="relative w-full h-full flex items-center justify-center p-8">
+            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8">
               <div className="w-full max-w-5xl">
+                <div 
+                  className="cursor-zoom-in"
+                  onClick={handleBeforeAfterZoom}
+                >
+                  <BeforeAfterSlider
+                    beforeImage={selectedBeforeAfter.before}
+                    afterImage={selectedBeforeAfter.after}
+                    alt={selectedBeforeAfter.alt}
+                  />
+                </div>
+                <p className="text-center text-foreground mt-4 md:mt-6 text-base md:text-lg font-medium">
+                  {selectedBeforeAfter.alt}
+                </p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Before/After Fullscreen Dialog */}
+      <Dialog open={isBeforeAfterFullscreenOpen} onOpenChange={setIsBeforeAfterFullscreenOpen}>
+        <DialogContent className="max-w-[98vw] w-full h-[98vh] p-2 bg-background/98 border-primary/20">
+          {selectedBeforeAfter && (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center">
                 <BeforeAfterSlider
                   beforeImage={selectedBeforeAfter.before}
                   afterImage={selectedBeforeAfter.after}
                   alt={selectedBeforeAfter.alt}
                 />
-                <p className="text-center text-foreground mt-6 text-lg font-medium">
-                  {selectedBeforeAfter.alt}
-                </p>
               </div>
             </div>
           )}
