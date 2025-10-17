@@ -132,7 +132,7 @@ const Services = () => {
           alt="Lamborghini Background" 
           className="w-full h-full object-cover" 
           style={{
-            objectPosition: 'center 70%'
+            objectPosition: 'center 75%'
           }} 
           loading="eager" 
         />
@@ -159,7 +159,7 @@ const Services = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 sticky top-20 z-40 border-b border-border">
+      <section className="py-8 relative border-b border-border/30">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
