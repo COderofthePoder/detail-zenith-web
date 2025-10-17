@@ -207,16 +207,16 @@ const Gallery = () => {
             >
               <CarouselContent className="-ml-8">
                 {galleryImages.map((image, index) => (
-                  <CarouselItem key={index} className="pl-8 md:basis-4/5 lg:basis-3/4">
+                  <CarouselItem key={index} className="pl-8 md:basis-full">
                     <div 
                       className="cursor-pointer transition-all duration-300 hover:scale-[1.02]"
                       onClick={() => handleImageClick(index)}
                     >
-                      <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 aspect-[16/10]">
+                      <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 aspect-[16/9]">
                         <img
                           src={image.src}
                           alt={image.alt}
-                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110"
+                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.8]"
                           loading="lazy"
                         />
                         {/* Gradient Overlay */}
