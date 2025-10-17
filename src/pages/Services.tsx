@@ -130,11 +130,10 @@ const Services = () => {
       {/* Animated Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-30 animate-gradient-shift"
           style={{
             background: 'linear-gradient(135deg, hsl(30 100% 50% / 0.15) 0%, hsl(0 0% 10%) 25%, hsl(35 100% 55% / 0.15) 50%, hsl(0 0% 10%) 75%, hsl(30 100% 50% / 0.15) 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient-shift 15s ease infinite'
+            backgroundSize: '400% 400%'
           }}
         />
         <div className="absolute inset-0 bg-gradient-overlay" />
