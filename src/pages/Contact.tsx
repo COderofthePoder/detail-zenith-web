@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -16,22 +17,46 @@ const Contact = () => {
     phone: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Create WhatsApp message
-    const whatsappNumber = '41765493697';
-    const message = `Hallo DS-Detailing,\n\nName: ${formData.name}\nE-Mail: ${formData.email}\nTelefon: ${formData.phone}\n\nNachricht:\n${formData.message}`;
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
-    
-    toast({
-      title: 'Nachricht wird weitergeleitet',
-      description: 'Sie werden zu WhatsApp weitergeleitet, um Ihre Anfrage abzuschließen.',
-    });
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: 'Nachricht erfolgreich versendet!',
+        description: 'Wir haben Ihre Anfrage erhalten und melden uns schnellstmöglich bei Ihnen.',
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: 'Fehler beim Versenden',
+        description: 'Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per Telefon.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -126,9 +151,10 @@ const Contact = () => {
                       type="submit"
                       size="lg"
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                      disabled={isSubmitting}
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      Per WhatsApp senden
+                      {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
                     </Button>
                   </form>
                 </div>
@@ -137,55 +163,50 @@ const Contact = () => {
               {/* Contact Info */}
               <div className="animate-fade-up" style={{ animationDelay: '120ms' }}>
                 <div className="space-y-8">
-                  {/* Phone */}
+                  {/* Phone & WhatsApp */}
                   <div className="card-shine border border-border rounded-lg p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Phone className="w-6 h-6 text-primary" />
                       </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">Telefon</h3>
-                        <a
-                          href="tel:+41765493697"
-                          className="text-muted-foreground hover:text-primary transition-colors block"
-                        >
-                          +41 76 549 36 97
-                        </a>
-                        <a
-                          href="tel:+41792610998"
-                          className="text-muted-foreground hover:text-primary transition-colors block"
-                        >
-                          +41 79 261 09 98
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* WhatsApp */}
-                  <div className="card-shine border border-border rounded-lg p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <MessageSquare className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">WhatsApp</h3>
-                        <p className="text-muted-foreground mb-3 text-sm">
-                          Schnelle Antworten via WhatsApp
-                        </p>
-                        <Button
-                          asChild
-                          variant="outline"
-                          className="border-primary/30 hover:bg-primary/10"
-                        >
-                          <a
-                            href="https://wa.me/41765493697"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <MessageSquare className="w-4 h-4 mr-2" />
-                            Chat starten
-                          </a>
-                        </Button>
+                      <div className="flex-1">
+                        <h3 className="font-semibold mb-2">Telefon & WhatsApp</h3>
+                        <div className="space-y-3">
+                          <div>
+                            <a
+                              href="tel:+41765493697"
+                              className="text-muted-foreground hover:text-primary transition-colors block"
+                            >
+                              +41 76 549 36 97
+                            </a>
+                            <a
+                              href="tel:+41792610998"
+                              className="text-muted-foreground hover:text-primary transition-colors block"
+                            >
+                              +41 79 261 09 98
+                            </a>
+                          </div>
+                          <div className="pt-2 border-t border-border/50">
+                            <p className="text-muted-foreground text-sm mb-2">
+                              Auch via WhatsApp erreichbar:
+                            </p>
+                            <Button
+                              asChild
+                              variant="outline"
+                              size="sm"
+                              className="border-primary/30 hover:bg-primary/10"
+                            >
+                              <a
+                                href="https://wa.me/41765493697"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <MessageSquare className="w-4 h-4 mr-2" />
+                                WhatsApp Chat
+                              </a>
+                            </Button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
