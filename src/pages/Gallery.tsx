@@ -319,26 +319,26 @@ const Gallery = () => {
 
       {/* Gallery Lightbox Dialog */}
       <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
-        <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background border-primary/20">
+        <DialogContent className="max-w-5xl w-full h-[80vh] p-0 bg-background border-primary/20">
           {selectedImage !== null && (
             <div className="relative w-full h-full flex flex-col md:flex-row">
               {/* Left side - Image */}
               <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-4 md:p-8 bg-secondary/50">
-                <div className="relative max-h-full max-w-full">
+                <div className="relative w-full h-full flex items-center justify-center">
                   <img
                     src={galleryImages[selectedImage].src}
                     alt={galleryImages[selectedImage].alt}
-                    className="max-h-[40vh] md:max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl"
+                    className="w-full h-full object-cover rounded-lg shadow-2xl"
                   />
                 </div>
               </div>
 
               {/* Right side - Description */}
-              <div className="w-full md:w-1/2 h-1/2 md:h-full overflow-y-auto p-6 md:p-12 flex flex-col justify-start">
-                <h3 className="text-2xl md:text-4xl font-bold mb-6 text-gradient">
+              <div className="w-full md:w-1/2 h-1/2 md:h-full overflow-y-auto p-6 md:p-10 flex flex-col justify-start">
+                <h3 className="text-xl md:text-3xl font-bold mb-4 md:mb-6 text-gradient">
                   {galleryImages[selectedImage].alt}
                 </h3>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                   {galleryImages[selectedImage].description}
                 </p>
               </div>
