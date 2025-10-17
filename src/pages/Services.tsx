@@ -1,6 +1,6 @@
 import { 
   Droplets, Car, Sparkles, Shield, Wrench, Wind, 
-  Brush, Palette, ClipboardCheck, Gauge 
+  Brush, Palette, ClipboardCheck, Gauge, ShieldAlert 
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -39,9 +39,9 @@ const Services = () => {
     {
       icon: Droplets,
       title: 'Aussenreinigung & Handwäsche',
-      description: 'Professionelle Fahrzeugwäsche mit pH-neutralen Premium-Shampoos. Schonende Reinigung ohne Kratzer, streifenfreier Glanz und optimaler Schutz für Ihren Lack. Inklusive Felgen-, Glas- und Türfalzreinigung.',
-      detailedDescription: 'Unsere professionelle Handwäsche ist weit mehr als eine normale Autowäsche. Wir verwenden ausschließlich pH-neutrale Premium-Shampoos, die Ihren Lack schonend reinigen ohne die Schutzschichten anzugreifen. Mit der bewährten Two-Bucket-Methode vermeiden wir Kratzer und Swirls. Jede Wäsche beinhaltet eine intensive Felgenreinigung, Glasreinigung und die oft vergessenen Türfalze. Das Ergebnis: Ein strahlender, streifenfreier Glanz und optimaler Schutz für Ihren Lack.',
-      features: ['pH-neutrale Premium-Produkte', 'Kratzfreie Two-Bucket-Methode', 'Felgen & Türfalzen', 'Streifenfreie Trocknung'],
+      description: 'Professionelle Fahrzeugwäsche mit pH-neutralen Shampoos. Schonende Reinigung ohne Kratzer, streifenfreier Glanz und optimaler Schutz für Ihren Lack. Inklusive Felgen-, Glas- und Türfalzreinigung.',
+      detailedDescription: 'Unsere professionelle Handwäsche ist weit mehr als eine normale Autowäsche. Wir verwenden ausschließlich pH-neutrale Qualitäts-Shampoos, die Ihren Lack schonend reinigen ohne die Schutzschichten anzugreifen. Mit der bewährten Two-Bucket-Methode vermeiden wir Kratzer und Swirls. Jede Wäsche beinhaltet eine intensive Felgenreinigung, Glasreinigung und die oft vergessenen Türfalze. Das Ergebnis: Ein strahlender, streifenfreier Glanz und optimaler Schutz für Ihren Lack.',
+      features: ['pH-neutrale Qualitätsprodukte', 'Kratzfreie Two-Bucket-Methode', 'Felgen & Türfalzen', 'Streifenfreie Trocknung'],
       category: 'cleaning',
     },
     {
@@ -116,6 +116,14 @@ const Services = () => {
       features: ['Komplette Innen- & Aussenreinigung', 'Politur & Auffrischung', 'Geruchsbeseitigung', 'Verkaufsoptimierung'],
       category: 'special',
     },
+    {
+      icon: ShieldAlert,
+      title: 'Steinschlagreparatur & Scheibentausch',
+      description: 'Steinschlag in der Frontscheibe? Kein Stress – wir tauschen sie schnell und professionell! Profitieren Sie von Cashback, Selbstbehalt-Übernahme und unserem praktischen Bring- und Holservice.',
+      detailedDescription: 'Ein Steinschlag in der Frontscheibe ist ärgerlich, aber kein Grund zur Sorge. Wir tauschen Ihre beschädigte Scheibe schnell, professionell und unkompliziert. Das Beste daran: Sie profitieren von attraktiven Vorteilen wie Cashback-Aktionen und wir übernehmen Ihren Selbstbehalt. Unser praktischer Bring- und Holservice macht die Reparatur noch komfortabler – Sie müssen sich um nichts kümmern. Vereinbaren Sie jetzt einen Termin und fahren Sie schon bald wieder mit klarer Sicht!',
+      features: ['Cashback sichern', 'Selbstbehalt wird übernommen', 'Bring- und Holservice', 'Weitere starke Aktionen'],
+      category: 'special',
+    },
   ];
 
   const filteredServices = activeCategory === 'all' 
@@ -135,7 +143,7 @@ const Services = () => {
               Unsere <span className="text-gradient">Leistungen</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basis-Reinigung bis zur Premium-Versiegelung
+              Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basis-Reinigung bis zur Keramikversiegelung
             </p>
           </div>
         </div>
