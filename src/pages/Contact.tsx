@@ -251,7 +251,7 @@ const Contact = () => {
       </section>
 
       {/* Google Maps */}
-      <section className="py-16 bg-secondary">
+      <section className="py-16 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-center mb-8">So finden Sie uns</h2>

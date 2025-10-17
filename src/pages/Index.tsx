@@ -99,7 +99,7 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 md:py-32 bg-secondary">
+      <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="mb-4">Warum DS-Detailing?</h2>
@@ -164,7 +164,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-secondary">
+      <section className="py-20 md:py-32 bg-secondary/30">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="mb-6">Bereit für die perfekte Pflege?</h2>
