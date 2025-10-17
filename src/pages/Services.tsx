@@ -127,8 +127,21 @@ const Services = () => {
       <Navigation />
       <StickyCTA />
 
+      {/* Animated Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: 'linear-gradient(135deg, hsl(30 100% 50% / 0.15) 0%, hsl(0 0% 10%) 25%, hsl(35 100% 55% / 0.15) 50%, hsl(0 0% 10%) 75%, hsl(30 100% 50% / 0.15) 100%)',
+            backgroundSize: '400% 400%',
+            animation: 'gradient-shift 15s ease infinite'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-overlay" />
+      </div>
+
       {/* Hero Section */}
-      <section className="pt-32 pb-12 bg-background">
+      <section className="pt-32 pb-12 relative">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="mb-6">
@@ -142,7 +155,7 @@ const Services = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-background sticky top-20 z-40 border-b border-border">
+      <section className="py-8 bg-background/80 backdrop-blur-md sticky top-20 z-40 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
@@ -163,7 +176,7 @@ const Services = () => {
       </section>
 
       {/* Services Carousel or Grid */}
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             {filteredServices.length > 3 ? (
@@ -253,7 +266,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32 bg-secondary/30 backdrop-blur-sm relative">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="mb-6">Interesse an unseren Leistungen?</h2>
