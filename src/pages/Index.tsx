@@ -7,8 +7,20 @@ import ReviewCard from '@/components/ReviewCard';
 import StickyCTA from '@/components/StickyCTA';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import heroImage from '@/assets/hero-background.jpg';
 
 const Index = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const services = [
     {
       icon: Droplets,
@@ -64,15 +76,32 @@ const Index = () => {
   ];
 
   return (
-    <>
-      <Navigation />
-      <StickyCTA />
+    <div className="min-h-screen">
+      {/* Parallax Background Image */}
+      <div className="fixed inset-0 w-full h-screen z-0">
+        <img 
+          src={heroImage} 
+          alt="Luxus Auto Detailing Background" 
+          className="w-full h-full object-cover" 
+          style={{
+            objectPosition: 'center 70%',
+            transform: `translateY(${scrollY * 0.5}px)`,
+            willChange: 'transform'
+          }} 
+          loading="eager" 
+        />
+      </div>
+
+      {/* Page Content */}
+      <div className="relative z-10">
+        <Navigation />
+        <StickyCTA />
       
-      {/* Hero Section */}
-      <Hero />
+        {/* Hero Section */}
+        <Hero />
 
       {/* Services Section */}
-      <section className="py-20 md:py-32 bg-background">
+      <section className="py-20 md:py-32 bg-background/95 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="mb-4">Unsere Leistungen</h2>
@@ -184,7 +213,8 @@ const Index = () => {
       </section>
 
       <Footer />
-    </>
+      </div>
+    </div>
   );
 };
 
