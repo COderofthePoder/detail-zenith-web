@@ -184,9 +184,14 @@ const Contact = () => {
                           >
                             +41 79 261 09 98
                           </a>
-                          <p className="text-muted-foreground text-sm pt-2">
-                            Erreichbar per Telefon oder WhatsApp
-                          </p>
+                          <a 
+                            href="https://wa.me/41792610998?text=Hallo%20Team,%20ich%20habe%20eine%20Frage." 
+                            target="_blank" 
+                            rel="noopener"
+                            className="text-primary hover:text-primary/80 text-sm pt-2 inline-block transition-colors"
+                          >
+                            Chat auf WhatsApp öffnen
+                          </a>
                         </div>
                       </div>
                     </div>
