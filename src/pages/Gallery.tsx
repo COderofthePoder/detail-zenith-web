@@ -203,7 +203,7 @@ const Gallery = () => {
             <div className="text-center mb-20">
               <h2 className="mb-6 text-4xl md:text-5xl">Vorher / Nachher</h2>
               <p className="text-lg md:text-xl text-muted-foreground mb-8">
-                Ziehen Sie den Regler, um den Unterschied zu sehen. Klicken Sie auf ein Bild, um es zu vergrössern.
+                Ziehen Sie den Regler, um den Unterschied zu sehen.
               </p>
             </div>
 
