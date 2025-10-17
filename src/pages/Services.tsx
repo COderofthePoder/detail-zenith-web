@@ -272,17 +272,14 @@ const Services = () => {
       {/* CTA Section */}
       <section className="py-20 md:py-32 relative">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto bg-background/80 backdrop-blur-md border border-border/50 rounded-2xl p-8 md:p-12">
             <h2 className="mb-6">Interesse an unseren Leistungen?</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Kontaktieren Sie uns für ein unverbindliches Angebot oder buchen Sie direkt Ihren Wunschtermin
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
                 <Link to="/kontakt">Jetzt Termin buchen</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-foreground/20 hover:bg-foreground/10">
-                <a href="tel:+41765493697">+41 76 549 36 97</a>
               </Button>
             </div>
           </div>
