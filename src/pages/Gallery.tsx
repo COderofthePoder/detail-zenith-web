@@ -111,15 +111,43 @@ const Gallery = () => {
     setSelectedImage((prev) => ((prev ?? 0) + 1) % galleryImages.length);
   };
 
-  // Placeholder images for masonry grid
+  // Gallery images with descriptions
   const galleryImages = [
-    { src: amgFertig, alt: 'Mercedes AMG - Perfekte Aufbereitung' },
-    { src: urusHuracan, alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen' },
-    { src: lamboFertig, alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung' },
-    { src: bmwInnenFertig, alt: 'BMW Innenraumaufbereitung - Perfekte Sauberkeit' },
-    { src: clsFertig, alt: 'Mercedes CLS - Hochglanzaufbereitung' },
-    { src: clsFertig2, alt: 'Mercedes CLS - Premium Detailing' },
-    { src: lamboFertigInnen, alt: 'Lamborghini Innenraum - Luxus Detailing' },
+    { 
+      src: amgFertig, 
+      alt: 'Mercedes AMG - Perfekte Aufbereitung',
+      description: 'Bei diesem Mercedes AMG haben wir eine Komplettaufbereitung durchgeführt. Die Lackierung wurde professionell poliert und versiegelt, um den tiefen Glanz wiederherzustellen. Der Innenraum wurde intensiv gereinigt, sämtliche Kunststoffteile aufbereitet und das Lenkrad neu bezogen. Das Ergebnis ist ein Fahrzeug, das aussieht wie neu aus dem Showroom.'
+    },
+    { 
+      src: urusHuracan, 
+      alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen',
+      description: 'Zwei absolute Traumwagen in unserer Werkstatt. Beide Lamborghini erhielten eine Premium-Detailing-Behandlung. Beim Urus wurde eine komplette Außenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
+    },
+    { 
+      src: lamboFertig, 
+      alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung',
+      description: 'Dieser Lamborghini wurde von uns komplett aufbereitet. Die Außenlackierung erhielt eine mehrstufige Politur, gefolgt von einer hochwertigen Keramikversiegelung für langanhaltenden Schutz. Die Carbon-Teile wurden speziell behandelt, um ihre einzigartige Optik zu erhalten. Eine perfekte Symbiose aus Schutz und Ästhetik.'
+    },
+    { 
+      src: bmwInnenFertig, 
+      alt: 'BMW Innenraumaufbereitung - Perfekte Sauberkeit',
+      description: 'Der Innenraum dieses BMW wurde komplett restauriert. Alle Ledersitze wurden intensiv gereinigt, aufbereitet und mit hochwertigen Pflegeprodukten behandelt. Das Lenkrad erhielt eine Spezialbehandlung, Kunststoffteile wurden aufgefrischt und versiegelt. Der Dachhimmel wurde professionell gereinigt. Das Ergebnis übertrifft die Erwartungen.'
+    },
+    { 
+      src: clsFertig, 
+      alt: 'Mercedes CLS - Hochglanzaufbereitung',
+      description: 'Bei diesem Mercedes CLS stand die Lackaufbereitung im Vordergrund. Durch mehrstufiges Polieren konnten wir Kratzer und Swirls vollständig entfernen. Die abschließende Versiegelung sorgt für einen spiegelglatten Hochglanz und Schutz vor Umwelteinflüssen. Die Felgen wurden ebenfalls komplett neu aufbereitet und versiegelt.'
+    },
+    { 
+      src: clsFertig2, 
+      alt: 'Mercedes CLS - Premium Detailing',
+      description: 'Komplette Premium-Aufbereitung dieses CLS. Neben der Lackpflege wurden auch die Chromelemente poliert, die Scheiben versiegelt und der Innenraum detailliert gereinigt. Besonderes Augenmerk lag auf den Ledersitzen, die eine intensive Pflegebehandlung erhielten. Ein makelloses Gesamtbild.'
+    },
+    { 
+      src: lamboFertigInnen, 
+      alt: 'Lamborghini Innenraum - Luxus Detailing',
+      description: 'Der Innenraum dieses Lamborghini wurde mit größter Sorgfalt aufbereitet. Alcantara-Elemente wurden speziell gereinigt und gepflegt, Lederpartien erhielten eine Intensivbehandlung. Carbon-Interieur wurde schonend behandelt, alle Displays und Touchscreens professionell gereinigt. Perfektion bis ins kleinste Detail.'
+    },
   ];
 
   return (
@@ -291,39 +319,47 @@ const Gallery = () => {
 
       {/* Gallery Lightbox Dialog */}
       <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
-        <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background/95 border-0">
+        <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background border-primary/20">
           {selectedImage !== null && (
-            <div className="relative w-full h-full flex items-center justify-center p-8">
-              {/* Previous Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-background/80 hover:bg-background"
-                onClick={handlePrevImage}
-              >
-                <ChevronLeft className="h-8 w-8" />
-              </Button>
+            <div className="relative w-full h-full flex flex-col md:flex-row">
+              {/* Left side - Image */}
+              <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-4 md:p-8 bg-secondary/50">
+                <div className="relative max-h-full max-w-full">
+                  <img
+                    src={galleryImages[selectedImage].src}
+                    alt={galleryImages[selectedImage].alt}
+                    className="max-h-[40vh] md:max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl"
+                  />
+                </div>
+              </div>
 
-              {/* Image */}
-              <div className="relative max-h-full max-w-full">
-                <img
-                  src={galleryImages[selectedImage].src}
-                  alt={galleryImages[selectedImage].alt}
-                  className="max-h-[80vh] max-w-full object-contain rounded-lg"
-                />
-                <p className="text-center text-muted-foreground mt-4">
+              {/* Right side - Description */}
+              <div className="w-full md:w-1/2 h-1/2 md:h-full overflow-y-auto p-6 md:p-12 flex flex-col justify-start">
+                <h3 className="text-2xl md:text-4xl font-bold mb-6 text-gradient">
                   {galleryImages[selectedImage].alt}
+                </h3>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                  {galleryImages[selectedImage].description}
                 </p>
               </div>
 
-              {/* Next Button */}
+              {/* Navigation Buttons */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-background/80 hover:bg-background"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-50 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 hover:bg-background border-2 border-primary/20 hover:border-primary"
+                onClick={handlePrevImage}
+              >
+                <ChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 hover:bg-background border-2 border-primary/20 hover:border-primary"
                 onClick={handleNextImage}
               >
-                <ChevronRight className="h-8 w-8" />
+                <ChevronRight className="h-6 w-6 md:h-8 md:w-8" />
               </Button>
             </div>
           )}
