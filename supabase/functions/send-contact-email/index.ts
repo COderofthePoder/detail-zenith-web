@@ -36,7 +36,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "DS-Detailing Kontakt <kontakt@ds-detailing.com>",
+        from: "DS-Detailing Kontakt <kontakt@ds-detailin.com>",
         to: ["ds.detailing@hotmail.com"],
         reply_to: email,
         subject: `Neue Kontaktanfrage von ${name}`,
@@ -68,7 +68,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "DS-Detailing <kontakt@ds-detailing.com>",
+        from: "DS-Detailing <kontakt@ds-detailin.com>",
         to: [email],
         subject: "Ihre Anfrage bei DS-Detailing",
         html: `
