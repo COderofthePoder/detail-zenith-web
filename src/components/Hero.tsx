@@ -17,16 +17,16 @@ const Hero = () => {
   }, []);
 
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Image with Overlay - Fixed Parallax */}
+      <div className="fixed inset-0 z-0" style={{ height: '150vh' }}>
         <img 
           src={heroImage} 
           alt="Luxus Auto Detailing" 
           className="w-full h-full object-cover" 
           style={{
             objectPosition: 'center 70%',
-            transform: `translateY(${scrollY * 0.5}px)`,
-            transition: 'transform 0.1s ease-out'
+            transform: `translateY(${scrollY * 0.4}px)`,
+            willChange: 'transform'
           }} 
           loading="eager" 
         />
