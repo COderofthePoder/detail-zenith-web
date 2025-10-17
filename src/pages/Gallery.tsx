@@ -186,7 +186,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid - Bento Box Layout */}
+      {/* Gallery Slider - Impressionen */}
       <section id="gallery-section" className="py-24 md:py-32 bg-secondary overflow-hidden relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -196,57 +196,44 @@ const Gallery = () => {
             </p>
           </div>
 
-          <div className="max-w-[1400px] mx-auto">
-            {/* Bento Grid Layout with varied sizes */}
-            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[280px] md:auto-rows-[380px] gap-4 md:gap-6">
-              {galleryImages.map((image, index) => {
-                // Define special layout for some images to create visual interest
-                const spanClasses = [
-                  "col-span-2 row-span-2", // Large featured
-                  "col-span-1 row-span-1", // Standard
-                  "col-span-1 row-span-2", // Tall
-                  "col-span-1 row-span-1", // Standard
-                  "col-span-2 row-span-1", // Wide
-                  "col-span-1 row-span-1", // Standard
-                  "col-span-1 row-span-2", // Tall
-                  "col-span-2 row-span-1", // Wide
-                ];
-                
-                return (
-                  <div 
-                    key={index}
-                    className={`relative group cursor-pointer ${spanClasses[index] || 'col-span-1 row-span-1'}`}
-                    onClick={() => handleImageClick(index)}
-                  >
-                    <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 h-full group-hover:scale-[1.02] transform">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                        style={
-                          index === 4 ? { objectPosition: 'center 60%' } :
-                          index === 6 ? { objectPosition: 'center 45%' } :
-                          {}
-                        }
-                        loading="lazy"
-                      />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      
-                      {/* Shine Effect */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                      </div>
-                      
-                      {/* Text Content */}
-                      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                        <p className="text-foreground text-sm md:text-base font-semibold">{image.alt}</p>
+          <div className="max-w-[1600px] mx-auto">
+            {/* Carousel Slider */}
+            <Carousel
+              opts={{
+                align: 'center',
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-8">
+                {galleryImages.map((image, index) => (
+                  <CarouselItem key={index} className="pl-8 md:basis-4/5 lg:basis-3/4">
+                    <div 
+                      className="cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                      onClick={() => handleImageClick(index)}
+                    >
+                      <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 aspect-[16/10]">
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110"
+                          loading="lazy"
+                        />
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Text Content */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 translate-y-full hover:translate-y-0 transition-transform duration-500">
+                          <p className="text-foreground text-lg md:text-xl font-semibold">{image.alt}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0 -translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselNext className="right-0 translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+            </Carousel>
           </div>
         </div>
       </section>
