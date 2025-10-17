@@ -127,17 +127,21 @@ const Services = () => {
       <Navigation />
       <StickyCTA />
 
-      {/* Animated Background */}
+      {/* Vibrant Static Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
+        {/* Multi-color gradient base */}
         <div 
-          className="absolute inset-0 animate-gradient-shift"
+          className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, hsl(30 100% 50% / 0.25) 0%, hsl(0 0% 8%) 20%, hsl(35 100% 55% / 0.3) 40%, hsl(0 0% 8%) 60%, hsl(30 100% 50% / 0.25) 80%, hsl(0 0% 8%) 100%)',
-            backgroundSize: '400% 400%',
-            opacity: '0.6'
+            background: 'radial-gradient(circle at 20% 30%, hsl(280 70% 40% / 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, hsl(200 80% 50% / 0.12) 0%, transparent 50%), radial-gradient(circle at 50% 50%, hsl(30 100% 50% / 0.18) 0%, transparent 70%), linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 12%) 100%)'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-overlay opacity-40" />
+        {/* Accent spots */}
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-blue-500/8 rounded-full blur-3xl" />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0 bg-gradient-overlay opacity-30" />
       </div>
 
       {/* Hero Section */}
