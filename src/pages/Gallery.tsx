@@ -229,7 +229,7 @@ const Gallery = () => {
                         
                         {/* Text Content - Always visible */}
                         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-background/90 to-transparent">
-                          <p className="text-foreground text-xl md:text-2xl font-script">{image.alt}</p>
+                          <p className="text-foreground text-xl md:text-2xl font-semibold text-center">{image.alt}</p>
                         </div>
                       </div>
                     </div>
