@@ -217,6 +217,7 @@ const Gallery = () => {
                           src={image.src}
                           alt={image.alt}
                           className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.8]"
+                          style={{ objectPosition: 'center 70%' }}
                           loading="lazy"
                         />
                         {/* Gradient Overlay */}
