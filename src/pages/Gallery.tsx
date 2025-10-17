@@ -135,13 +135,13 @@ const Gallery = () => {
     },
     { 
       src: clsFertig, 
-      alt: 'Mercedes CLS - Hochglanzaufbereitung',
-      description: 'Bei diesem Mercedes CLS stand die Lackaufbereitung im Vordergrund. Durch mehrstufiges Polieren konnten wir Kratzer und Swirls vollständig entfernen. Die abschließende Versiegelung sorgt für einen spiegelglatten Hochglanz und Schutz vor Umwelteinflüssen. Die Felgen wurden ebenfalls komplett neu aufbereitet und versiegelt.'
+      alt: 'Mercedes GLC - Hochglanzaufbereitung',
+      description: 'Bei diesem Mercedes GLC stand die Lackaufbereitung im Vordergrund. Durch mehrstufiges Polieren konnten wir Kratzer und Swirls vollständig entfernen. Die abschließende Versiegelung sorgt für einen spiegelglatten Hochglanz und Schutz vor Umwelteinflüssen. Die Felgen wurden ebenfalls komplett neu aufbereitet und versiegelt.'
     },
     { 
       src: clsFertig2, 
-      alt: 'Mercedes CLS - Professionelles Detailing',
-      description: 'Komplette professionelle Aufbereitung dieses CLS. Neben der Lackpflege wurden auch die Chromelemente poliert, die Scheiben versiegelt und der Innenraum detailliert gereinigt. Besonderes Augenmerk lag auf den Ledersitzen, die eine intensive Pflegebehandlung erhielten. Ein makelloses Gesamtbild.'
+      alt: 'Mercedes GLC - Professionelles Detailing',
+      description: 'Komplette professionelle Aufbereitung dieses GLC. Neben der Lackpflege wurden auch die Chromelemente poliert, die Scheiben versiegelt und der Innenraum detailliert gereinigt. Besonderes Augenmerk lag auf den Ledersitzen, die eine intensive Pflegebehandlung erhielten. Ein makelloses Gesamtbild.'
     },
     { 
       src: lamboFertigInnen, 
