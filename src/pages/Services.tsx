@@ -9,13 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -27,6 +20,7 @@ import lamboBackground from '@/assets/Lambo_Fertig_Background.jpeg';
 const Services = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const categories = [
     { id: 'all', label: 'Alle Leistungen' },
@@ -123,6 +117,31 @@ const Services = () => {
     ? services 
     : services.filter(service => service.category === activeCategory);
 
+  // Reset page when category changes
+  const handleCategoryChange = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    setCurrentPage(0);
+  };
+
+  // Pagination
+  const itemsPerPage = 9;
+  const totalPages = Math.ceil(filteredServices.length / itemsPerPage);
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentServices = filteredServices.slice(startIndex, endIndex);
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <>
       {/* Fixed Background Image with Dark Overlay */}
@@ -165,7 +184,7 @@ const Services = () => {
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() => handleCategoryChange(category.id)}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   activeCategory === category.id
                     ? 'bg-primary text-primary-foreground shadow-glow'
@@ -179,89 +198,83 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Carousel or Grid */}
+      {/* Services Grid with Pagination */}
       <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            {filteredServices.length > 3 ? (
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                className="w-full"
-              >
-                <CarouselContent className="-ml-4">
-                  {filteredServices.map((service, index) => (
-                    <CarouselItem key={service.title} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                      <div
-                        onClick={() => setSelectedService(service)}
-                        className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02]"
-                        style={{ animationDelay: `${index * 60}ms` }}
-                      >
-                        <div className="flex flex-col h-full">
-                          <div className="mb-6">
-                            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                              <service.icon className="w-8 h-8 text-primary" />
-                            </div>
-                            <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                            <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                          </div>
-                          <div className="mt-auto">
-                            <div className="h-px bg-border mb-4" />
-                            <ul className="space-y-2">
-                              {service.features.map((feature) => (
-                                <li key={feature} className="flex items-center gap-2 text-sm">
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                                  <span className="text-foreground/80">{feature}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
+          <div className="max-w-7xl mx-auto relative">
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentServices.map((service, index) => (
+                <div
+                  key={service.title}
+                  onClick={() => setSelectedService(service)}
+                  className="h-full card-shine border border-border rounded-2xl p-6 sm:p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02]"
+                  style={{ animationDelay: `${index * 60}ms` }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="mb-6">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                        <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                       </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-0 -translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
-                <CarouselNext className="right-0 translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
-              </Carousel>
-            ) : (
-              <div className={`grid gap-6 ${
-                filteredServices.length === 1 
-                  ? 'grid-cols-1 max-w-md mx-auto' 
-                  : filteredServices.length === 2 
-                  ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto' 
-                  : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-              }`}>
-                {filteredServices.map((service, index) => (
-                  <div
-                    key={service.title}
-                    onClick={() => setSelectedService(service)}
-                    className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02]"
-                    style={{ animationDelay: `${index * 60}ms` }}
-                  >
-                    <div className="flex flex-col h-full">
-                      <div className="mb-6">
-                        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                          <service.icon className="w-8 h-8 text-primary" />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                      </div>
-                      <div className="mt-auto">
-                        <div className="h-px bg-border mb-4" />
-                        <ul className="space-y-2">
-                          {service.features.map((feature) => (
-                            <li key={feature} className="flex items-center gap-2 text-sm">
-                              <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                              <span className="text-foreground/80">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold mb-3">{service.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{service.description}</p>
+                    </div>
+                    <div className="mt-auto">
+                      <div className="h-px bg-border mb-4" />
+                      <ul className="space-y-2">
+                        {service.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-2 text-sm">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                            <span className="text-foreground/80">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            {totalPages > 1 && (
+              <>
+                <button
+                  onClick={goToPreviousPage}
+                  disabled={currentPage === 0}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-16 h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary"
+                  aria-label="Vorherige Seite"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages - 1}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-16 h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary"
+                  aria-label="Nächste Seite"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </>
+            )}
+
+            {/* Page Indicator */}
+            {totalPages > 1 && (
+              <div className="flex justify-center gap-2 mt-8">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentPage
+                        ? 'w-8 bg-primary'
+                        : 'w-2 bg-border hover:bg-border/60'
+                    }`}
+                    aria-label={`Gehe zu Seite ${index + 1}`}
+                  />
                 ))}
               </div>
             )}
