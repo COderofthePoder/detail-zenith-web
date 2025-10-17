@@ -123,12 +123,9 @@ const Services = () => {
     setCurrentPage(0);
   };
 
-  // Pagination
-  const itemsPerPage = 9;
-  const totalPages = Math.ceil(filteredServices.length / itemsPerPage);
-  const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentServices = filteredServices.slice(startIndex, endIndex);
+  // Pagination - show one service at a time
+  const totalPages = filteredServices.length;
+  const currentService = filteredServices[currentPage];
 
   const goToNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -198,86 +195,76 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Grid with Pagination */}
+      {/* Single Service Display with Navigation */}
       <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto relative">
-            {/* Services Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentServices.map((service, index) => (
-                <div
-                  key={service.title}
-                  onClick={() => setSelectedService(service)}
-                  className="h-full card-shine border border-border rounded-2xl p-6 sm:p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02]"
-                  style={{ animationDelay: `${index * 60}ms` }}
-                >
-                  <div className="flex flex-col h-full">
-                    <div className="mb-6">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                        <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-bold mb-3">{service.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{service.description}</p>
+          <div className="max-w-2xl mx-auto relative">
+            {/* Single Service Card */}
+            {currentService && (
+              <div
+                onClick={() => setSelectedService(currentService)}
+                className="card-shine border border-border rounded-2xl p-8 md:p-12 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <div className="mb-8">
+                    <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                      <currentService.icon className="w-10 h-10 text-primary" />
                     </div>
-                    <div className="mt-auto">
-                      <div className="h-px bg-border mb-4" />
-                      <ul className="space-y-2">
-                        {service.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-2 text-sm">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                            <span className="text-foreground/80">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <h3 className="text-3xl font-bold mb-4">{currentService.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-lg">{currentService.description}</p>
+                  </div>
+                  <div>
+                    <div className="h-px bg-border mb-6" />
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {currentService.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
+                          <span className="text-foreground/80">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            {totalPages > 1 && (
-              <>
-                <button
-                  onClick={goToPreviousPage}
-                  disabled={currentPage === 0}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-16 h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary"
-                  aria-label="Vorherige Seite"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                  </svg>
-                </button>
-                <button
-                  onClick={goToNextPage}
-                  disabled={currentPage === totalPages - 1}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-16 h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary"
-                  aria-label="Nächste Seite"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </button>
-              </>
-            )}
-
-            {/* Page Indicator */}
-            {totalPages > 1 && (
-              <div className="flex justify-center gap-2 mt-8">
-                {Array.from({ length: totalPages }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentPage(index)}
-                    className={`h-2 rounded-full transition-all ${
-                      index === currentPage
-                        ? 'w-8 bg-primary'
-                        : 'w-2 bg-border hover:bg-border/60'
-                    }`}
-                    aria-label={`Gehe zu Seite ${index + 1}`}
-                  />
-                ))}
               </div>
             )}
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={goToPreviousPage}
+              disabled={currentPage === 0}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 sm:-translate-x-20 h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
+              aria-label="Vorherige Leistung"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages - 1}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 sm:translate-x-20 h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
+              aria-label="Nächste Leistung"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            {/* Page Indicator */}
+            <div className="flex justify-center gap-2 mt-10">
+              {filteredServices.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    index === currentPage
+                      ? 'w-10 bg-primary'
+                      : 'w-2.5 bg-border hover:bg-border/60'
+                  }`}
+                  aria-label={`Gehe zu Leistung ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
