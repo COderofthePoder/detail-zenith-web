@@ -123,20 +123,22 @@ const Services = () => {
     setCurrentPage(0);
   };
 
-  // Pagination - show one service at a time
-  const totalPages = filteredServices.length;
+  // Pagination
+  const itemsPerPageMobile = 1;
+  const itemsPerPageDesktop = 3;
+  const totalPagesMobile = filteredServices.length;
+  const totalPagesDesktop = Math.ceil(filteredServices.length / itemsPerPageDesktop);
+  
   const currentService = filteredServices[currentPage];
+  const startIndexDesktop = currentPage * itemsPerPageDesktop;
+  const currentServicesDesktop = filteredServices.slice(startIndexDesktop, startIndexDesktop + itemsPerPageDesktop);
 
   const goToNextPage = () => {
-    if (currentPage < totalPages - 1) {
-      setCurrentPage(currentPage + 1);
-    }
+    setCurrentPage(currentPage + 1);
   };
 
   const goToPreviousPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+    setCurrentPage(currentPage - 1);
   };
 
   return (
@@ -195,7 +197,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Display - Single on Mobile, Grid on Desktop */}
+      {/* Services Display - Single on Mobile, 3-Grid Slider on Desktop */}
       <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
           {/* Mobile View - Single Service with Navigation */}
@@ -241,7 +243,7 @@ const Services = () => {
             </button>
             <button
               onClick={goToNextPage}
-              disabled={currentPage === totalPages - 1}
+              disabled={currentPage === totalPagesMobile - 1}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 h-14 w-14 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
               aria-label="Nächste Leistung"
             >
@@ -267,10 +269,10 @@ const Services = () => {
             </div>
           </div>
 
-          {/* Desktop View - Grid */}
-          <div className="hidden md:block max-w-7xl mx-auto">
+          {/* Desktop View - 3-Column Slider */}
+          <div className="hidden md:block max-w-7xl mx-auto relative">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredServices.map((service, index) => (
+              {currentServicesDesktop.map((service, index) => (
                 <div
                   key={service.title}
                   onClick={() => setSelectedService(service)}
@@ -300,6 +302,50 @@ const Services = () => {
                 </div>
               ))}
             </div>
+
+            {/* Desktop Navigation Arrows */}
+            {totalPagesDesktop > 1 && (
+              <>
+                <button
+                  onClick={goToPreviousPage}
+                  disabled={currentPage === 0}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 h-16 w-16 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
+                  aria-label="Vorherige Seite"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPagesDesktop - 1}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 h-16 w-16 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
+                  aria-label="Nächste Seite"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </>
+            )}
+
+            {/* Desktop Page Indicator */}
+            {totalPagesDesktop > 1 && (
+              <div className="flex justify-center gap-2 mt-10">
+                {Array.from({ length: totalPagesDesktop }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      index === currentPage
+                        ? 'w-10 bg-primary'
+                        : 'w-2.5 bg-border hover:bg-border/60'
+                    }`}
+                    aria-label={`Gehe zu Seite ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
