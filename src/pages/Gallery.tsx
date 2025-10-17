@@ -197,7 +197,6 @@ const Gallery = () => {
           </div>
 
           <div className="max-w-[1600px] mx-auto">
-            {/* Carousel Slider */}
             <Carousel
               opts={{
                 align: 'center',
@@ -205,39 +204,41 @@ const Gallery = () => {
               }}
               className="w-full"
             >
-              <CarouselContent className="-ml-8">
+              <CarouselContent className="-ml-6">
                 {galleryImages.map((image, index) => (
-                  <CarouselItem key={index} className="pl-8 md:basis-full">
-                    <div 
-                      className="cursor-pointer transition-all duration-300 hover:scale-[1.02]"
-                      onClick={() => handleImageClick(index)}
-                    >
-                      <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 aspect-[16/9]">
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.9]"
-                          style={{ 
-                            objectPosition: index === 2 ? 'center 90%' : 
-                                          index === 3 ? 'center 40%' : 
-                                          'center 70%' 
-                          }}
-                          loading="lazy"
-                        />
-                        {/* Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
-                        
-                        {/* Text Content - Always visible */}
-                        <div className="absolute left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-background/90 to-transparent" style={{ bottom: '-60px' }}>
-                          <p className="text-foreground text-xl md:text-2xl font-semibold text-center">{image.alt}</p>
+                  <CarouselItem key={index} className="pl-6 md:basis-full">
+                    <div className="flex flex-col items-center gap-6">
+                      {/* Image Container */}
+                      <div 
+                        className="cursor-pointer transition-all duration-500 hover:scale-[1.02] w-full"
+                        onClick={() => handleImageClick(index)}
+                      >
+                        <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 aspect-[16/9]">
+                          <img
+                            src={image.src}
+                            alt={image.alt}
+                            className="w-full h-full object-cover transition-all duration-700 hover:brightness-110 scale-[0.9]"
+                            style={{ 
+                              objectPosition: index === 2 ? 'center 90%' : 
+                                            index === 3 ? 'center 40%' : 
+                                            'center 70%' 
+                            }}
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
+                      </div>
+                      
+                      {/* Caption Below Image */}
+                      <div className="text-center px-4 max-w-3xl">
+                        <p className="text-foreground text-2xl md:text-3xl font-semibold">{image.alt}</p>
                       </div>
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-0 -translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
-              <CarouselNext className="right-0 translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselPrevious className="left-4 h-14 w-14 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110" />
+              <CarouselNext className="right-4 h-14 w-14 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110" />
             </Carousel>
           </div>
         </div>
