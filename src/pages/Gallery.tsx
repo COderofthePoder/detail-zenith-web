@@ -228,7 +228,7 @@ const Gallery = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
                         
                         {/* Text Content - Always visible */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 pb-10 md:pb-12 bg-gradient-to-t from-background/90 to-transparent">
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 pb-0 bg-gradient-to-t from-background/90 to-transparent translate-y-[-60px]">
                           <p className="text-foreground text-xl md:text-2xl font-semibold text-center">{image.alt}</p>
                         </div>
                       </div>
