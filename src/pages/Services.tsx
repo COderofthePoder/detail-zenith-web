@@ -254,12 +254,11 @@ const Services = () => {
           <div className="md:hidden max-w-2xl mx-auto relative">
             {/* Swipe Hint Animation */}
             {showSwipeHint && (
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-                <div className="flex items-center gap-2 animate-pulse">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary animate-[slide-right_1.5s_ease-in-out_infinite]">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                  <span className="text-primary font-semibold text-lg">Wischen</span>
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                <div className="flex items-center gap-2 text-primary font-semibold text-lg animate-pulse">
+                  <span className="animate-[slide-right_1.5s_ease-in-out_infinite_reverse]">←</span>
+                  <span>Wische</span>
+                  <span className="animate-[slide-right_1.5s_ease-in-out_infinite]">→</span>
                 </div>
               </div>
             )}
@@ -272,7 +271,7 @@ const Services = () => {
                 onTouchEnd={handleTouchEnd}
                 onClick={() => setSelectedService(currentService)}
                 className="card-shine border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 cursor-pointer touch-pan-y"
-                style={{ minHeight: '420px' }}
+                style={{ minHeight: '480px' }}
               >
                 <div className="flex flex-col h-full">
                   <div className="mb-6">
@@ -296,28 +295,6 @@ const Services = () => {
                 </div>
               </div>
             )}
-
-            {/* Mobile Navigation Arrows */}
-            <button
-              onClick={goToPreviousPage}
-              disabled={currentPage === 0}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 h-14 w-14 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
-              aria-label="Vorherige Leistung"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </button>
-            <button
-              onClick={goToNextPage}
-              disabled={currentPage === totalPagesMobile - 1}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 h-14 w-14 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
-              aria-label="Nächste Leistung"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </button>
 
             {/* Mobile Page Indicator */}
             <div className="flex justify-center gap-2 mt-8">
