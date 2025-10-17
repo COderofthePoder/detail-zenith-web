@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -21,6 +21,27 @@ const Services = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
+  const mobileCardRef = useRef<HTMLDivElement>(null);
+
+  // Hide swipe hint after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSwipeHint(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Reset swipe hint when category changes
+  useEffect(() => {
+    setShowSwipeHint(true);
+    const timer = setTimeout(() => {
+      setShowSwipeHint(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [activeCategory]);
 
   const categories = [
     { id: 'all', label: 'Alle Leistungen' },
@@ -135,10 +156,39 @@ const Services = () => {
 
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
+    setShowSwipeHint(false);
   };
 
   const goToPreviousPage = () => {
     setCurrentPage(currentPage - 1);
+    setShowSwipeHint(false);
+  };
+
+  // Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && currentPage < totalPagesMobile - 1) {
+      goToNextPage();
+    }
+    if (isRightSwipe && currentPage > 0) {
+      goToPreviousPage();
+    }
+
+    setTouchStart(0);
+    setTouchEnd(0);
   };
 
   return (
@@ -202,12 +252,29 @@ const Services = () => {
         <div className="container mx-auto px-4">
           {/* Mobile View - Single Service with Navigation */}
           <div className="md:hidden max-w-2xl mx-auto relative">
+            {/* Swipe Hint Animation */}
+            {showSwipeHint && (
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                <div className="flex items-center gap-2 animate-pulse">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary animate-[slide-right_1.5s_ease-in-out_infinite]">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                  <span className="text-primary font-semibold text-lg">Wischen</span>
+                </div>
+              </div>
+            )}
+            
             {currentService && (
               <div
+                ref={mobileCardRef}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 onClick={() => setSelectedService(currentService)}
-                className="card-shine border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer"
+                className="card-shine border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 cursor-pointer touch-pan-y"
+                style={{ minHeight: '420px' }}
               >
-                <div className="flex flex-col">
+                <div className="flex flex-col h-full">
                   <div className="mb-6">
                     <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                       <currentService.icon className="w-8 h-8 text-primary" />
@@ -215,7 +282,7 @@ const Services = () => {
                     <h3 className="text-2xl font-bold mb-3">{currentService.title}</h3>
                     <p className="text-muted-foreground leading-relaxed">{currentService.description}</p>
                   </div>
-                  <div>
+                  <div className="mt-auto">
                     <div className="h-px bg-border mb-4" />
                     <ul className="space-y-2">
                       {currentService.features.map((feature) => (
@@ -282,8 +349,8 @@ const Services = () => {
                 <div
                   key={service.title}
                   onClick={() => setSelectedService(service)}
-                  className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02]"
-                  style={{ animationDelay: `${index * 60}ms` }}
+                  className="card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02] flex flex-col"
+                  style={{ animationDelay: `${index * 60}ms`, minHeight: '480px' }}
                 >
                   <div className="flex flex-col h-full">
                     <div className="mb-6">

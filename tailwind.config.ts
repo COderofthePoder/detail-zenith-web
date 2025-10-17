@@ -107,6 +107,10 @@ export default {
           "0%, 100%": { opacity: "0.6" },
           "50%": { opacity: "1" },
         },
+        "slide-right": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(10px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -119,6 +123,7 @@ export default {
         "loading-bar": "loading-bar 2s ease-out forwards",
         "gradient-shift": "gradient-shift 8s ease infinite",
         "pulse-slow": "pulse-slow 4s ease-in-out infinite",
+        "slide-right": "slide-right 1.5s ease-in-out infinite",
       },
     },
   },
