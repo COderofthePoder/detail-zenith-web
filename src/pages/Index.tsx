@@ -7,20 +7,9 @@ import ReviewCard from '@/components/ReviewCard';
 import StickyCTA from '@/components/StickyCTA';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import heroImage from '@/assets/hero-background.jpg';
 
 const Index = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   const services = [
     {
       icon: Droplets,
@@ -77,22 +66,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Parallax Background Image */}
+      {/* Fixed Background Image */}
       <div className="fixed inset-0 w-full h-screen z-0">
         <img 
           src={heroImage} 
           alt="Luxus Auto Detailing Background" 
           className="w-full h-full object-cover" 
           style={{
-            objectPosition: 'center 70%',
-            transform: `translateY(${scrollY * 0.5}px)`,
-            willChange: 'transform'
+            objectPosition: 'center 70%'
           }} 
           loading="eager" 
         />
       </div>
 
-      {/* Page Content */}
+      {/* Scrollable Content */}
       <div className="relative z-10">
         <Navigation />
         <StickyCTA />
