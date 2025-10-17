@@ -384,9 +384,6 @@ const Gallery = () => {
                 alt={galleryImages[selectedImage].alt}
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               />
-              <DialogClose className="absolute top-4 right-4 h-10 w-10 rounded-full bg-primary/90 hover:bg-primary border-2 border-primary shadow-glow flex items-center justify-center">
-                <X className="h-6 w-6 text-primary-foreground" />
-              </DialogClose>
             </div>
           )}
         </DialogContent>
