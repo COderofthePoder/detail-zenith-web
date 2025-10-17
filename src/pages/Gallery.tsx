@@ -458,8 +458,6 @@ const Gallery = () => {
           )}
         </DialogContent>
       </Dialog>
-
-      <Footer />
     </div>
   );
 };
