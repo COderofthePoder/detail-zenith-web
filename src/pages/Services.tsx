@@ -127,21 +127,38 @@ const Services = () => {
       <Navigation />
       <StickyCTA />
 
-      {/* Vibrant Static Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* Multi-color gradient base */}
+      {/* Modern Dynamic Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden bg-[#0a0a0a]">
+        {/* Mesh gradient background */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-40"
           style={{
-            background: 'radial-gradient(circle at 20% 30%, hsl(280 70% 40% / 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, hsl(200 80% 50% / 0.12) 0%, transparent 50%), radial-gradient(circle at 50% 50%, hsl(30 100% 50% / 0.18) 0%, transparent 70%), linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 12%) 100%)'
+            backgroundImage: `
+              radial-gradient(at 0% 0%, hsl(30 100% 50% / 0.3) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, hsl(280 100% 50% / 0.25) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, hsl(200 100% 50% / 0.25) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, hsl(330 100% 50% / 0.2) 0px, transparent 50%),
+              radial-gradient(at 50% 50%, hsl(35 100% 55% / 0.15) 0px, transparent 50%)
+            `
           }}
         />
-        {/* Accent spots */}
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-blue-500/8 rounded-full blur-3xl" />
-        {/* Subtle overlay */}
-        <div className="absolute inset-0 bg-gradient-overlay opacity-30" />
+        
+        {/* Geometric shapes */}
+        <div className="absolute top-20 right-20 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-500/15 to-transparent blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br from-purple-500/10 to-transparent blur-3xl" />
+        
+        {/* Subtle grid overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'linear-gradient(hsl(0 0% 100% / 0.1) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.1) 1px, transparent 1px)',
+            backgroundSize: '100px 100px'
+          }}
+        />
+        
+        {/* Dark overlay for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/60" />
       </div>
 
       {/* Hero Section */}
