@@ -396,27 +396,28 @@ const Gallery = () => {
 
       {/* Before/After Lightbox Dialog */}
       <Dialog open={isBeforeAfterLightboxOpen} onOpenChange={setIsBeforeAfterLightboxOpen}>
-        <DialogContent className="max-w-7xl w-full h-[90vh] p-0 bg-background/95 border-0">
+        <DialogContent className="max-w-7xl w-full max-h-[90vh] p-0 bg-background/95 border-0">
           {selectedBeforeAfter && (
-            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8">
-              <div className="w-full max-w-5xl">
+            <div className="relative w-full h-full flex flex-col p-4 md:p-8 overflow-y-auto">
+              <div className="w-full max-w-5xl mx-auto flex-shrink-0">
                 <BeforeAfterSlider
                   beforeImage={selectedBeforeAfter.before}
                   afterImage={selectedBeforeAfter.after}
                   alt={selectedBeforeAfter.alt}
                 />
-                <p className="text-center text-foreground mt-4 md:mt-6 text-base md:text-lg font-medium">
-                  {selectedBeforeAfter.alt}
-                </p>
-                {/* Mobile Zoom Button */}
-                <div className="flex justify-center mt-4 md:hidden">
-                  <Button
-                    onClick={handleBeforeAfterZoom}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
-                  >
-                    Bild vergrößern
-                  </Button>
-                </div>
+              </div>
+              <p className="text-center text-foreground mt-4 md:mt-6 text-base md:text-lg font-medium">
+                {selectedBeforeAfter.alt}
+              </p>
+              {/* Mobile Zoom Button */}
+              <div className="flex justify-center mt-4 md:hidden">
+                <Button
+                  onClick={handleBeforeAfterZoom}
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
+                >
+                  Bild vergrößern
+                </Button>
               </div>
             </div>
           )}
