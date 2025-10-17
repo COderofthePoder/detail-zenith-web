@@ -29,7 +29,7 @@ const App = () => {
       // Add a small delay for smooth transition
       setTimeout(() => {
         setIsLoading(false);
-      }, 300);
+      }, 1300);
     };
 
     img.onerror = () => {
