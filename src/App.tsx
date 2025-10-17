@@ -19,14 +19,16 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    // Preload the hero image
+    // Start preloading the hero image immediately
     const img = new Image();
     img.src = heroImage;
     
     img.onload = () => {
-      // Add a small delay for smooth transition
+      setImageLoaded(true);
+      // Add delay for smooth transition after image is loaded
       setTimeout(() => {
         setIsLoading(false);
       }, 1300);
@@ -34,11 +36,21 @@ const App = () => {
 
     img.onerror = () => {
       // If image fails to load, show content anyway after timeout
+      console.error('Failed to load hero image');
       setTimeout(() => {
         setIsLoading(false);
       }, 2000);
     };
-  }, []);
+
+    // Force minimum loading time to ensure image loads
+    const minLoadTime = setTimeout(() => {
+      if (imageLoaded) {
+        setIsLoading(false);
+      }
+    }, 3000);
+
+    return () => clearTimeout(minLoadTime);
+  }, [imageLoaded]);
 
   if (isLoading) {
     return <LoadingScreen />;
