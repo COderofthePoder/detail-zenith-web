@@ -13,6 +13,7 @@ import Impressum from "./pages/Impressum";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import LoadingScreen from "./components/LoadingScreen";
+import ScrollToTop from "./components/ScrollToTop";
 import heroImage from "@/assets/hero-background.jpg";
 
 const queryClient = new QueryClient();
@@ -62,6 +63,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/leistungen" element={<Services />} />
