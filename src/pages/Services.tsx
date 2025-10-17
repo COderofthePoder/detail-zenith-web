@@ -144,51 +144,84 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Carousel */}
+      {/* Services Carousel or Grid */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4">
-                {filteredServices.map((service, index) => (
-                  <CarouselItem key={service.title} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <div
-                      className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up"
-                      style={{ animationDelay: `${index * 60}ms` }}
-                    >
-                      <div className="flex flex-col h-full">
-                        <div className="mb-6">
-                          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                            <service.icon className="w-8 h-8 text-primary" />
+            {filteredServices.length > 3 ? (
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-4">
+                  {filteredServices.map((service, index) => (
+                    <CarouselItem key={service.title} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                      <div
+                        className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up"
+                        style={{ animationDelay: `${index * 60}ms` }}
+                      >
+                        <div className="flex flex-col h-full">
+                          <div className="mb-6">
+                            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                              <service.icon className="w-8 h-8 text-primary" />
+                            </div>
+                            <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                            <p className="text-muted-foreground leading-relaxed">{service.description}</p>
                           </div>
-                          <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                          <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                        </div>
-                        <div className="mt-auto">
-                          <div className="h-px bg-border mb-4" />
-                          <ul className="space-y-2">
-                            {service.features.map((feature) => (
-                              <li key={feature} className="flex items-center gap-2 text-sm">
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                                <span className="text-foreground/80">{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
+                          <div className="mt-auto">
+                            <div className="h-px bg-border mb-4" />
+                            <ul className="space-y-2">
+                              {service.features.map((feature) => (
+                                <li key={feature} className="flex items-center gap-2 text-sm">
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                                  <span className="text-foreground/80">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-0 -translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
+                <CarouselNext className="right-0 translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
+              </Carousel>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredServices.map((service, index) => (
+                  <div
+                    key={service.title}
+                    className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up"
+                    style={{ animationDelay: `${index * 60}ms` }}
+                  >
+                    <div className="flex flex-col h-full">
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                          <service.icon className="w-8 h-8 text-primary" />
+                        </div>
+                        <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                        <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                      </div>
+                      <div className="mt-auto">
+                        <div className="h-px bg-border mb-4" />
+                        <ul className="space-y-2">
+                          {service.features.map((feature) => (
+                            <li key={feature} className="flex items-center gap-2 text-sm">
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                              <span className="text-foreground/80">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                  </CarouselItem>
+                  </div>
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-0 -translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
-              <CarouselNext className="right-0 translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
-            </Carousel>
+              </div>
+            )}
           </div>
         </div>
       </section>
