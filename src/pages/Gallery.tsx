@@ -188,62 +188,56 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid - Scattered to Grid Animation */}
-      <section id="gallery-section" className="py-12 bg-secondary overflow-hidden relative">
+      {/* Gallery Grid - Bento Box Layout */}
+      <section id="gallery-section" className="py-24 md:py-32 bg-secondary overflow-hidden relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="mb-4 text-3xl">Impressionen</h2>
-            <p className="text-muted-foreground">
+          <div className="text-center mb-16">
+            <h2 className="mb-6 text-4xl md:text-5xl">Impressionen</h2>
+            <p className="text-lg md:text-xl text-muted-foreground">
               Einblicke in unsere Arbeit und unsere Werkstatt
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto">
-            {/* Scattered to Grid Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative">
+          <div className="max-w-[1400px] mx-auto">
+            {/* Bento Grid Layout with varied sizes */}
+            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[280px] gap-4">
               {galleryImages.map((image, index) => {
-                // Define scattered initial positions (random but consistent per index)
-                const scatteredPositions = [
-                  { x: -300, y: -200, rotate: -25 },
-                  { x: 400, y: -150, rotate: 30 },
-                  { x: -200, y: 100, rotate: -15 },
-                  { x: 350, y: 50, rotate: 20 },
-                  { x: -400, y: 200, rotate: -30 },
-                  { x: 300, y: -100, rotate: 25 },
-                  { x: -250, y: 250, rotate: -20 },
-                  { x: 200, y: 150, rotate: 15 },
+                // Define special layout for some images to create visual interest
+                const spanClasses = [
+                  "col-span-2 row-span-2", // Large featured
+                  "col-span-1 row-span-1", // Standard
+                  "col-span-1 row-span-2", // Tall
+                  "col-span-1 row-span-1", // Standard
+                  "col-span-2 row-span-1", // Wide
+                  "col-span-1 row-span-1", // Standard
+                  "col-span-1 row-span-2", // Tall
+                  "col-span-2 row-span-1", // Wide
                 ];
-                
-                const scattered = scatteredPositions[index] || { x: 0, y: 0, rotate: 0 };
-                
-                // Interpolate between scattered and grid position
-                const currentX = scattered.x * (1 - scrollProgress);
-                const currentY = scattered.y * (1 - scrollProgress);
-                const currentRotate = scattered.rotate * (1 - scrollProgress);
-                const currentOpacity = 0.3 + (scrollProgress * 0.7);
-                const currentScale = 0.7 + (scrollProgress * 0.3);
                 
                 return (
                   <div 
                     key={index}
-                    className="relative group cursor-pointer"
-                    style={{
-                      transform: `translate(${currentX}px, ${currentY}px) rotate(${currentRotate}deg) scale(${currentScale})`,
-                      opacity: currentOpacity,
-                      transition: 'transform 0.1s linear, opacity 0.1s linear',
-                    }}
+                    className={`relative group cursor-pointer ${spanClasses[index] || 'col-span-1 row-span-1'}`}
                     onClick={() => handleImageClick(index)}
                   >
-                    <div className="relative overflow-hidden rounded-xl shadow-2xl hover:shadow-primary/30 transition-all duration-700 aspect-square">
+                    <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-primary/50 transition-all duration-700 h-full group-hover:scale-[1.02] transform">
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                        <p className="text-foreground text-xs font-semibold">{image.alt}</p>
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
+                      {/* Shine Effect */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      </div>
+                      
+                      {/* Text Content */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        <p className="text-foreground text-sm md:text-base font-semibold">{image.alt}</p>
                       </div>
                     </div>
                   </div>
