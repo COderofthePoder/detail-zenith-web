@@ -12,7 +12,6 @@ import vorher2 from '@/assets/Vorher_2.jpeg';
 import nachher2 from '@/assets/Nachher_2.jpeg';
 import innenVorher from '@/assets/Innen_Vorher.jpeg';
 import innenFertig from '@/assets/Innen_Fertig.jpeg';
-import workshopImage from '@/assets/workshop.jpg';
 import amgFertig from '@/assets/AMG_Fertig.jpeg';
 import urusHuracan from '@/assets/Urus_Huracan.jpg';
 import lamboFertig from '@/assets/Lambo_Fertig.jpeg';
@@ -117,7 +116,6 @@ const Gallery = () => {
     { src: amgFertig, alt: 'Mercedes AMG - Perfekte Aufbereitung' },
     { src: urusHuracan, alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen' },
     { src: lamboFertig, alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung' },
-    { src: workshopImage, alt: 'Unsere moderne Werkstatt' },
     { src: bmwInnenFertig, alt: 'BMW Innenraumaufbereitung - Perfekte Sauberkeit' },
     { src: clsFertig, alt: 'Mercedes CLS - Hochglanzaufbereitung' },
     { src: clsFertig2, alt: 'Mercedes CLS - Premium Detailing' },
