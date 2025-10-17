@@ -147,12 +147,12 @@ const Gallery = () => {
     { 
       src: urusHuracan, 
       alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen',
-      description: 'Zwei absolute Traumwagen, die beide eine professionelle Detailing-Behandlung erhielten. Beim Urus wurde eine komplette Außenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
+      description: 'Zwei absolute Traumwagen, die beide eine professionelle Detailing-Behandlung erhielten. Beim Urus wurde eine komplette Aussenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
     },
     { 
       src: lamboFertig, 
       alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung',
-      description: 'Dieser Lamborghini wurde von uns komplett aufbereitet. Die Außenlackierung erhielt eine mehrstufige Politur, gefolgt von einer hochwertigen Keramikversiegelung für langanhaltenden Schutz. Die Carbon-Teile wurden speziell behandelt, um ihre einzigartige Optik zu erhalten. Eine perfekte Symbiose aus Schutz und Ästhetik.'
+      description: 'Dieser Lamborghini wurde von uns komplett aufbereitet. Die Aussenlackierung erhielt eine mehrstufige Politur, gefolgt von einer hochwertigen Keramikversiegelung für langanhaltenden Schutz. Die Carbon-Teile wurden speziell behandelt, um ihre einzigartige Optik zu erhalten. Eine perfekte Symbiose aus Schutz und Ästhetik.'
     },
     { 
       src: bmwInnenFertig, 
@@ -162,7 +162,7 @@ const Gallery = () => {
     { 
       src: clsFertig, 
       alt: 'Mercedes GLC - Hochglanzaufbereitung',
-      description: 'Bei diesem Mercedes GLC stand die Lackaufbereitung im Vordergrund. Durch mehrstufiges Polieren konnten wir Kratzer und Swirls vollständig entfernen. Die abschließende Versiegelung sorgt für einen spiegelglatten Hochglanz und Schutz vor Umwelteinflüssen. Die Felgen wurden ebenfalls komplett neu aufbereitet und versiegelt.'
+      description: 'Bei diesem Mercedes GLC stand die Lackaufbereitung im Vordergrund. Durch mehrstufiges Polieren konnten wir Kratzer und Swirls vollständig entfernen. Die abschliessende Versiegelung sorgt für einen spiegelglatten Hochglanz und Schutz vor Umwelteinflüssen. Die Felgen wurden ebenfalls komplett neu aufbereitet und versiegelt.'
     },
     { 
       src: clsFertig2, 
@@ -172,7 +172,7 @@ const Gallery = () => {
     { 
       src: lamboFertigInnen, 
       alt: 'Lamborghini Innenraum - Luxus Detailing',
-      description: 'Der Innenraum dieses Lamborghini wurde mit größter Sorgfalt aufbereitet. Alcantara-Elemente wurden speziell gereinigt und gepflegt, Lederpartien erhielten eine Intensivbehandlung. Carbon-Interieur wurde schonend behandelt, alle Displays und Touchscreens professionell gereinigt. Perfektion bis ins kleinste Detail.'
+      description: 'Der Innenraum dieses Lamborghini wurde mit grösster Sorgfalt aufbereitet. Alcantara-Elemente wurden speziell gereinigt und gepflegt, Lederpartien erhielten eine Intensivbehandlung. Carbon-Interieur wurde schonend behandelt, alle Displays und Touchscreens professionell gereinigt. Perfektion bis ins kleinste Detail.'
     },
   ];
 
@@ -203,7 +203,7 @@ const Gallery = () => {
             <div className="text-center mb-20">
               <h2 className="mb-6 text-4xl md:text-5xl">Vorher / Nachher</h2>
               <p className="text-lg md:text-xl text-muted-foreground mb-8">
-                Ziehen Sie den Regler, um den Unterschied zu sehen. Klicken Sie auf ein Bild, um es zu vergrößern.
+                Ziehen Sie den Regler, um den Unterschied zu sehen. Klicken Sie auf ein Bild, um es zu vergrössern.
               </p>
             </div>
 
@@ -245,7 +245,7 @@ const Gallery = () => {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
               >
-                Aktuelles Bild vergrößern
+                Aktuelles Bild vergrössern
               </Button>
             </div>
           </div>
