@@ -99,6 +99,14 @@ export default {
           "0%": { width: "0%" },
           "100%": { width: "100%" },
         },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "pulse-slow": {
+          "0%, 100%": { opacity: "0.6" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -109,6 +117,8 @@ export default {
         "shimmer": "shimmer 3s linear infinite",
         "float": "float 3s ease-in-out infinite",
         "loading-bar": "loading-bar 2s ease-out forwards",
+        "gradient-shift": "gradient-shift 8s ease infinite",
+        "pulse-slow": "pulse-slow 4s ease-in-out infinite",
       },
     },
   },

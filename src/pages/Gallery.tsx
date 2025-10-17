@@ -156,9 +156,11 @@ const Gallery = () => {
       <StickyCTA />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-8 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
+      <section className="relative pt-32 pb-8 bg-background overflow-hidden">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 animate-gradient-shift" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center max-w-4xl mx-auto animate-fade-up">
             <h1 className="mb-6">
               Unsere <span className="text-gradient">Referenzen</span>
             </h1>
@@ -171,8 +173,10 @@ const Gallery = () => {
       </section>
 
       {/* Before/After Slider */}
-      <section className="pt-12 md:pt-20 pb-24 md:pb-40 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="relative pt-12 md:pt-20 pb-24 md:pb-40 bg-background overflow-hidden">
+        {/* Glow effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-[1600px] mx-auto">
             <div className="text-center mb-20">
               <h2 className="mb-6 text-4xl md:text-5xl">Vorher / Nachher</h2>
@@ -215,8 +219,11 @@ const Gallery = () => {
       </section>
 
       {/* Gallery Slider - Impressionen */}
-      <section id="gallery-section" className="py-24 md:py-32 bg-secondary overflow-hidden relative">
-        <div className="container mx-auto px-4">
+      <section id="gallery-section" className="relative py-24 md:py-32 bg-gradient-to-b from-secondary via-secondary/50 to-background overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] animate-float" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '1s' }} />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="mb-6 text-4xl md:text-5xl">Impressionen</h2>
             <p className="text-lg md:text-xl text-muted-foreground">
@@ -273,10 +280,14 @@ const Gallery = () => {
       </section>
 
       {/* Instagram Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <Instagram className="w-12 h-12 text-primary mx-auto mb-4" />
+      <section className="relative py-20 bg-background overflow-hidden">
+        {/* Gradient border effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-3xl mx-auto animate-scale-in">
+            <div className="inline-block p-3 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mb-4 animate-pulse-slow">
+              <Instagram className="w-12 h-12 text-primary" />
+            </div>
             <h2 className="mb-4">Folgen Sie uns auf Instagram</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Entdecken Sie noch mehr Referenzen und bleiben Sie auf dem Laufenden
@@ -301,9 +312,11 @@ const Gallery = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-secondary">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
+      <section className="relative py-20 md:py-32 bg-gradient-to-br from-secondary via-secondary/80 to-background overflow-hidden">
+        {/* Animated shimmer effect */}
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,165,0,0.05)_50%,transparent_75%)] bg-[length:250%_250%] animate-shimmer" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-3xl mx-auto animate-fade-up">
             <h2 className="mb-6">Bereit für diesen Glanz?</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Lassen Sie uns auch Ihr Fahrzeug in Perfektion erstrahlen
