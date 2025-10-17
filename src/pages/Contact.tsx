@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Phone, Mail, MapPin, Clock, MessageSquare, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -171,41 +171,22 @@ const Contact = () => {
                       </div>
                       <div className="flex-1">
                         <h3 className="font-semibold mb-2">Telefon & WhatsApp</h3>
-                        <div className="space-y-3">
-                          <div>
-                            <a
-                              href="tel:+41765493697"
-                              className="text-muted-foreground hover:text-primary transition-colors block"
-                            >
-                              +41 76 549 36 97
-                            </a>
-                            <a
-                              href="tel:+41792610998"
-                              className="text-muted-foreground hover:text-primary transition-colors block"
-                            >
-                              +41 79 261 09 98
-                            </a>
-                          </div>
-                          <div className="pt-2 border-t border-border/50">
-                            <p className="text-muted-foreground text-sm mb-2">
-                              Auch via WhatsApp erreichbar:
-                            </p>
-                            <Button
-                              asChild
-                              variant="outline"
-                              size="sm"
-                              className="border-primary/30 hover:bg-primary/10"
-                            >
-                              <a
-                                href="https://wa.me/41765493697"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <MessageSquare className="w-4 h-4 mr-2" />
-                                WhatsApp Chat
-                              </a>
-                            </Button>
-                          </div>
+                        <div className="space-y-2">
+                          <a
+                            href="tel:+41765493697"
+                            className="text-muted-foreground hover:text-primary transition-colors block"
+                          >
+                            +41 76 549 36 97
+                          </a>
+                          <a
+                            href="tel:+41792610998"
+                            className="text-muted-foreground hover:text-primary transition-colors block"
+                          >
+                            +41 79 261 09 98
+                          </a>
+                          <p className="text-muted-foreground text-sm pt-2">
+                            Erreichbar per Telefon oder WhatsApp
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -248,28 +229,17 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  {/* Locations */}
+                  {/* Location */}
                   <div className="card-shine border border-border rounded-lg p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                         <MapPin className="w-6 h-6 text-primary" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold mb-3">Standorte</h3>
-                        <div className="space-y-4">
-                          <div>
-                            <p className="font-medium text-foreground text-sm">Werkstatt</p>
-                            <p className="text-muted-foreground text-sm">
-                              Hellstrasse 5<br />8127 Forch
-                            </p>
-                          </div>
-                          <div>
-                            <p className="font-medium text-foreground text-sm">Hauptsitz</p>
-                            <p className="text-muted-foreground text-sm">
-                              Willikonerstrasse 78<br />8618 Oetwil am See
-                            </p>
-                          </div>
-                        </div>
+                        <h3 className="font-semibold mb-3">Hauptsitz</h3>
+                        <p className="text-muted-foreground text-sm">
+                          Willikonerstrasse 78<br />8618 Oetwil am See
+                        </p>
                       </div>
                     </div>
                   </div>
