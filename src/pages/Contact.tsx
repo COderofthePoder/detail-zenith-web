@@ -174,7 +174,7 @@ const Contact = () => {
                         <div className="space-y-3">
                           <Button 
                             asChild
-                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground"
                           >
                             <a 
                               href="https://api.whatsapp.com/send/?phone=41765493697&text&type=phone_number&app_absent=0" 
@@ -187,7 +187,7 @@ const Contact = () => {
                           </Button>
                           <Button 
                             asChild
-                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground"
                           >
                             <a 
                               href="https://api.whatsapp.com/send/?phone=41792610998&text&type=phone_number&app_absent=0" 
