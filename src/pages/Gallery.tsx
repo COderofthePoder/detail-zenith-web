@@ -198,7 +198,7 @@ const Gallery = () => {
 
           <div className="max-w-[1400px] mx-auto">
             {/* Bento Grid Layout with varied sizes */}
-            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[280px] gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[280px] md:auto-rows-[380px] gap-4 md:gap-6">
               {galleryImages.map((image, index) => {
                 // Define special layout for some images to create visual interest
                 const spanClasses = [
