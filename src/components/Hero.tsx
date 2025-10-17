@@ -2,13 +2,34 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import heroImage from '@/assets/hero-background.jpg';
+import { useEffect, useState } from 'react';
+
 const Hero = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img src={heroImage} alt="Luxus Auto Detailing" className="w-full h-full object-cover" style={{
-        objectPosition: 'center 70%'
-      }} loading="eager" />
+        <img 
+          src={heroImage} 
+          alt="Luxus Auto Detailing" 
+          className="w-full h-full object-cover" 
+          style={{
+            objectPosition: 'center 70%',
+            transform: `translateY(${scrollY * 0.5}px)`,
+            transition: 'transform 0.1s ease-out'
+          }} 
+          loading="eager" 
+        />
         <div className="absolute inset-0 bg-gradient-overlay" />
       </div>
 
