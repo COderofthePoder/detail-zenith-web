@@ -216,12 +216,10 @@ const Gallery = () => {
                         <img
                           src={image.src}
                           alt={image.alt}
-                          className={`w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 ${
-                            index === 6 ? 'scale-[0.6]' : 'scale-[0.8]'
-                          }`}
+                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.8]"
                           style={{ 
-                            objectPosition: index === 2 ? 'center 80%' : 
-                                          index === 3 ? 'center 30%' : 
+                            objectPosition: index === 2 ? 'center 90%' : 
+                                          index === 3 ? 'center 40%' : 
                                           'center 70%' 
                           }}
                           loading="lazy"
@@ -229,9 +227,9 @@ const Gallery = () => {
                         {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
                         
-                        {/* Text Content */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 translate-y-full hover:translate-y-0 transition-transform duration-500">
-                          <p className="text-foreground text-lg md:text-xl font-semibold">{image.alt}</p>
+                        {/* Text Content - Always visible */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-background/90 to-transparent">
+                          <p className="text-foreground text-xl md:text-2xl font-script">{image.alt}</p>
                         </div>
                       </div>
                     </div>
