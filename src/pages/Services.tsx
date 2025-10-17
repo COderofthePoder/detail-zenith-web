@@ -159,7 +159,7 @@ const Services = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 relative border-b border-border/30">
+      <section className="py-8 relative">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
