@@ -185,7 +185,7 @@ const Contact = () => {
                             +41 79 261 09 98
                           </a>
                           <a 
-                            href="https://wa.me/41792610998?text=Hallo%20Team,%20ich%20habe%20eine%20Frage." 
+                            href="https://api.whatsapp.com/send/?phone=41792610998&text&type=phone_number&app_absent=0" 
                             target="_blank" 
                             rel="noopener"
                             className="text-primary hover:text-primary/80 text-sm pt-2 inline-block transition-colors"
