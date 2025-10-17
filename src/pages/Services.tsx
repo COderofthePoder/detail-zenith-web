@@ -151,7 +151,7 @@ const Services = () => {
             <h1 className="mb-6">
               Unsere <span className="text-gradient">Leistungen</span>
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-white drop-shadow-lg">
               Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basis-Reinigung bis zur Keramikversiegelung
             </p>
           </div>
