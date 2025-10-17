@@ -43,7 +43,22 @@ const Gallery = () => {
   const [selectedBeforeAfter, setSelectedBeforeAfter] = useState<{before: string, after: string, alt: string} | null>(null);
   const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
   const [isBeforeAfterFullscreenOpen, setIsBeforeAfterFullscreenOpen] = useState(false);
+  const [currentBeforeAfterIndex, setCurrentBeforeAfterIndex] = useState(0);
+  const [beforeAfterApi, setBeforeAfterApi] = useState<any>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    if (!beforeAfterApi) return;
+
+    const onSelect = () => {
+      setCurrentBeforeAfterIndex(beforeAfterApi.selectedScrollSnap());
+    };
+
+    beforeAfterApi.on('select', onSelect);
+    return () => {
+      beforeAfterApi.off('select', onSelect);
+    };
+  }, [beforeAfterApi]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,6 +116,7 @@ const Gallery = () => {
   };
 
   const handleBeforeAfterZoom = () => {
+    setSelectedBeforeAfter(beforeAfterPairs[currentBeforeAfterIndex]);
     setIsBeforeAfterFullscreenOpen(true);
   };
 
@@ -199,6 +215,7 @@ const Gallery = () => {
                 watchDrag: false,
               }}
               className="w-full"
+              setApi={setBeforeAfterApi}
             >
               <CarouselContent className="-ml-8">
                 {beforeAfterPairs.map((pair, index) => (
@@ -220,6 +237,17 @@ const Gallery = () => {
               <CarouselPrevious className="left-2 md:left-0 md:-translate-x-16 h-12 w-12 md:h-16 md:w-16 bg-primary/90 hover:bg-primary border-2 border-primary shadow-glow transition-all duration-300" />
               <CarouselNext className="right-2 md:right-0 md:translate-x-16 h-12 w-12 md:h-16 md:w-16 bg-primary/90 hover:bg-primary border-2 border-primary shadow-glow transition-all duration-300" />
             </Carousel>
+            
+            {/* Mobile Zoom Button for Carousel */}
+            <div className="flex justify-center mt-8 md:hidden">
+              <Button
+                onClick={handleBeforeAfterZoom}
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
+              >
+                Aktuelles Bild vergrößern
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -409,16 +437,6 @@ const Gallery = () => {
               <p className="text-center text-foreground mt-4 md:mt-6 text-base md:text-lg font-medium">
                 {selectedBeforeAfter.alt}
               </p>
-              {/* Mobile Zoom Button */}
-              <div className="flex justify-center mt-4 md:hidden">
-                <Button
-                  onClick={handleBeforeAfterZoom}
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
-                >
-                  Bild vergrößern
-                </Button>
-              </div>
             </div>
           )}
         </DialogContent>
