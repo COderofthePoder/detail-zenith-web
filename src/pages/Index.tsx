@@ -1,4 +1,4 @@
-import { Sparkles, Shield, Clock, Award, Droplets, Car, Wrench, Palette, Wind, Brush, Truck } from 'lucide-react';
+import { Sparkles, Shield, Clock, Award, Droplets, Car, Wrench, Palette, Truck } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
@@ -36,9 +36,9 @@ const Index = () => {
       description: 'Intensive Reinigung und Pflege Ihrer Felgen für dauerhaften Schutz und brillanten Glanz.',
     },
     {
-      icon: Wind,
-      title: 'Window Tinting',
-      description: 'Professionelle Scheibentönung für optimalen UV-Schutz, Privatsphäre und eleganten Look.',
+      icon: Palette,
+      title: 'Fahrzeugaufbereitung',
+      description: 'Komplette Aufbereitung für den Verkauf oder einfach für maximalen Werterhalt Ihres Fahrzeugs.',
     },
   ];
 

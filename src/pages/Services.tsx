@@ -1,5 +1,5 @@
 import { 
-  Droplets, Car, Sparkles, Shield, Wrench, Wind, 
+  Droplets, Car, Sparkles, Shield, Wrench, 
   Brush, Palette, ClipboardCheck, Gauge, ShieldAlert 
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
@@ -99,14 +99,6 @@ const Services = () => {
       detailedDescription: 'Das Lenkrad ist der am meisten beanspruchte Teil im Innenraum. Unsere Lenkradaufbereitung haucht abgenutzten, speckigen oder verfärbten Lenkrädern neues Leben ein. Wir reinigen gründlich, frischen Farben auf und tragen spezielle Pflegeprodukte auf, die das Material schützen und geschmeidig halten. Egal ob Leder, Alcantara oder Kunstleder – wir behandeln jeden Materialtyp mit den passenden Produkten. Das Ergebnis: Ein Lenkrad, das sich wieder angenehm anfühlt und makellos aussieht.',
       features: ['Leder-Auffrischung', 'Alcantara-Reinigung', 'Farbauffrischung', 'Schutzversiegelung'],
       category: 'interior',
-    },
-    {
-      icon: Wind,
-      title: 'Window Tinting (Scheibentönung)',
-      description: 'Professionelle Scheibentönung nach Schweizer Vorschriften. Optimaler UV-Schutz, erhöhte Privatsphäre und eleganter Look. Blasenfreie Applikation mit Garantie.',
-      detailedDescription: 'Unsere professionelle Scheibentönung bietet zahlreiche Vorteile: 99% UV-Schutz für Innenraum und Insassen, erhöhte Privatsphäre und einen eleganten sportlichen Look. Wir verwenden ausschließlich hochwertige Folien, die den Schweizer Vorschriften entsprechen. Die Montage erfolgt präzise und blasenfrei in unserer staubfreien Umgebung. Auf die Folie gewähren wir eine mehrjährige Garantie gegen Verfärbung und Blasenbildung. Gönnen Sie Ihrem Fahrzeug dieses Upgrade für Komfort und Optik.',
-      features: ['CH-konforme Tönung', 'UV-Schutz 99%', 'Blasenfreie Montage', 'Mehrjährige Garantie'],
-      category: 'special',
     },
     {
       icon: Palette,
