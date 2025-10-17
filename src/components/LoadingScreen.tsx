@@ -26,7 +26,7 @@ const LoadingScreen = () => {
           <img 
             src={logo} 
             alt="DS-Detailing Logo" 
-            className="w-48 h-48 object-contain"
+            className="w-72 h-72 object-contain"
           />
         </div>
         
