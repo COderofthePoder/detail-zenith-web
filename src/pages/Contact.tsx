@@ -264,7 +264,7 @@ const Contact = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="DS-Detailing Standort Forch"
+                title="DS-Detailing Standort"
               />
             </div>
           </div>

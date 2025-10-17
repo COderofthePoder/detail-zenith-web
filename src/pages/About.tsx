@@ -43,9 +43,8 @@ const About = () => {
                 Kollektivgesellschaft mit modernster Ausrüstung und höchsten Qualitätsstandards.
               </p>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Heute arbeiten wir in unserer modernen Werkstatt in Forch und betreuen 
-                Kunden in der gesamten Region Zürich mit Präzision, Fachkompetenz 
-                und echter Liebe zum Detail.
+                Heute betreuen wir Kunden in der gesamten Region Zürich mit Präzision, 
+                Fachkompetenz und echter Liebe zum Detail.
               </p>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/kontakt">Kontakt aufnehmen</Link>
@@ -109,9 +108,9 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="animate-fade-up">
-              <h2 className="mb-6">Unsere Werkstatt</h2>
+              <h2 className="mb-6">Unsere Ausstattung</h2>
               <p className="text-muted-foreground mb-4 leading-relaxed">
-                In unserer modern ausgestatteten Werkstatt an der <strong className="text-foreground">Hellstrasse 5 in Forch</strong> verfügen 
+                In unserer modern ausgestatteten Werkstatt verfügen 
                 wir über alles, was für professionelle Fahrzeugaufbereitung nötig ist.
               </p>
               <p className="text-muted-foreground mb-4 leading-relaxed">
@@ -149,7 +148,7 @@ const About = () => {
           <div className="max-w-3xl mx-auto">
             <h2 className="mb-6">Lernen Sie uns kennen</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Besuchen Sie uns in unserer Werkstatt oder kontaktieren Sie uns für eine unverbindliche Beratung
+              Besuchen Sie uns oder kontaktieren Sie uns für eine unverbindliche Beratung
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">

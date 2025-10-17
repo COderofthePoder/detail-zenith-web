@@ -62,13 +62,6 @@ const Impressum = () => {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Werkstatt</h3>
-                <p>Hellstrasse 5</p>
-                <p>8127 Forch</p>
-                <p>Schweiz</p>
-              </div>
-
-              <div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">Haftungsausschluss</h3>
                 <p className="leading-relaxed mb-4">
                   Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen Richtigkeit, Genauigkeit,

@@ -80,15 +80,8 @@ const Footer = () => {
 
           {/* Location */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-foreground">Standorte</h4>
+            <h4 className="text-sm font-semibold mb-4 text-foreground">Standort</h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
-                <div>
-                  <p className="font-medium text-foreground">Werkstatt</p>
-                  <p>Hellstrasse 5<br />8127 Forch</p>
-                </div>
-              </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
                 <div>

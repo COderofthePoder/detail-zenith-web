@@ -121,7 +121,7 @@ const Gallery = () => {
     { 
       src: urusHuracan, 
       alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen',
-      description: 'Zwei absolute Traumwagen in unserer Werkstatt. Beide Lamborghini erhielten eine professionelle Detailing-Behandlung. Beim Urus wurde eine komplette Außenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
+      description: 'Zwei absolute Traumwagen, die beide eine professionelle Detailing-Behandlung erhielten. Beim Urus wurde eine komplette Außenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
     },
     { 
       src: lamboFertig, 
@@ -220,7 +220,7 @@ const Gallery = () => {
           <div className="text-center mb-16">
             <h2 className="mb-6 text-4xl md:text-5xl">Impressionen</h2>
             <p className="text-lg md:text-xl text-muted-foreground">
-              Einblicke in unsere Arbeit und unsere Werkstatt
+              Einblicke in unsere Arbeit
             </p>
           </div>
 
