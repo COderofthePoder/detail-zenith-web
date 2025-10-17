@@ -195,30 +195,30 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Single Service Display with Navigation */}
+      {/* Services Display - Single on Mobile, Grid on Desktop */}
       <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto relative">
-            {/* Single Service Card */}
+          {/* Mobile View - Single Service with Navigation */}
+          <div className="md:hidden max-w-2xl mx-auto relative">
             {currentService && (
               <div
                 onClick={() => setSelectedService(currentService)}
-                className="card-shine border border-border rounded-2xl p-8 md:p-12 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer"
+                className="card-shine border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <div className="mb-8">
-                    <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                      <currentService.icon className="w-10 h-10 text-primary" />
+                  <div className="mb-6">
+                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                      <currentService.icon className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-3xl font-bold mb-4">{currentService.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-lg">{currentService.description}</p>
+                    <h3 className="text-2xl font-bold mb-3">{currentService.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{currentService.description}</p>
                   </div>
                   <div>
-                    <div className="h-px bg-border mb-6" />
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="h-px bg-border mb-4" />
+                    <ul className="space-y-2">
                       {currentService.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
+                        <li key={feature} className="flex items-center gap-2 text-sm">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
                           <span className="text-foreground/80">{feature}</span>
                         </li>
                       ))}
@@ -228,41 +228,76 @@ const Services = () => {
               </div>
             )}
 
-            {/* Navigation Arrows */}
+            {/* Mobile Navigation Arrows */}
             <button
               onClick={goToPreviousPage}
               disabled={currentPage === 0}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 sm:-translate-x-20 h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 h-14 w-14 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
               aria-label="Vorherige Leistung"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
             <button
               onClick={goToNextPage}
               disabled={currentPage === totalPages - 1}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 sm:translate-x-20 h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 h-14 w-14 rounded-full bg-primary/90 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-glow border-2 border-primary z-10"
               aria-label="Nächste Leistung"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-primary-foreground">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
 
-            {/* Page Indicator */}
-            <div className="flex justify-center gap-2 mt-10">
+            {/* Mobile Page Indicator */}
+            <div className="flex justify-center gap-2 mt-8">
               {filteredServices.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentPage(index)}
-                  className={`h-2.5 rounded-full transition-all ${
+                  className={`h-2 rounded-full transition-all ${
                     index === currentPage
-                      ? 'w-10 bg-primary'
-                      : 'w-2.5 bg-border hover:bg-border/60'
+                      ? 'w-8 bg-primary'
+                      : 'w-2 bg-border hover:bg-border/60'
                   }`}
                   aria-label={`Gehe zu Leistung ${index + 1}`}
                 />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop View - Grid */}
+          <div className="hidden md:block max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredServices.map((service, index) => (
+                <div
+                  key={service.title}
+                  onClick={() => setSelectedService(service)}
+                  className="h-full card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02]"
+                  style={{ animationDelay: `${index * 60}ms` }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                        <service.icon className="w-8 h-8 text-primary" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                    </div>
+                    <div className="mt-auto">
+                      <div className="h-px bg-border mb-4" />
+                      <ul className="space-y-2">
+                        {service.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-2 text-sm">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                            <span className="text-foreground/80">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
