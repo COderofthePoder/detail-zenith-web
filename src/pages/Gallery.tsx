@@ -216,7 +216,7 @@ const Gallery = () => {
                         <img
                           src={image.src}
                           alt={image.alt}
-                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.8]"
+                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.9]"
                           style={{ 
                             objectPosition: index === 2 ? 'center 90%' : 
                                           index === 3 ? 'center 40%' : 
