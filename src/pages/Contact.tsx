@@ -170,24 +170,34 @@ const Contact = () => {
                         <Phone className="w-6 h-6 text-primary" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold mb-2">Telefon & WhatsApp</h3>
-                        <div className="space-y-2">
-                          <a 
-                            href="https://api.whatsapp.com/send/?phone=41765493697&text&type=phone_number&app_absent=0" 
-                            target="_blank" 
-                            rel="noopener"
-                            className="text-primary hover:text-primary/80 text-sm inline-block transition-colors"
+                        <h3 className="font-semibold mb-4">Telefon & WhatsApp</h3>
+                        <div className="space-y-3">
+                          <Button 
+                            asChild
+                            className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white"
                           >
-                            WhatsApp: +41 76 549 36 97
-                          </a>
-                          <a 
-                            href="https://api.whatsapp.com/send/?phone=41792610998&text&type=phone_number&app_absent=0" 
-                            target="_blank" 
-                            rel="noopener"
-                            className="text-primary hover:text-primary/80 text-sm inline-block transition-colors"
+                            <a 
+                              href="https://api.whatsapp.com/send/?phone=41765493697&text&type=phone_number&app_absent=0" 
+                              target="_blank" 
+                              rel="noopener"
+                            >
+                              <Phone className="w-4 h-4 mr-2" />
+                              WhatsApp: +41 76 549 36 97
+                            </a>
+                          </Button>
+                          <Button 
+                            asChild
+                            className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white"
                           >
-                            WhatsApp: +41 79 261 09 98
-                          </a>
+                            <a 
+                              href="https://api.whatsapp.com/send/?phone=41792610998&text&type=phone_number&app_absent=0" 
+                              target="_blank" 
+                              rel="noopener"
+                            >
+                              <Phone className="w-4 h-4 mr-2" />
+                              WhatsApp: +41 79 261 09 98
+                            </a>
+                          </Button>
                         </div>
                       </div>
                     </div>
