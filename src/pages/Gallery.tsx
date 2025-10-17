@@ -400,19 +400,23 @@ const Gallery = () => {
           {selectedBeforeAfter && (
             <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8">
               <div className="w-full max-w-5xl">
-                <div 
-                  className="cursor-zoom-in"
-                  onClick={handleBeforeAfterZoom}
-                >
-                  <BeforeAfterSlider
-                    beforeImage={selectedBeforeAfter.before}
-                    afterImage={selectedBeforeAfter.after}
-                    alt={selectedBeforeAfter.alt}
-                  />
-                </div>
+                <BeforeAfterSlider
+                  beforeImage={selectedBeforeAfter.before}
+                  afterImage={selectedBeforeAfter.after}
+                  alt={selectedBeforeAfter.alt}
+                />
                 <p className="text-center text-foreground mt-4 md:mt-6 text-base md:text-lg font-medium">
                   {selectedBeforeAfter.alt}
                 </p>
+                {/* Mobile Zoom Button */}
+                <div className="flex justify-center mt-4 md:hidden">
+                  <Button
+                    onClick={handleBeforeAfterZoom}
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
+                  >
+                    Bild vergrößern
+                  </Button>
+                </div>
               </div>
             </div>
           )}
