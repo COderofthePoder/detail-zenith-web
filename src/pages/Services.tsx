@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -23,25 +23,7 @@ const Services = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
-  const [showSwipeHint, setShowSwipeHint] = useState(true);
   const mobileCardRef = useRef<HTMLDivElement>(null);
-
-  // Hide swipe hint after 3 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSwipeHint(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Reset swipe hint when category changes
-  useEffect(() => {
-    setShowSwipeHint(true);
-    const timer = setTimeout(() => {
-      setShowSwipeHint(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [activeCategory]);
 
   const categories = [
     { id: 'all', label: 'Alle Leistungen' },
@@ -156,12 +138,10 @@ const Services = () => {
 
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
-    setShowSwipeHint(false);
   };
 
   const goToPreviousPage = () => {
     setCurrentPage(currentPage - 1);
-    setShowSwipeHint(false);
   };
 
   // Swipe handlers
@@ -252,16 +232,14 @@ const Services = () => {
         <div className="container mx-auto px-4">
           {/* Mobile View - Single Service with Navigation */}
           <div className="md:hidden max-w-2xl mx-auto relative">
-            {/* Swipe Hint Animation */}
-            {showSwipeHint && (
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-                <div className="flex items-center gap-2 text-primary font-semibold text-lg animate-pulse">
-                  <span className="animate-[slide-right_1.5s_ease-in-out_infinite_reverse]">←</span>
-                  <span>Wische</span>
-                  <span className="animate-[slide-right_1.5s_ease-in-out_infinite]">→</span>
-                </div>
+            {/* Swipe Hint - Always Visible */}
+            <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+              <div className="flex items-center gap-3 bg-primary/20 backdrop-blur-sm px-6 py-2 rounded-full border border-primary/40">
+                <span className="text-2xl font-bold text-white animate-[slide-right_1.5s_ease-in-out_infinite_reverse]">←</span>
+                <span className="text-white font-bold text-lg">Wische</span>
+                <span className="text-2xl font-bold text-white animate-[slide-right_1.5s_ease-in-out_infinite]">→</span>
               </div>
-            )}
+            </div>
             
             {currentService && (
               <div
