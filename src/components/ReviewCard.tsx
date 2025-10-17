@@ -10,7 +10,7 @@ interface ReviewCardProps {
 
 const ReviewCard = ({ name, rating, text, date }: ReviewCardProps) => {
   return (
-    <Card className="card-shine border-border">
+    <Card className="bg-background/80 backdrop-blur-md border-border/50 hover:bg-background/90 transition-all duration-300">
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <div>

@@ -11,21 +11,21 @@ const Hero = () => {
           
 
           {/* Main Heading */}
-          <h1 className="mb-6 leading-tight">
+          <h1 className="mb-6 leading-tight text-white drop-shadow-2xl">
             Perfektion bis ins<br />
-            <span className="text-gradient">kleinste Detail</span>
+            <span className="text-gradient drop-shadow-2xl">kleinste Detail</span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl md:text-2xl text-foreground/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/95 mb-8 max-w-2xl mx-auto drop-shadow-lg">
             Professionelle Fahrzeugaufbereitung mit höchster Präzision und modernster Technik
           </p>
 
           {/* Value Props */}
           <div className="flex flex-wrap justify-center gap-8 mb-10">
             {['Hochwertige Produkte', 'Moderne Technik', 'Höchste Präzision'].map(item => <div key={item} className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="text-sm md:text-base text-foreground/80">{item}</span>
+                <div className="w-2 h-2 bg-primary rounded-full shadow-glow" />
+                <span className="text-sm md:text-base text-white/90 drop-shadow-md">{item}</span>
               </div>)}
           </div>
 
@@ -37,7 +37,7 @@ const Hero = () => {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-foreground/20 hover:bg-foreground/10">
+            <Button asChild size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:border-white/50">
               <Link to="/leistungen">Unsere Leistungen</Link>
             </Button>
           </div>
@@ -46,8 +46,8 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-float">
-        <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-3 bg-primary rounded-full" />
+        <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
+          <div className="w-1 h-3 bg-primary rounded-full shadow-glow" />
         </div>
       </div>
     </section>;

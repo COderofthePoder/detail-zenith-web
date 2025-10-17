@@ -11,7 +11,7 @@ interface ServiceCardProps {
 const ServiceCard = ({ icon: Icon, title, description, delay = 0 }: ServiceCardProps) => {
   return (
     <Card
-      className="group card-shine border-border hover:border-primary/50 transition-all duration-300 hover:shadow-card hover:-translate-y-1"
+      className="group bg-background/80 backdrop-blur-md border-border/50 hover:border-primary/50 hover:bg-background/90 transition-all duration-300 hover:shadow-card hover:-translate-y-1"
       style={{ animationDelay: `${delay}ms` }}
     >
       <CardContent className="p-6">

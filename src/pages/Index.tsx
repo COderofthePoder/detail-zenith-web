@@ -92,8 +92,8 @@ const Index = () => {
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
-            <h2 className="mb-4">Unsere Leistungen</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="mb-4 text-white drop-shadow-2xl">Unsere Leistungen</h2>
+            <p className="text-lg text-white/90 drop-shadow-lg">
               Von der professionellen Handwäsche bis zur Keramikversiegelung – 
               wir bieten das komplette Spektrum für perfekte Fahrzeugpflege
             </p>
@@ -108,7 +108,7 @@ const Index = () => {
           </div>
 
           <div className="text-center">
-            <Button asChild size="lg" variant="outline" className="border-foreground/20 hover:bg-foreground/10">
+            <Button asChild size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:border-white/50">
               <Link to="/leistungen">Alle Leistungen ansehen</Link>
             </Button>
           </div>
@@ -119,8 +119,8 @@ const Index = () => {
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="mb-4">Warum DS-Detailing?</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="mb-4 text-white drop-shadow-2xl">Warum DS-Detailing?</h2>
+            <p className="text-lg text-white/90 max-w-2xl mx-auto drop-shadow-lg">
               Zwei Auto-Enthusiasten mit einer Mission: Perfektion in jedem Detail
             </p>
           </div>
@@ -149,11 +149,13 @@ const Index = () => {
               },
             ].map((item, index) => (
               <div key={item.title} className="text-center animate-fade-up" style={{ animationDelay: `${index * 80}ms` }}>
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="w-8 h-8 text-primary" />
+                <div className="bg-background/80 backdrop-blur-md border border-border/50 rounded-2xl p-8 hover:bg-background/90 transition-all duration-300">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <item.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
               </div>
             ))}
           </div>
@@ -164,8 +166,8 @@ const Index = () => {
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="mb-4">Das sagen unsere Kunden</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="mb-4 text-white drop-shadow-2xl">Das sagen unsere Kunden</h2>
+            <p className="text-lg text-white/90 drop-shadow-lg">
               Zufriedene Kunden sind unser bester Beweis für Qualität
             </p>
           </div>
@@ -183,7 +185,7 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto bg-background/80 backdrop-blur-md border border-border/50 rounded-3xl p-12">
             <h2 className="mb-6">Bereit für die perfekte Pflege?</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Vereinbaren Sie jetzt einen Termin und erleben Sie, wie Ihr Fahrzeug in neuem Glanz erstrahlt
@@ -192,7 +194,7 @@ const Index = () => {
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
                 <Link to="/kontakt">Termin buchen</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-foreground/20 hover:bg-foreground/10">
+              <Button asChild size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/50">
                 <Link to="/galerie">Galerie ansehen</Link>
               </Button>
             </div>
