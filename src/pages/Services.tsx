@@ -442,7 +442,10 @@ const Services = () => {
                       <Link to="/kontakt">Jetzt Termin buchen</Link>
                     </Button>
                     <Button asChild variant="outline" className="flex-1">
-                      <a href="tel:+41765493697">Anrufen: +41 76 549 36 97</a>
+                      <a href="https://api.whatsapp.com/send/?phone=41765493697&text&type=phone_number&app_absent=0" target="_blank" rel="noopener">WhatsApp: +41 76 549 36 97</a>
+                    </Button>
+                    <Button asChild variant="outline" className="flex-1">
+                      <a href="https://api.whatsapp.com/send/?phone=41792610998&text&type=phone_number&app_absent=0" target="_blank" rel="noopener">WhatsApp: +41 79 261 09 98</a>
                     </Button>
                   </div>
                 </div>

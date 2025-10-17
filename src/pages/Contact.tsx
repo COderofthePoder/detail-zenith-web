@@ -172,25 +172,21 @@ const Contact = () => {
                       <div className="flex-1">
                         <h3 className="font-semibold mb-2">Telefon & WhatsApp</h3>
                         <div className="space-y-2">
-                          <a
-                            href="tel:+41765493697"
-                            className="text-muted-foreground hover:text-primary transition-colors block"
+                          <a 
+                            href="https://api.whatsapp.com/send/?phone=41765493697&text&type=phone_number&app_absent=0" 
+                            target="_blank" 
+                            rel="noopener"
+                            className="text-primary hover:text-primary/80 text-sm inline-block transition-colors"
                           >
-                            +41 76 549 36 97
-                          </a>
-                          <a
-                            href="tel:+41792610998"
-                            className="text-muted-foreground hover:text-primary transition-colors block"
-                          >
-                            +41 79 261 09 98
+                            WhatsApp: +41 76 549 36 97
                           </a>
                           <a 
                             href="https://api.whatsapp.com/send/?phone=41792610998&text&type=phone_number&app_absent=0" 
                             target="_blank" 
                             rel="noopener"
-                            className="text-primary hover:text-primary/80 text-sm pt-2 inline-block transition-colors"
+                            className="text-primary hover:text-primary/80 text-sm inline-block transition-colors"
                           >
-                            Chat auf WhatsApp öffnen
+                            WhatsApp: +41 79 261 09 98
                           </a>
                         </div>
                       </div>
