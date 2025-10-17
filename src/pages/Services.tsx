@@ -22,7 +22,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import lamboBackground from '@/assets/Urus_Huracan.jpg';
+import lamboBackground from '@/assets/Urus_Huracan (1).jpg';
 
 const Services = () => {
   const [activeCategory, setActiveCategory] = useState('all');
