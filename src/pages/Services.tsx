@@ -131,26 +131,26 @@ const Services = () => {
       <div className="fixed inset-0 -z-10 overflow-hidden bg-[#0a0a0a]">
         {/* Mesh gradient background */}
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-70"
           style={{
             backgroundImage: `
-              radial-gradient(at 0% 0%, hsl(30 100% 50% / 0.3) 0px, transparent 50%),
-              radial-gradient(at 100% 0%, hsl(280 100% 50% / 0.25) 0px, transparent 50%),
-              radial-gradient(at 100% 100%, hsl(200 100% 50% / 0.25) 0px, transparent 50%),
-              radial-gradient(at 0% 100%, hsl(330 100% 50% / 0.2) 0px, transparent 50%),
-              radial-gradient(at 50% 50%, hsl(35 100% 55% / 0.15) 0px, transparent 50%)
+              radial-gradient(at 0% 0%, hsl(30 100% 50% / 0.5) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, hsl(280 100% 50% / 0.45) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, hsl(200 100% 50% / 0.45) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, hsl(330 100% 50% / 0.4) 0px, transparent 50%),
+              radial-gradient(at 50% 50%, hsl(35 100% 55% / 0.35) 0px, transparent 50%)
             `
           }}
         />
         
         {/* Geometric shapes */}
-        <div className="absolute top-20 right-20 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-500/15 to-transparent blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br from-purple-500/10 to-transparent blur-3xl" />
+        <div className="absolute top-20 right-20 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/35 to-transparent blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-500/30 to-transparent blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br from-purple-500/25 to-transparent blur-3xl" />
         
         {/* Subtle grid overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.05]"
           style={{
             backgroundImage: 'linear-gradient(hsl(0 0% 100% / 0.1) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.1) 1px, transparent 1px)',
             backgroundSize: '100px 100px'
@@ -158,7 +158,7 @@ const Services = () => {
         />
         
         {/* Dark overlay for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background/30" />
       </div>
 
       {/* Hero Section */}
@@ -176,7 +176,7 @@ const Services = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-background/80 backdrop-blur-md sticky top-20 z-40 border-b border-border">
+      <section className="py-8 sticky top-20 z-40 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
@@ -287,7 +287,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-secondary/30 backdrop-blur-sm relative">
+      <section className="py-20 md:py-32 relative">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="mb-6">Interesse an unseren Leistungen?</h2>
