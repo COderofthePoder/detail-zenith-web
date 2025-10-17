@@ -216,8 +216,14 @@ const Gallery = () => {
                         <img
                           src={image.src}
                           alt={image.alt}
-                          className="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 scale-[0.8]"
-                          style={{ objectPosition: 'center 70%' }}
+                          className={`w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:brightness-110 ${
+                            index === 6 ? 'scale-[0.6]' : 'scale-[0.8]'
+                          }`}
+                          style={{ 
+                            objectPosition: index === 2 ? 'center 80%' : 
+                                          index === 3 ? 'center 30%' : 
+                                          'center 70%' 
+                          }}
                           loading="lazy"
                         />
                         {/* Gradient Overlay */}
