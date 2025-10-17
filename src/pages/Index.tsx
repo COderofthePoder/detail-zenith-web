@@ -1,4 +1,4 @@
-import { Sparkles, Shield, Clock, Award, Droplets, Car, Wrench, Palette, Wind, Brush } from 'lucide-react';
+import { Sparkles, Shield, Clock, Award, Droplets, Car, Wrench, Palette, Wind, Brush, Truck } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
@@ -108,7 +108,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
               {
                 icon: Award,
@@ -124,6 +124,11 @@ const Index = () => {
                 icon: Sparkles,
                 title: 'Höchste Präzision',
                 description: 'Liebe zum Detail und Perfektion bei jedem Arbeitsschritt',
+              },
+              {
+                icon: Truck,
+                title: 'Bring- und Holservice',
+                description: 'Bequemer Abhol- und Bringservice für alle Leistungen – wir kümmern uns um alles',
               },
             ].map((item, index) => (
               <div key={item.title} className="text-center animate-fade-up" style={{ animationDelay: `${index * 80}ms` }}>

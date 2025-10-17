@@ -119,9 +119,9 @@ const Services = () => {
     {
       icon: ShieldAlert,
       title: 'Steinschlagreparatur & Scheibentausch',
-      description: 'Steinschlag in der Frontscheibe? Kein Stress – wir tauschen sie schnell und professionell! Profitieren Sie von Cashback, Selbstbehalt-Übernahme und unserem praktischen Bring- und Holservice.',
-      detailedDescription: 'Ein Steinschlag in der Frontscheibe ist ärgerlich, aber kein Grund zur Sorge. Wir tauschen Ihre beschädigte Scheibe schnell, professionell und unkompliziert. Das Beste daran: Sie profitieren von attraktiven Vorteilen wie Cashback-Aktionen und wir übernehmen Ihren Selbstbehalt. Unser praktischer Bring- und Holservice macht die Reparatur noch komfortabler – Sie müssen sich um nichts kümmern. Vereinbaren Sie jetzt einen Termin und fahren Sie schon bald wieder mit klarer Sicht!',
-      features: ['Cashback sichern', 'Selbstbehalt wird übernommen', 'Bring- und Holservice', 'Weitere starke Aktionen'],
+      description: 'Steinschlag in der Frontscheibe? Kein Stress – wir tauschen sie schnell und professionell! Profitieren Sie von Cashback, Selbstbehalt-Übernahme und weiteren starken Aktionen.',
+      detailedDescription: 'Ein Steinschlag in der Frontscheibe ist ärgerlich, aber kein Grund zur Sorge. Wir tauschen Ihre beschädigte Scheibe schnell, professionell und unkompliziert. Das Beste daran: Sie profitieren von attraktiven Vorteilen wie Cashback-Aktionen und wir übernehmen Ihren Selbstbehalt. Vereinbaren Sie jetzt einen Termin und fahren Sie schon bald wieder mit klarer Sicht!',
+      features: ['Cashback sichern', 'Selbstbehalt wird übernommen', 'Schneller Scheibentausch', 'Weitere starke Aktionen'],
       category: 'special',
     },
   ];
