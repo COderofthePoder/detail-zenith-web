@@ -151,7 +151,7 @@ const Gallery = () => {
   ];
 
   return (
-    <>
+    <div className="min-h-screen overflow-x-hidden">
       <Navigation />
       <StickyCTA />
 
@@ -207,8 +207,8 @@ const Gallery = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-0 -translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
-              <CarouselNext className="right-0 translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselPrevious className="hidden md:flex left-0 -translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
+              <CarouselNext className="hidden md:flex right-0 translate-x-16 h-16 w-16 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl" />
             </Carousel>
           </div>
         </div>
@@ -347,19 +347,19 @@ const Gallery = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-50 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 hover:bg-background border-2 border-primary/20 hover:border-primary"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary/90 hover:bg-primary border-2 border-primary shadow-glow transition-all"
                 onClick={handlePrevImage}
               >
-                <ChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
+                <ChevronLeft className="h-8 w-8 md:h-10 md:w-10 text-primary-foreground" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 hover:bg-background border-2 border-primary/20 hover:border-primary"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary/90 hover:bg-primary border-2 border-primary shadow-glow transition-all"
                 onClick={handleNextImage}
               >
-                <ChevronRight className="h-6 w-6 md:h-8 md:w-8" />
+                <ChevronRight className="h-8 w-8 md:h-10 md:w-10 text-primary-foreground" />
               </Button>
             </div>
           )}
@@ -385,7 +385,9 @@ const Gallery = () => {
           )}
         </DialogContent>
       </Dialog>
-    </>
+
+      <Footer />
+    </div>
   );
 };
 
