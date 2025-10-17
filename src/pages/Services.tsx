@@ -271,7 +271,13 @@ const Services = () => {
 
           {/* Desktop View - 3-Column Slider */}
           <div className="hidden md:block max-w-7xl mx-auto relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`grid gap-6 ${
+              currentServicesDesktop.length === 1 
+                ? 'grid-cols-1 max-w-lg mx-auto' 
+                : currentServicesDesktop.length === 2 
+                ? 'grid-cols-2 max-w-4xl mx-auto' 
+                : 'grid-cols-3'
+            }`}>
               {currentServicesDesktop.map((service, index) => (
                 <div
                   key={service.title}
