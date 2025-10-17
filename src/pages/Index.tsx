@@ -88,7 +88,7 @@ const Index = () => {
         <Hero />
 
       {/* Services Section */}
-      <section className="py-20 md:py-32 bg-background/95 backdrop-blur-sm">
+      <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="mb-4">Unsere Leistungen</h2>
@@ -115,7 +115,7 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="mb-4">Warum DS-Detailing?</h2>
@@ -160,7 +160,7 @@ const Index = () => {
       </section>
 
       {/* Reviews Section */}
-      <section className="py-20 md:py-32 bg-background">
+      <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="mb-4">Das sagen unsere Kunden</h2>
@@ -180,7 +180,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-secondary/30">
+      <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="mb-6">Bereit für die perfekte Pflege?</h2>
