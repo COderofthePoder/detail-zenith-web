@@ -191,7 +191,13 @@ const Services = () => {
                 <CarouselNext className="right-0 translate-x-16 h-12 w-12 bg-background/95 hover:bg-background border-2 border-primary/20 hover:border-primary transition-all" />
               </Carousel>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className={`grid gap-6 ${
+                filteredServices.length === 1 
+                  ? 'grid-cols-1 max-w-md mx-auto' 
+                  : filteredServices.length === 2 
+                  ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto' 
+                  : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+              }`}>
                 {filteredServices.map((service, index) => (
                   <div
                     key={service.title}
