@@ -79,7 +79,7 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
+          <div className="md:hidden py-4 border-t border-border animate-fade-in bg-background/95 backdrop-blur-md">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
@@ -93,12 +93,6 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground w-full">
-                <Link to="/kontakt" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Phone className="w-4 h-4 mr-2" />
-                  Termin buchen
-                </Link>
-              </Button>
             </div>
           </div>
         )}
