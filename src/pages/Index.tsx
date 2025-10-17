@@ -66,7 +66,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Fixed Background Image */}
+      {/* Fixed Background Image with Dark Overlay */}
       <div className="fixed inset-0 w-full h-screen z-0">
         <img 
           src={heroImage} 
@@ -77,6 +77,7 @@ const Index = () => {
           }} 
           loading="eager" 
         />
+        <div className="absolute inset-0 bg-gradient-overlay" />
       </div>
 
       {/* Scrollable Content */}
