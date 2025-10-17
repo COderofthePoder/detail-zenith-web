@@ -39,6 +39,7 @@ import {
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
   const [selectedBeforeAfter, setSelectedBeforeAfter] = useState<{before: string, after: string, alt: string} | null>(null);
   const [isBeforeAfterLightboxOpen, setIsBeforeAfterLightboxOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -101,6 +102,10 @@ const Gallery = () => {
   const handleImageClick = (index: number) => {
     setSelectedImage(index);
     setIsLightboxOpen(true);
+  };
+
+  const handleImageZoom = () => {
+    setIsFullscreenOpen(true);
   };
 
   const handlePrevImage = () => {
@@ -324,7 +329,10 @@ const Gallery = () => {
             <div className="relative w-full h-full flex flex-col">
               {/* Image */}
               <div className="w-full flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-secondary/50">
-                <div className="relative flex items-center justify-center mx-auto max-h-[30vh] md:max-h-[50vh]">
+                <div 
+                  className="relative flex items-center justify-center mx-auto max-h-[30vh] md:max-h-[50vh] cursor-zoom-in"
+                  onClick={handleImageZoom}
+                >
                   <img
                     src={galleryImages[selectedImage].src}
                     alt={galleryImages[selectedImage].alt}
@@ -361,6 +369,24 @@ const Gallery = () => {
               >
                 <ChevronRight className="h-6 w-6 md:h-8 md:w-8 text-primary-foreground" />
               </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Fullscreen Image Dialog */}
+      <Dialog open={isFullscreenOpen} onOpenChange={setIsFullscreenOpen}>
+        <DialogContent className="max-w-[98vw] w-full h-[98vh] p-2 bg-background/98 border-primary/20">
+          {selectedImage !== null && (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={galleryImages[selectedImage].src}
+                alt={galleryImages[selectedImage].alt}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              />
+              <DialogClose className="absolute top-4 right-4 h-10 w-10 rounded-full bg-primary/90 hover:bg-primary border-2 border-primary shadow-glow flex items-center justify-center">
+                <X className="h-6 w-6 text-primary-foreground" />
+              </DialogClose>
             </div>
           )}
         </DialogContent>
