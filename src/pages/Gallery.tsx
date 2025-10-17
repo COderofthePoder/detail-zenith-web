@@ -324,11 +324,11 @@ const Gallery = () => {
             <div className="relative w-full h-full flex flex-col">
               {/* Image */}
               <div className="w-full flex-shrink-0 flex items-center justify-center p-4 md:p-6 bg-secondary/50">
-                <div className="relative w-full max-w-[70%] max-h-[25vh] md:max-w-full md:max-h-[50vh] flex items-center justify-center mx-auto">
+                <div className="relative flex items-center justify-center mx-auto max-h-[30vh] md:max-h-[50vh]">
                   <img
                     src={galleryImages[selectedImage].src}
                     alt={galleryImages[selectedImage].alt}
-                    className="w-full h-full object-contain rounded-lg shadow-2xl"
+                    className="max-w-[85%] md:max-w-full h-auto max-h-[30vh] md:max-h-[50vh] object-contain rounded-lg shadow-2xl"
                   />
                 </div>
               </div>
