@@ -73,7 +73,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Clock className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
-                <span>Mo–Sa 08:00–18:00</span>
+                <span>Auf Anfrage</span>
               </li>
             </ul>
           </div>
@@ -86,7 +86,7 @@ const Footer = () => {
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
                 <div>
                   <p className="font-medium text-foreground">Hauptsitz</p>
-                  <p>Willikonerstrasse 78<br />8618 Oetwil am See</p>
+                  <p>Willikonerstrasse 7<br />8618 Oetwil am See</p>
                 </div>
               </li>
             </ul>
