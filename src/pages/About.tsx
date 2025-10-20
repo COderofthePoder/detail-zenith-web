@@ -119,14 +119,14 @@ const About = () => {
                 beste Ausrüstung für optimale Ergebnisse.
               </p>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Unser Hauptsitz befindet sich an der <strong className="text-foreground">Willikonerstrasse 78 
+                Unser Hauptsitz befindet sich an der <strong className="text-foreground">Willikonerstrasse 7 
                 in Oetwil am See</strong>. Hier koordinieren wir alle administrativen Aufgaben 
                 und stehen Ihnen für Fragen zur Verfügung.
               </p>
               <div className="space-y-3 text-sm">
                 <div className="flex items-center gap-3 justify-center">
                   <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/80">Öffnungszeiten: Mo–Sa 08:00–18:00</span>
+                  <span className="text-foreground/80">Öffnungszeiten: Auf Anfrage</span>
                 </div>
                 <div className="flex items-center gap-3 justify-center">
                   <div className="w-2 h-2 bg-primary rounded-full" />

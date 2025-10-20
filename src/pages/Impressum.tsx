@@ -16,7 +16,7 @@ const Impressum = () => {
                 <h2 className="text-2xl font-semibold text-foreground mb-4">Angaben gemäss Schweizer Recht</h2>
                 <div className="space-y-2">
                   <p className="text-foreground font-medium">DS-Detailing Kollektivgesellschaft</p>
-                  <p>Willikonerstrasse 78</p>
+                  <p>Willikonerstrasse 7</p>
                   <p>8618 Oetwil am See</p>
                   <p>Schweiz</p>
                 </div>

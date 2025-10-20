@@ -230,11 +230,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold mb-2">Öffnungszeiten</h3>
                         <p className="text-muted-foreground text-sm">
-                          Montag – Samstag: 08:00–18:00
-                        </p>
-                        <p className="text-muted-foreground text-sm">Sonntag: Geschlossen</p>
-                        <p className="text-primary text-sm mt-2">
-                          Termine nach Vereinbarung
+                          Auf Anfrage
                         </p>
                       </div>
                     </div>
@@ -249,7 +245,7 @@ const Contact = () => {
                       <div className="flex-1">
                         <h3 className="font-semibold mb-3">Hauptsitz</h3>
                         <p className="text-muted-foreground text-sm">
-                          Willikonerstrasse 78<br />8618 Oetwil am See
+                          Willikonerstrasse 7<br />8618 Oetwil am See
                         </p>
                       </div>
                     </div>
