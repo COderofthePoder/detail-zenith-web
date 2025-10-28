@@ -330,19 +330,19 @@ const Services = () => {
                 style={{ minHeight: '480px' }}
               >
                 <div className="flex flex-col h-full">
-                  <div className="mb-6">
+                  <div className="flex-1">
                     <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                       <currentService.icon className="w-8 h-8 text-primary" />
                     </div>
                     <h3 className="text-2xl font-bold mb-3">{currentService.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">{currentService.description}</p>
+                    <p className="text-muted-foreground leading-relaxed">{currentService.description}</p>
+                  </div>
+                  <div className="mt-auto pt-4">
                     {currentService.detailedPrice && (
-                      <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20">
+                      <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20 mb-4">
                         <p className="text-xl font-bold text-primary">{currentService.detailedPrice}</p>
                       </div>
                     )}
-                  </div>
-                  <div className="mt-auto">
                     <div className="h-px bg-border mb-4" />
                     <ul className="space-y-2">
                       {currentService.features.map((feature) => (
@@ -391,19 +391,19 @@ const Services = () => {
                   style={{ animationDelay: `${index * 60}ms`, minHeight: '480px' }}
                 >
                   <div className="flex flex-col h-full">
-                    <div className="mb-6">
+                    <div className="flex-1">
                       <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                         <service.icon className="w-8 h-8 text-primary" />
                       </div>
                       <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed mb-4">{service.description}</p>
+                      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                    </div>
+                    <div className="mt-auto pt-4">
                       {service.detailedPrice && (
-                        <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20">
+                        <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20 mb-4">
                           <p className="text-xl font-bold text-primary">{service.detailedPrice}</p>
                         </div>
                       )}
-                    </div>
-                    <div className="mt-auto">
                       <div className="h-px bg-border mb-4" />
                       <ul className="space-y-2">
                         {service.features.map((feature) => (
