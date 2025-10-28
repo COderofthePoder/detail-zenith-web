@@ -19,6 +19,8 @@ import bmwInnenFertig from '@/assets/BMW_Innen_Fertig_New.jpeg';
 import clsFertig from '@/assets/CLS_Fertig_New.jpeg';
 import clsFertig2 from '@/assets/CLS_Fertig2_New.jpeg';
 import lamboFertigInnen from '@/assets/Lambo_Fertig_Innen_New.jpeg';
+import whatsappImage1 from '@/assets/WhatsApp Image 2025-10-28 at 10.38.03.jpeg';
+import whatsappImage2 from '@/assets/WhatsApp Image 2025-10-28 at 10.38.03 (1).jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -83,6 +85,11 @@ const Gallery = () => {
   }, []);
 
   const beforeAfterPairs = [
+    {
+      before: whatsappImage1,
+      after: whatsappImage2,
+      alt: 'Fahrzeugaufbereitung',
+    },
     {
       before: amgLenkradVorher,
       after: amgLenkradNachher,
