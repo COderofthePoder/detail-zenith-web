@@ -160,16 +160,6 @@ const Gallery = () => {
       description: 'Der Innenraum dieses BMW wurde komplett restauriert. Alle Ledersitze wurden intensiv gereinigt, aufbereitet und mit hochwertigen Pflegeprodukten behandelt. Das Lenkrad erhielt eine Spezialbehandlung, Kunststoffteile wurden aufgefrischt und versiegelt. Der Dachhimmel wurde professionell gereinigt. Das Ergebnis übertrifft die Erwartungen.'
     },
     { 
-      src: clsFertig, 
-      alt: 'Mercedes GLC - Hochglanzaufbereitung',
-      description: 'Bei diesem Mercedes GLC stand die Lackaufbereitung im Vordergrund. Durch mehrstufiges Polieren konnten wir Kratzer und Swirls vollständig entfernen. Die abschliessende Versiegelung sorgt für einen spiegelglatten Hochglanz und Schutz vor Umwelteinflüssen. Die Felgen wurden ebenfalls komplett neu aufbereitet und versiegelt.'
-    },
-    { 
-      src: clsFertig2, 
-      alt: 'Mercedes GLC - Professionelles Detailing',
-      description: 'Komplette professionelle Aufbereitung dieses GLC. Neben der Lackpflege wurden auch die Chromelemente poliert, die Scheiben versiegelt und der Innenraum detailliert gereinigt. Besonderes Augenmerk lag auf den Ledersitzen, die eine intensive Pflegebehandlung erhielten. Ein makelloses Gesamtbild.'
-    },
-    { 
       src: lamboFertigInnen, 
       alt: 'Lamborghini Innenraum - Luxus Detailing',
       description: 'Der Innenraum dieses Lamborghini wurde mit grösster Sorgfalt aufbereitet. Alcantara-Elemente wurden speziell gereinigt und gepflegt, Lederpartien erhielten eine Intensivbehandlung. Carbon-Interieur wurde schonend behandelt, alle Displays und Touchscreens professionell gereinigt. Perfektion bis ins kleinste Detail.'

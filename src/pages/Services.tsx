@@ -1,6 +1,7 @@
 import { 
   Droplets, Car, Sparkles, Shield, Wrench, 
-  Brush, Palette, ClipboardCheck, Gauge, ShieldAlert 
+  Brush, Package, PackageCheck, Crown, Lightbulb, 
+  Zap, Wind, Dog, Sun 
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -26,93 +27,170 @@ const Services = () => {
   const mobileCardRef = useRef<HTMLDivElement>(null);
 
   const categories = [
-    { id: 'all', label: 'Alle Leistungen' },
-    { id: 'cleaning', label: 'Reinigung' },
-    { id: 'paint', label: 'Lackpflege' },
-    { id: 'interior', label: 'Innenraum' },
-    { id: 'special', label: 'Spezial' },
+    { id: 'all', label: 'Alle Pakete' },
+    { id: 'komplett', label: 'Komplettpakete' },
+    { id: 'aussen', label: 'Aussen' },
+    { id: 'innen', label: 'Innen' },
+    { id: 'politur', label: 'Politur' },
+    { id: 'versiegelung', label: 'Versiegelung' },
+    { id: 'zusatz', label: 'Zusatzleistungen' },
   ];
 
   const services = [
+    // Komplettpakete
+    {
+      icon: Crown,
+      title: 'Komplett Deluxe',
+      description: 'Das ultimative Premium-Paket für höchste Ansprüche. Komplette Innenraumaufbereitung, professionelle Aussenpflege und dreistufige Politur für Showroom-Finish.',
+      detailedDescription: 'Unser Deluxe-Paket ist die Königsklasse der Fahrzeugaufbereitung. Es kombiniert intensive Innenraumreinigung aller Sitzflächen, Teppiche und Flächen mit professioneller Aussenpflege inklusive Handwäsche, Felgen- und Scheibenreinigung. Das Highlight: Eine dreistufige Politur mit intensiver Lackkorrektur für höchste Ansprüche, die tiefe Kratzer entfernt und maximale Glätte erreicht. Ihr Fahrzeug erstrahlt in neuem Glanz – innen wie aussen perfekt.',
+      detailedPrice: 'CHF 1\'150 – 1\'200',
+      features: ['Innenraumtiefenreinigung Premium', 'Komplette Aussenpflege Standard', 'Dreistufige Politur (Showroom-Finish)', 'Hochglanzfinish & Lackkorrektur'],
+      category: 'komplett',
+    },
+    {
+      icon: PackageCheck,
+      title: 'Komplett Premium',
+      description: 'Premium-Komplettpaket für anspruchsvolle Fahrzeugpflege. Umfassende Innenraumaufbereitung plus professionelle Aussenpflege für ein rundum gepflegtes Fahrzeug.',
+      detailedDescription: 'Das Premium-Paket bietet eine umfassende Aufbereitung Ihres Fahrzeugs. Die Innenraumaufbereitung umfasst Tiefenreinigung aller Sitzflächen (Textil oder Leder), Teppiche und Himmel, inklusive Lederpflege und Entfernung hartnäckiger Verschmutzungen. Die Aussenpflege beinhaltet gründliche Handwäsche, intensive Felgenreinigung, Scheibenreinigung innen & aussen, Reifenpflege und sanfte Wachsauffrischung. Ideal für alle, die ihrem Fahrzeug eine Rundum-Erneuerung gönnen möchten.',
+      detailedPrice: 'CHF 290 – 310',
+      features: ['Innenraumtiefenreinigung Premium', 'Lederpflege & Fleckenentfernung', 'Aussenpflege Standard komplett', 'Felgen- & Scheibenreinigung'],
+      category: 'komplett',
+    },
+    {
+      icon: Package,
+      title: 'Komplett Basic',
+      description: 'Perfektes Einstiegspaket für gründliche Reinigung innen und aussen. Ideal für alle, die ein gepflegtes Gesamtbild zum attraktiven Preis suchen.',
+      detailedDescription: 'Das Basic-Paket kombiniert unsere bewährte Innenreinigung mit professioneller Aussenpflege. Innen wird gründlich gestaubsaugt, Cockpit und Armaturen gereinigt und gepflegt, Glasreinigung durchgeführt. Aussen erfolgt eine gründliche Handwäsche mit pH-neutralen Produkten, intensive Felgenreinigung, Scheibenreinigung und Reifenpflege. Abgerundet wird das Paket mit einer sanften Wachsauffrischung für Glanz und Schutz. Das perfekte Paket für den Alltag.',
+      detailedPrice: 'CHF 190 – 200',
+      features: ['Innenreinigung Basic komplett', 'Aussenpflege Standard', 'Cockpit & Armaturen-Pflege', 'Wachsauffrischung'],
+      category: 'komplett',
+    },
+    
+    // Aussenpflege
     {
       icon: Droplets,
-      title: 'Aussenreinigung & Handwäsche',
-      description: 'Professionelle Fahrzeugwäsche mit pH-neutralen Shampoos. Schonende Reinigung ohne Kratzer, streifenfreier Glanz und optimaler Schutz für Ihren Lack. Inklusive Felgen-, Glas- und Türfalzreinigung.',
-      detailedDescription: 'Unsere professionelle Handwäsche ist weit mehr als eine normale Autowäsche. Wir verwenden ausschliesslich pH-neutrale Qualitäts-Shampoos, die Ihren Lack schonend reinigen ohne die Schutzschichten anzugreifen. Mit der bewährten Two-Bucket-Methode vermeiden wir Kratzer und Swirls. Jede Wäsche beinhaltet eine intensive Felgenreinigung, Glasreinigung und die oft vergessenen Türfalze. Das Ergebnis: Ein strahlender, streifenfreier Glanz und optimaler Schutz für Ihren Lack.',
-      features: ['pH-neutrale Qualitätsprodukte', 'Kratzfreie Two-Bucket-Methode', 'Felgen & Türfalzen', 'Streifenfreie Trocknung'],
-      category: 'cleaning',
+      title: 'Aussenpflege Standard',
+      description: 'Gründliche Handwäsche mit pH-neutralen Produkten, intensive Felgenreinigung, Scheibenreinigung innen & aussen, Reifenpflege und sanfte Wachsauffrischung.',
+      detailedDescription: 'Unsere Aussenpflege Standard ist die perfekte Wahl für alle, die eine saubere und gepflegte Optik möchten. Die professionelle Handwäsche erfolgt mit pH-neutralen Shampoos, die Ihren Lack schonend reinigen. Die intensive Felgenreinigung entfernt Bremsstaub und hartnäckige Verschmutzungen. Scheiben werden innen und aussen kristallklar gereinigt. Abgerundet wird die Behandlung mit Reifenpflege und einer sanften Wachsauffrischung für Glanz und Schutz.',
+      detailedPrice: 'CHF 130 – 180',
+      features: ['Professionelle Handwäsche', 'Intensive Felgenreinigung', 'Scheibenreinigung innen & aussen', 'Reifenpflege & Wachsauffrischung'],
+      category: 'aussen',
     },
-    {
-      icon: ClipboardCheck,
-      title: 'MFK-Vorbereitung & Wäsche',
-      description: 'Perfekte Vorbereitung für die MFK-Prüfung. Inklusive gründlicher Motorwäsche, Unterbodenwäsche und Komplettaufbereitung – so bestehen Sie die Prüfung problemlos.',
-      detailedDescription: 'Bereiten Sie Ihr Fahrzeug optimal auf die MFK-Prüfung vor. Unsere MFK-Vorbereitung umfasst eine professionelle Motorwäsche, gründliche Unterbodenwäsche und eine komplette Fahrzeugaufbereitung innen und aussen. Wir reinigen alle prüfungsrelevanten Bereiche gründlich und sorgen dafür, dass Ihr Fahrzeug in bestem Zustand zur Prüfung erscheint. Mit unserer Vorbereitung maximieren Sie Ihre Chancen auf eine problemlose MFK-Abnahme.',
-      features: ['Motorwäsche', 'Unterbodenwäsche', 'Komplette Fahrzeugwäsche', 'MFK-optimierte Aufbereitung'],
-      category: 'cleaning',
-    },
+    
+    // Innenraumaufbereitung
     {
       icon: Sparkles,
-      title: 'Politur & Lackkorrektur',
-      description: 'Professionelle Beseitigung von Kratzern, Hologrammen und Lackdefekten. Mehrstufige Politur für spiegelglatten Glanz und perfekte Vorbereitung für Versiegelungen.',
-      detailedDescription: 'Unsere professionelle Lackkorrektur entfernt Kratzer, Hologramme, Swirls und andere Lackdefekte mit modernster Poliertechnik. Wir arbeiten in mehreren Stufen – von der groben Schnittbearbeitung bis zur Feinstpolitur – um eine perfekt spiegelglatte Oberfläche zu erzielen. Diese Behandlung ist ideal als Vorbereitung für eine Keramikversiegelung und bringt den ursprünglichen Glanz Ihres Lacks zurück. Jede Politur wird individuell auf Lackzustand und -härte abgestimmt.',
-      features: ['Mehrstufige Politur', 'Kratzerentfernung', 'Hologrammbeseitigung', 'Spiegelglanz-Finish'],
-      category: 'paint',
-    },
-    {
-      icon: Shield,
-      title: 'Keramikversiegelung',
-      description: 'Langanhaltender Schutz für Lack, Felgen und Glas. Extreme Hydrophobie, einfachste Reinigung und intensiver Glanz für Jahre. Professionelle Applikation mit garantierter Haltbarkeit.',
-      detailedDescription: 'Die Keramikversiegelung ist der ultimative Schutz für Ihr Fahrzeug. Sie bildet eine extrem harte, glasartige Schutzschicht auf dem Lack, die bis zu 5 Jahre hält. Die Versiegelung schützt vor UV-Strahlung, Umwelteinflüssen, Vogelkot, Insekten und leichten Kratzern. Dank der extremen Hydrophobie perlen Wasser und Schmutz einfach ab – die Reinigung wird zum Kinderspiel. Wir versiegeln auf Wunsch auch Felgen und Glas für rundum perfekten Schutz und intensiven Glanz.',
-      features: ['Lack-Versiegelung (bis 5 Jahre)', 'Felgen-Versiegelung', 'Glas-Versiegelung', 'Hydrophober Effekt'],
-      category: 'paint',
-    },
-    {
-      icon: Wrench,
-      title: 'Felgenreinigung & Pflege',
-      description: 'Intensive Reinigung und Pflege Ihrer Felgen. Entfernung von Bremsstaub, Flugrost und hartnäckigen Verschmutzungen. Optional mit Keramikversiegelung für dauerhaften Schutz.',
-      detailedDescription: 'Felgen sind permanenten Belastungen ausgesetzt – Bremsstaub, Flugrost und Strassenschmutz setzen ihnen zu. Unsere intensive Felgenreinigung entfernt selbst hartnäckigste Verschmutzungen schonend aber gründlich. Wir verwenden spezielle Felgenreiniger, die auch in schwer zugängliche Bereiche vordringen. Optional bieten wir eine Keramikversiegelung für Felgen an, die dauerhaften Schutz bietet und die Reinigung künftig deutlich erleichtert. Für langanhaltenden Glanz und perfekte Optik.',
-      features: ['Bremsstaub-Entfernung', 'Flugrost-Behandlung', 'Felgen-Versiegelung (optional)', 'Glanzpolitur'],
-      category: 'paint',
+      title: 'Innen Premium',
+      description: 'Tiefenreinigung aller Sitzflächen, Teppiche und Himmel. Inklusive Lederpflege und Entfernung hartnäckiger Verschmutzungen für gründliche Auffrischung.',
+      detailedDescription: 'Die Premium-Innenraumaufbereitung ist eine intensive Tiefenreinigung Ihres gesamten Innenraums. Alle Sitzflächen werden gründlich gereinigt – egal ob Textil oder Leder. Teppiche, Fussmatten und sogar der Himmel werden professionell behandelt. Ledersitze erhalten eine spezielle Pflegebehandlung, die das Material nährt und geschmeidig hält. Hartnäckige Verschmutzungen, Staub und Schmutz in allen Ritzen werden restlos entfernt. Ihr Innenraum wird hygienisch sauber und erstrahlt in neuem Glanz.',
+      detailedPrice: 'CHF 180 – 250',
+      features: ['Tiefenreinigung Sitzflächen & Teppiche', 'Himmel-Reinigung', 'Lederpflege professionell', 'Entfernung hartnäckiger Verschmutzungen'],
+      category: 'innen',
     },
     {
       icon: Car,
-      title: 'Innenreinigung & Aufbereitung',
-      description: 'Gründliche Reinigung und Auffrischung des gesamten Innenraums. Von Polstern über Armaturenbrett bis zu den kleinsten Ritzen – wir sorgen für ein hygienisches, frisches Fahrgefühl.',
-      detailedDescription: 'Ein sauberer Innenraum ist essenziell für Ihr Wohlbefinden und den Werterhalt Ihres Fahrzeugs. Unsere Innenraumaufbereitung ist eine Tiefenreinigung aller Flächen – von Polstern über Armaturenbrett bis in die kleinsten Ritzen. Wir verwenden spezielle Reiniger für jeden Materialtyp und neutralisieren unangenehme Gerüche nachhaltig. Teppiche und Polster werden intensiv gereinigt, Kunststoffteile aufgefrischt und gepflegt. Das Ergebnis ist ein hygienisch sauberer, frisch duftender Innenraum wie am ersten Tag.',
-      features: ['Tiefenreinigung aller Flächen', 'Polster & Teppichpflege', 'Geruchsneutralisation', 'Kunststoffpflege'],
-      category: 'interior',
+      title: 'Innen Basic',
+      description: 'Gründliches Staubsaugen, Reinigung und Pflege von Cockpit, Armaturen und Türverkleidungen. Glasreinigung innen für frischen, hygienischen Innenraum.',
+      detailedDescription: 'Die Basic-Innenreinigung ist ideal für den Alltag und hält Ihren Innenraum frisch und hygienisch. Es wird gründlich gestaubsaugt – Teppiche, Sitze und Kofferraum werden von Staub und Schmutz befreit. Cockpit, Armaturen und Türverkleidungen werden sorgfältig gereinigt und gepflegt. Die Glasreinigung innen sorgt für klare Sicht. Perfekt für alle, die regelmässig für Ordnung und Sauberkeit sorgen möchten.',
+      detailedPrice: 'CHF 90 – 120',
+      features: ['Gründliches Staubsaugen komplett', 'Cockpit & Armaturen-Reinigung', 'Türverkleidungen-Pflege', 'Glasreinigung innen'],
+      category: 'innen',
+    },
+    
+    // Politur & Lackaufbereitung
+    {
+      icon: Zap,
+      title: 'Dreistufige Politur (Showroom-Finish)',
+      description: 'Intensive Lackkorrektur für höchste Ansprüche. Entfernt tiefe Kratzer, maximale Glätte und Hochglanzfinish. Perfekt für Premium-Fahrzeuge.',
+      detailedDescription: 'Die dreistufige Politur ist unsere Königsklasse der Lackaufbereitung. In drei intensiven Arbeitsschritten entfernen wir tiefe Kratzer, Hologramme und Swirls vollständig. Durch mehrstufiges Schleifen und Polieren erreichen wir maximale Glätte und einen Hochglanz, der seinesgleichen sucht. Diese Behandlung ist perfekt für Präsentationsfahrzeuge oder Premium-Fahrzeuge, die perfekt aussehen sollen. Der Lack erstrahlt wie neu.',
+      detailedPrice: 'Kleinwagen: CHF 850 / Mittelklasse: CHF 950 / SUV: CHF 1\'090',
+      features: ['Tiefe Kratzerentfernung', 'Maximale Lackglätte', 'Hochglanzfinish', 'Ideal für Premium-Fahrzeuge'],
+      category: 'politur',
     },
     {
-      icon: Brush,
-      title: 'Leder/Alcantara/Polster-Aufbereitung',
-      description: 'Spezialbehandlung für Leder, Alcantara und Stoffpolster. Reinigung, Pflege und Imprägnierung für langanhaltenden Schutz und gepflegtes Aussehen.',
-      detailedDescription: 'Hochwertige Materialien wie Leder und Alcantara benötigen spezielle Pflege. Unsere Materialaufbereitung beginnt mit einer schonenden aber gründlichen Reinigung, gefolgt von intensiver Pflege mit hochwertigen Produkten. Leder wird genährt und geschmeidig gehalten, Alcantara erhält seine samtige Haptik zurück. Hartnäckige Flecken werden professionell entfernt. Abschliessend erfolgt eine Imprägnierung, die vor Verschmutzungen und Verschleiss schützt. Ihre Polster sehen aus wie neu und bleiben es länger.',
-      features: ['Lederreinigung & -pflege', 'Alcantara-Behandlung', 'Fleckenentfernung', 'Imprägnierung'],
-      category: 'interior',
+      icon: Lightbulb,
+      title: 'Zweistufige Politur (Kratzerkorrektur & Glanz)',
+      description: 'Entfernt mittlere Kratzer, Hologramme und leichte Swirls. Tiefenglanz und perfekte Vorbereitung für Versiegelungen.',
+      detailedDescription: 'Die zweistufige Politur bietet eine professionelle Kratzerkorrektur in zwei Schritten. Im ersten Schritt werden mittlere Kratzer, Hologramme und leichte Swirls entfernt. Der zweite Schritt bringt den Tiefenglanz zurück und bereitet den Lack optimal für Versiegelungen vor. Diese Behandlung ist ideal für Fahrzeuge, die bereits sichtbare Gebrauchsspuren aufweisen und eine deutliche Aufwertung benötigen.',
+      detailedPrice: 'Kleinwagen: CHF 650 / Mittelklasse: CHF 750 / SUV: CHF 850',
+      features: ['Mittlere Kratzerentfernung', 'Hologramm-Beseitigung', 'Tiefenglanz', 'Vorbereitung für Versiegelung'],
+      category: 'politur',
     },
     {
-      icon: Gauge,
-      title: 'Lenkradaufbereitung',
-      description: 'Spezielle Behandlung für abgenutzte Lenkräder. Reinigung, Auffrischung und Schutz für Leder-, Alcantara- und Kunstleder-Lenkräder.',
-      detailedDescription: 'Das Lenkrad ist der am meisten beanspruchte Teil im Innenraum. Unsere Lenkradaufbereitung haucht abgenutzten, speckigen oder verfärbten Lenkrädern neues Leben ein. Wir reinigen gründlich, frischen Farben auf und tragen spezielle Pflegeprodukte auf, die das Material schützen und geschmeidig halten. Egal ob Leder, Alcantara oder Kunstleder – wir behandeln jeden Materialtyp mit den passenden Produkten. Das Ergebnis: Ein Lenkrad, das sich wieder angenehm anfühlt und makellos aussieht.',
-      features: ['Leder-Auffrischung', 'Alcantara-Reinigung', 'Farbauffrischung', 'Schutzversiegelung'],
-      category: 'interior',
+      icon: Sparkles,
+      title: 'Einstufige Politur (Glanzauffrischung)',
+      description: 'Entfernung leichter Kratzer, Oxidation und kleiner Gebrauchsspuren. Bringt den Lack zurück zum strahlenden Glanz und schützt die Oberfläche.',
+      detailedDescription: 'Die einstufige Politur ist die ideale Glanzauffrischung für Ihren Lack. Sie entfernt leichte Kratzer, Oxidation und kleine Gebrauchsspuren effektiv. Der Lack wird aufgefrischt, zurück zum strahlenden Glanz gebracht und gleichzeitig geschützt und gepflegt. Diese Behandlung eignet sich perfekt für Fahrzeuge, die regelmässig gepflegt werden und nur leichte Auffrischung benötigen.',
+      detailedPrice: 'Kleinwagen: CHF 390 / Mittelklasse: CHF 450 / SUV: CHF 520',
+      features: ['Leichte Kratzerentfernung', 'Oxidations-Beseitigung', 'Glanzauffrischung', 'Lackschutz & -pflege'],
+      category: 'politur',
+    },
+    
+    // Versiegelungen
+    {
+      icon: Shield,
+      title: 'Keramikversiegelung (3 Jahre)',
+      description: 'Extra langer Schutz für Ihren Lack. Sorgt für dauerhaft tiefen Glanz, minimiert Kratzer- und Witterungsschäden. Wasser- und schmutzabweisend.',
+      detailedDescription: 'Die 3-Jahres-Keramikversiegelung bietet extra langen Schutz für Ihren Lack. Die hochwertige Versiegelung bildet eine extrem harte Schutzschicht, die dauerhaft tiefen Glanz garantiert und Kratzer sowie Witterungsschäden minimiert. UV-Strahlung, Vogelkot und Insekten können Ihrem Lack nichts mehr anhaben. Dank der extremen Hydrophobie perlen Wasser und Schmutz einfach ab – die Reinigung wird zum Kinderspiel.',
+      detailedPrice: 'CHF 600',
+      features: ['3 Jahre Schutz', 'UV-beständig', 'Wasser- & schmutzabweisend', 'Minimiert Kratzer'],
+      category: 'versiegelung',
     },
     {
-      icon: Palette,
-      title: 'Fahrzeugaufbereitung für Verkauf',
-      description: 'Komplette Aufbereitung Ihres Fahrzeugs für den bestmöglichen Verkaufspreis. Innen und aussen perfekt präsentiert – so überzeugen Sie potenzielle Käufer.',
-      detailedDescription: 'Der erste Eindruck zählt – besonders beim Fahrzeugverkauf. Unsere Verkaufsaufbereitung ist ein Komplettpaket, das Ihr Fahrzeug innen und aussen in Bestform bringt. Wir polieren den Lack auf Hochglanz, reinigen und pflegen den Innenraum gründlich, beseitigen Gerüche und kümmern uns um alle Details. Studien zeigen: Professionell aufbereitete Fahrzeuge erzielen deutlich höhere Verkaufspreise und verkaufen sich schneller. Investieren Sie in eine professionelle Aufbereitung – sie zahlt sich aus.',
-      features: ['Komplette Innen- & Aussenreinigung', 'Politur & Auffrischung', 'Geruchsbeseitigung', 'Verkaufsoptimierung'],
-      category: 'special',
+      icon: Shield,
+      title: 'Keramikversiegelung (1 Jahr)',
+      description: 'Hochwertiger Langzeitschutz für Ihren Lack. Wasser- und schmutzabweisend, UV-beständig, erleichtert die Pflege erheblich.',
+      detailedDescription: 'Die 1-Jahres-Keramikversiegelung ist der perfekte Langzeitschutz für Ihren Lack. Sie bildet eine harte Schutzschicht, die vor UV-Strahlung, Umwelteinflüssen, Vogelkot und Insekten schützt. Die Versiegelung ist extrem hydrophob – Wasser und Schmutz perlen einfach ab. Die Pflege wird deutlich erleichtert, und Ihr Fahrzeug behält den tiefen Glanz über ein Jahr lang.',
+      detailedPrice: 'CHF 300',
+      features: ['1 Jahr Schutz', 'UV-beständig', 'Hydrophober Effekt', 'Erleichterte Pflege'],
+      category: 'versiegelung',
     },
     {
-      icon: ShieldAlert,
-      title: 'Steinschlagreparatur & Scheibentausch',
-      description: 'Steinschlag in der Frontscheibe? Kein Stress – wir tauschen sie schnell und professionell! Profitieren Sie von Cashback, Selbstbehalt-Übernahme und weiteren starken Aktionen.',
-      detailedDescription: 'Ein Steinschlag in der Frontscheibe ist ärgerlich, aber kein Grund zur Sorge. Wir tauschen Ihre beschädigte Scheibe schnell, professionell und unkompliziert. Das Beste daran: Sie profitieren von attraktiven Vorteilen wie Cashback-Aktionen und wir übernehmen Ihren Selbstbehalt. Vereinbaren Sie jetzt einen Termin und fahren Sie schon bald wieder mit klarer Sicht!',
-      features: ['Cashback sichern', 'Selbstbehalt wird übernommen', 'Schneller Scheibentausch', 'Weitere starke Aktionen'],
-      category: 'special',
+      icon: Wrench,
+      title: 'Felgenversiegelung (pro Satz)',
+      description: 'Schützt Felgen vor Bremsstaub, Schmutz und Korrosion. Erleichtert die Reinigung erheblich und erhält den Glanz dauerhaft.',
+      detailedDescription: 'Die Felgenversiegelung schützt Ihre Felgen dauerhaft vor Bremsstaub, Schmutz und Korrosion. Felgen sind permanenten Belastungen ausgesetzt – unsere Versiegelung bildet eine schützende Barriere, die die Reinigung deutlich erleichtert. Bremsstaub und Verschmutzungen haften kaum noch an der Oberfläche. Der Glanz bleibt länger erhalten, und Ihre Felgen sehen dauerhaft wie neu aus.',
+      detailedPrice: 'CHF 150',
+      features: ['Schutz vor Bremsstaub', 'Korrosionsschutz', 'Erleichterte Reinigung', 'Dauerhafter Glanz'],
+      category: 'versiegelung',
+    },
+    
+    // Zusatzleistungen
+    {
+      icon: Wrench,
+      title: 'Motorraumreinigung',
+      description: 'Gründliche Reinigung des Motorraums. Entfernung von Staub, Schmutz, Öl- und Fettablagerungen. Sorgt für sauberes Erscheinungsbild und Werterhalt.',
+      detailedDescription: 'Die Motorraumreinigung sorgt für ein sauberes Erscheinungsbild unter der Haube. Wir entfernen gründlich Staub, Schmutz, Öl- und Fettablagerungen. Empfindliche Bauteile werden geschützt, während der gesamte Motorraum professionell gereinigt wird. Ein sauberer Motorraum erhöht den Werterhalt Ihres Fahrzeugs und erleichtert Wartungsarbeiten.',
+      detailedPrice: 'CHF 90 – 130',
+      features: ['Gründliche Reinigung', 'Öl- & Fettentfernung', 'Schutz empfindlicher Bauteile', 'Werterhalt'],
+      category: 'zusatz',
+    },
+    {
+      icon: Dog,
+      title: 'Tierhaarentfernung',
+      description: 'Professionelle Entfernung hartnäckiger Tierhaare aus Sitzen, Teppichen und Polstern. Sorgt für sauberes, hygienisches Interieur.',
+      detailedDescription: 'Tierhaare können hartnäckig sein und sich tief in Polstern, Sitzen und Teppichen festsetzen. Unsere professionelle Tierhaarentfernung nutzt spezielle Techniken und Werkzeuge, um selbst die hartnäckigsten Haare restlos zu entfernen. Das Ergebnis ist ein sauberes, hygienisches Interieur und der Werterhalt Ihres Fahrzeugs. Ideal für Tierbesitzer.',
+      detailedPrice: 'CHF 80 – 120',
+      features: ['Professionelle Entfernung', 'Sitze, Teppiche & Polster', 'Hygienisches Interieur', 'Werterhalt'],
+      category: 'zusatz',
+    },
+    {
+      icon: Wind,
+      title: 'Cabrioverdeck-Reinigung & Imprägnierung',
+      description: 'Reinigung, Pflege und Imprägnierung von Stoff- oder Textilverdecken. Schützt vor Witterung und erhält die Optik.',
+      detailedDescription: 'Cabrioverdecke aus Stoff oder Textil benötigen spezielle Pflege. Unsere Behandlung umfasst gründliche Reinigung, intensive Pflege und abschliessende Imprägnierung. Die Imprägnierung schützt vor Witterungseinflüssen, Nässe und UV-Strahlung. Das Verdeck behält seine Optik und Funktionalität über Jahre hinweg. Perfekt für Cabrio-Besitzer, die ihr Verdeck optimal schützen möchten.',
+      detailedPrice: 'CHF 80 – 120',
+      features: ['Reinigung & Pflege', 'Imprägnierung', 'Witterungsschutz', 'Optik-Erhalt'],
+      category: 'zusatz',
+    },
+    {
+      icon: Sun,
+      title: 'Scheinwerfer-Aufbereitung',
+      description: 'Wiederherstellung von Klarheit und Glanz der Scheinwerfer. Verbessert Optik und Lichtleistung erheblich.',
+      detailedDescription: 'Vergilbte oder matte Scheinwerfer beeinträchtigen nicht nur die Optik, sondern auch die Lichtleistung. Unsere Scheinwerfer-Aufbereitung stellt die ursprüngliche Klarheit und den Glanz wieder her. Durch professionelles Polieren und Versiegeln werden die Scheinwerfer wie neu. Die Lichtleistung verbessert sich deutlich, und Ihr Fahrzeug sieht wieder aus wie neu.',
+      detailedPrice: 'CHF 100 – 150',
+      features: ['Klarheits-Wiederherstellung', 'Glanzpolitur', 'Verbesserte Lichtleistung', 'Optik-Aufwertung'],
+      category: 'zusatz',
     },
   ];
 
@@ -197,10 +275,10 @@ const Services = () => {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="mb-6">
-              Unsere <span className="text-gradient">Leistungen</span>
+              Unsere <span className="text-gradient">Pakete</span>
             </h1>
             <p className="text-xl text-white drop-shadow-lg">
-              Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basis-Reinigung bis zur Keramikversiegelung
+              Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basisreinigung bis zur Premium-Komplettaufbereitung
             </p>
           </div>
         </div>
@@ -277,16 +355,16 @@ const Services = () => {
             {/* Mobile Page Indicator */}
             <div className="flex justify-center gap-2 mt-8">
               {filteredServices.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentPage(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentPage
-                      ? 'w-8 bg-primary'
-                      : 'w-2 bg-border hover:bg-border/60'
-                  }`}
-                  aria-label={`Gehe zu Leistung ${index + 1}`}
-                />
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentPage
+                        ? 'w-8 bg-primary'
+                        : 'w-2 bg-border hover:bg-border/60'
+                    }`}
+                    aria-label={`Gehe zu Paket ${index + 1}`}
+                  />
               ))}
             </div>
           </div>
@@ -382,7 +460,7 @@ const Services = () => {
       <section className="py-20 md:py-32 relative">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto bg-background/80 backdrop-blur-md border border-border/50 rounded-2xl p-8 md:p-12">
-            <h2 className="mb-6">Interesse an unseren Leistungen?</h2>
+            <h2 className="mb-6">Interesse an unseren Paketen?</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Kontaktieren Sie uns für ein unverbindliches Angebot oder buchen Sie direkt Ihren Wunschtermin
             </p>
@@ -419,6 +497,13 @@ const Services = () => {
                     {selectedService.detailedDescription}
                   </p>
                 </div>
+
+                {selectedService.detailedPrice && (
+                  <div className="bg-primary/10 rounded-lg p-4 border border-primary/20">
+                    <h4 className="text-lg font-semibold mb-2">Preis</h4>
+                    <p className="text-2xl font-bold text-primary">{selectedService.detailedPrice}</p>
+                  </div>
+                )}
 
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Leistungsumfang</h4>
