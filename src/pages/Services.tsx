@@ -335,7 +335,12 @@ const Services = () => {
                       <currentService.icon className="w-8 h-8 text-primary" />
                     </div>
                     <h3 className="text-2xl font-bold mb-3">{currentService.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{currentService.description}</p>
+                    <p className="text-muted-foreground leading-relaxed mb-4">{currentService.description}</p>
+                    {currentService.detailedPrice && (
+                      <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20">
+                        <p className="text-xl font-bold text-primary">{currentService.detailedPrice}</p>
+                      </div>
+                    )}
                   </div>
                   <div className="mt-auto">
                     <div className="h-px bg-border mb-4" />
@@ -391,7 +396,12 @@ const Services = () => {
                         <service.icon className="w-8 h-8 text-primary" />
                       </div>
                       <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                      <p className="text-muted-foreground leading-relaxed mb-4">{service.description}</p>
+                      {service.detailedPrice && (
+                        <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20">
+                          <p className="text-xl font-bold text-primary">{service.detailedPrice}</p>
+                        </div>
+                      )}
                     </div>
                     <div className="mt-auto">
                       <div className="h-px bg-border mb-4" />
