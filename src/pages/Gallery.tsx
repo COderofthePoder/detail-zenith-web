@@ -23,6 +23,8 @@ import whatsappImage1 from '@/assets/WhatsApp Image 2025-10-28 at 10.38.03.jpeg'
 import whatsappImage2 from '@/assets/WhatsApp Image 2025-10-28 at 10.38.03 (1).jpeg';
 import innenVorher3 from '@/assets/InnenVorher3.jpg';
 import innenNachher3 from '@/assets/InnenNachher3.jpg';
+import sitzVorher1 from '@/assets/SitzVorher1.jpg';
+import sitzNachher1 from '@/assets/SitzNachher1.jpg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -96,6 +98,11 @@ const Gallery = () => {
       before: innenVorher3,
       after: innenNachher3,
       alt: 'Innenraumaufbereitung Detail',
+    },
+    {
+      before: sitzVorher1,
+      after: sitzNachher1,
+      alt: 'Sitzaufbereitung',
     },
     {
       before: amgLenkradVorher,
