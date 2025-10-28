@@ -376,7 +376,7 @@ const Services = () => {
 
           {/* Desktop View - 3-Column Slider */}
           <div className="hidden md:block max-w-7xl mx-auto relative">
-            <div className={`grid gap-6 ${
+            <div className={`grid gap-6 auto-rows-fr ${
               currentServicesDesktop.length === 1 
                 ? 'grid-cols-1 max-w-lg mx-auto' 
                 : currentServicesDesktop.length === 2 
@@ -387,8 +387,8 @@ const Services = () => {
                 <div
                   key={service.title}
                   onClick={() => setSelectedService(service)}
-                  className="card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02] flex flex-col"
-                  style={{ animationDelay: `${index * 60}ms`, minHeight: '480px' }}
+                  className="card-shine border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 animate-fade-up cursor-pointer hover:scale-[1.02] flex flex-col h-full"
+                  style={{ animationDelay: `${index * 60}ms` }}
                 >
                   <div className="flex flex-col h-full">
                     <div className="flex-1">
