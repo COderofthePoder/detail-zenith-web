@@ -90,11 +90,6 @@ const Gallery = () => {
 
   const beforeAfterPairs = [
     {
-      before: whatsappImage1,
-      after: whatsappImage2,
-      alt: 'Fahrzeugaufbereitung',
-    },
-    {
       before: innenVorher3,
       after: innenNachher3,
       alt: 'Innenraumaufbereitung Detail',
