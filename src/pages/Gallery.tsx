@@ -120,11 +120,6 @@ const Gallery = () => {
       alt: 'BMW Lenkradaufbereitung',
     },
     {
-      before: vorher2,
-      after: nachher2,
-      alt: 'Komplettaufbereitung',
-    },
-    {
       before: innenVorher,
       after: innenFertig,
       alt: 'Innenraumaufbereitung',
@@ -168,12 +163,12 @@ const Gallery = () => {
     { 
       src: urusHuracan, 
       alt: 'Lamborghini Urus & Huracan - Luxus Sportwagen',
-      description: 'Zwei absolute Traumwagen, die beide eine professionelle Detailing-Behandlung erhielten. Beim Urus wurde eine komplette Aussenaufbereitung mit Keramikversiegelung durchgeführt, während der Huracan eine Innenraumaufbereitung mit spezieller Alcantara-Pflege erhielt. Die Felgen wurden professionell aufbereitet und versiegelt.'
+      description: 'Bei diesen beiden Traumwagen wurden sowohl Interior als auch Exterior Detail durchgeführt und anschliessend verkaufsfertig gemacht. Die komplette Innen- und Aussenaufbereitung sorgte für einen perfekten Zustand, bereit für den Verkauf oder die Präsentation.'
     },
     { 
       src: lamboFertig, 
-      alt: 'Lamborghini - Professionelle Fahrzeugaufbereitung',
-      description: 'Dieser Lamborghini wurde von uns komplett aufbereitet. Die Aussenlackierung erhielt eine mehrstufige Politur, gefolgt von einer hochwertigen Keramikversiegelung für langanhaltenden Schutz. Die Carbon-Teile wurden speziell behandelt, um ihre einzigartige Optik zu erhalten. Eine perfekte Symbiose aus Schutz und Ästhetik.'
+      alt: 'Lamborghini - Professionelle Aussenwäsche',
+      description: 'Bei diesem Lamborghini wurde eine Aussenwäsche bis ins kleinste Detail durchgeführt. Jede Ecke, jede Ritze und jedes Element wurde akribisch gereinigt, um ein makelloses Erscheinungsbild zu erzielen. Das Ergebnis ist ein perfekt sauberes Fahrzeug, das in vollem Glanz erstrahlt.'
     },
     { 
       src: bmwInnenFertig, 

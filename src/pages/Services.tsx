@@ -37,35 +37,6 @@ const Services = () => {
   ];
 
   const services = [
-    // Komplettpakete
-    {
-      icon: Crown,
-      title: 'Komplett Deluxe',
-      description: 'Das ultimative Premium-Paket für höchste Ansprüche. Komplette Innenraumaufbereitung, professionelle Aussenpflege und dreistufige Politur für Showroom-Finish.',
-      detailedDescription: 'Unser Deluxe-Paket ist die Königsklasse der Fahrzeugaufbereitung. Es kombiniert intensive Innenraumreinigung aller Sitzflächen, Teppiche und Flächen mit professioneller Aussenpflege inklusive Handwäsche, Felgen- und Scheibenreinigung. Das Highlight: Eine dreistufige Politur mit intensiver Lackkorrektur für höchste Ansprüche, die tiefe Kratzer entfernt und maximale Glätte erreicht. Ihr Fahrzeug erstrahlt in neuem Glanz – innen wie aussen perfekt.',
-      detailedPrice: 'CHF 1\'150 – 1\'200',
-      features: ['Innenraumtiefenreinigung Premium', 'Komplette Aussenpflege Standard', 'Dreistufige Politur (Showroom-Finish)', 'Hochglanzfinish & Lackkorrektur'],
-      category: 'komplett',
-    },
-    {
-      icon: PackageCheck,
-      title: 'Komplett Premium',
-      description: 'Premium-Komplettpaket für anspruchsvolle Fahrzeugpflege. Umfassende Innenraumaufbereitung plus professionelle Aussenpflege für ein rundum gepflegtes Fahrzeug.',
-      detailedDescription: 'Das Premium-Paket bietet eine umfassende Aufbereitung Ihres Fahrzeugs. Die Innenraumaufbereitung umfasst Tiefenreinigung aller Sitzflächen (Textil oder Leder), Teppiche und Himmel, inklusive Lederpflege und Entfernung hartnäckiger Verschmutzungen. Die Aussenpflege beinhaltet gründliche Handwäsche, intensive Felgenreinigung, Scheibenreinigung innen & aussen, Reifenpflege und sanfte Wachsauffrischung. Ideal für alle, die ihrem Fahrzeug eine Rundum-Erneuerung gönnen möchten.',
-      detailedPrice: 'CHF 290 – 310',
-      features: ['Innenraumtiefenreinigung Premium', 'Lederpflege & Fleckenentfernung', 'Aussenpflege Standard komplett', 'Felgen- & Scheibenreinigung'],
-      category: 'komplett',
-    },
-    {
-      icon: Package,
-      title: 'Komplett Basic',
-      description: 'Perfektes Einstiegspaket für gründliche Reinigung innen und aussen. Ideal für alle, die ein gepflegtes Gesamtbild zum attraktiven Preis suchen.',
-      detailedDescription: 'Das Basic-Paket kombiniert unsere bewährte Innenreinigung mit professioneller Aussenpflege. Innen wird gründlich gestaubsaugt, Cockpit und Armaturen gereinigt und gepflegt, Glasreinigung durchgeführt. Aussen erfolgt eine gründliche Handwäsche mit pH-neutralen Produkten, intensive Felgenreinigung, Scheibenreinigung und Reifenpflege. Abgerundet wird das Paket mit einer sanften Wachsauffrischung für Glanz und Schutz. Das perfekte Paket für den Alltag.',
-      detailedPrice: 'CHF 190 – 200',
-      features: ['Innenreinigung Basic komplett', 'Aussenpflege Standard', 'Cockpit & Armaturen-Pflege', 'Wachsauffrischung'],
-      category: 'komplett',
-    },
-    
     // Aussenpflege
     {
       icon: Droplets,
@@ -153,6 +124,35 @@ const Services = () => {
       detailedPrice: 'CHF 150',
       features: ['Schutz vor Bremsstaub', 'Korrosionsschutz', 'Erleichterte Reinigung', 'Dauerhafter Glanz'],
       category: 'versiegelung',
+    },
+    
+    // Komplettpakete
+    {
+      icon: Crown,
+      title: 'Komplett Deluxe',
+      description: 'Das ultimative Premium-Paket für höchste Ansprüche. Komplette Innenraumaufbereitung, professionelle Aussenpflege und dreistufige Politur für Showroom-Finish.',
+      detailedDescription: 'Unser Deluxe-Paket ist die Königsklasse der Fahrzeugaufbereitung. Es kombiniert intensive Innenraumreinigung aller Sitzflächen, Teppiche und Flächen mit professioneller Aussenpflege inklusive Handwäsche, Felgen- und Scheibenreinigung. Das Highlight: Eine dreistufige Politur mit intensiver Lackkorrektur für höchste Ansprüche, die tiefe Kratzer entfernt und maximale Glätte erreicht. Ihr Fahrzeug erstrahlt in neuem Glanz – innen wie aussen perfekt.',
+      detailedPrice: 'CHF 1\'150 – 1\'200',
+      features: ['Innenraumtiefenreinigung Premium', 'Komplette Aussenpflege Standard', 'Dreistufige Politur (Showroom-Finish)', 'Hochglanzfinish & Lackkorrektur'],
+      category: 'komplett',
+    },
+    {
+      icon: PackageCheck,
+      title: 'Komplett Premium',
+      description: 'Premium-Komplettpaket für anspruchsvolle Fahrzeugpflege. Umfassende Innenraumaufbereitung plus professionelle Aussenpflege für ein rundum gepflegtes Fahrzeug.',
+      detailedDescription: 'Das Premium-Paket bietet eine umfassende Aufbereitung Ihres Fahrzeugs. Die Innenraumaufbereitung umfasst Tiefenreinigung aller Sitzflächen (Textil oder Leder), Teppiche und Himmel, inklusive Lederpflege und Entfernung hartnäckiger Verschmutzungen. Die Aussenpflege beinhaltet gründliche Handwäsche, intensive Felgenreinigung, Scheibenreinigung innen & aussen, Reifenpflege und sanfte Wachsauffrischung. Ideal für alle, die ihrem Fahrzeug eine Rundum-Erneuerung gönnen möchten.',
+      detailedPrice: 'CHF 290 – 310',
+      features: ['Innenraumtiefenreinigung Premium', 'Lederpflege & Fleckenentfernung', 'Aussenpflege Standard komplett', 'Felgen- & Scheibenreinigung'],
+      category: 'komplett',
+    },
+    {
+      icon: Package,
+      title: 'Komplett Basic',
+      description: 'Perfektes Einstiegspaket für gründliche Reinigung innen und aussen. Ideal für alle, die ein gepflegtes Gesamtbild zum attraktiven Preis suchen.',
+      detailedDescription: 'Das Basic-Paket kombiniert unsere bewährte Innenreinigung mit professioneller Aussenpflege. Innen wird gründlich gestaubsaugt, Cockpit und Armaturen gereinigt und gepflegt, Glasreinigung durchgeführt. Aussen erfolgt eine gründliche Handwäsche mit pH-neutralen Produkten, intensive Felgenreinigung, Scheibenreinigung und Reifenpflege. Abgerundet wird das Paket mit einer sanften Wachsauffrischung für Glanz und Schutz. Das perfekte Paket für den Alltag.',
+      detailedPrice: 'CHF 190 – 200',
+      features: ['Innenreinigung Basic komplett', 'Aussenpflege Standard', 'Cockpit & Armaturen-Pflege', 'Wachsauffrischung'],
+      category: 'komplett',
     },
     
     // Zusatzleistungen

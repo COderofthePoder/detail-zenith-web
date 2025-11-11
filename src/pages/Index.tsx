@@ -45,19 +45,19 @@ const Index = () => {
 
   const reviews = [
     {
-      name: 'Michael S.',
+      name: 'Arben K.',
       rating: 5,
       text: 'Absolut professionelle Arbeit! Mein Auto sieht aus wie neu. Die Keramikversiegelung ist jeden Franken wert. Sehr zu empfehlen!',
       date: 'vor 2 Wochen',
     },
     {
-      name: 'Sandra K.',
+      name: 'Sandra M.',
       rating: 5,
       text: 'Hervorragende Innenreinigung und super freundlicher Service. Das Team arbeitet mit viel Liebe zum Detail. Komme definitiv wieder!',
       date: 'vor 1 Monat',
     },
     {
-      name: 'Thomas M.',
+      name: 'Driton S.',
       rating: 5,
       text: 'Beste Autoaufbereitung in der Region! Pünktlich, professionell und das Ergebnis übertrifft alle Erwartungen. Top!',
       date: 'vor 3 Wochen',
