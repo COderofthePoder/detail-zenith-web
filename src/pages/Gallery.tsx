@@ -152,8 +152,8 @@ const Gallery = () => {
   const galleryImages = [
     { 
       src: amgFertig, 
-      alt: 'Mercedes AMG - Perfekte Aufbereitung',
-      description: 'Bei diesem Mercedes AMG haben wir eine Komplettaufbereitung durchgeführt. Die Lackierung wurde professionell poliert und versiegelt, um den tiefen Glanz wiederherzustellen. Der Innenraum wurde intensiv gereinigt, sämtliche Kunststoffteile aufbereitet und das Lenkrad neu bezogen. Das Ergebnis ist ein Fahrzeug, das aussieht wie neu aus dem Showroom.'
+      alt: 'Mercedes S63 AMG',
+      description: 'Bei diesem Mercedes S63 AMG haben wir eine Komplettaufbereitung durchgeführt. Die Lackierung wurde professionell poliert und versiegelt, um den tiefen Glanz wiederherzustellen. Der Innenraum wurde intensiv gereinigt und sämtliche Kunststoffteile aufbereitet. Das Ergebnis ist ein Fahrzeug, das aussieht wie neu aus dem Showroom.'
     },
     { 
       src: urusHuracan, 
