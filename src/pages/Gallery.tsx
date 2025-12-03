@@ -25,6 +25,10 @@ import innenVorher3 from '@/assets/InnenVorher3.jpg';
 import innenNachher3 from '@/assets/InnenNachher3.jpg';
 import sitzVorher1 from '@/assets/SitzVorher1.jpg';
 import sitzNachher1 from '@/assets/SitzNachher1.jpg';
+import tuerVorher from '@/assets/Tuer_Vorher.jpeg';
+import tuerNachher from '@/assets/Tuer_Nachher.jpeg';
+import scheinwerferVorher from '@/assets/Scheinwerfer_Vorher.jpeg';
+import scheinwerferNachher from '@/assets/Scheinwerfer_Nachher.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -89,6 +93,16 @@ const Gallery = () => {
   }, []);
 
   const beforeAfterPairs = [
+    {
+      before: tuerVorher,
+      after: tuerNachher,
+      alt: 'Türverkleidung Aufbereitung',
+    },
+    {
+      before: scheinwerferVorher,
+      after: scheinwerferNachher,
+      alt: 'Scheinwerfer Aufbereitung',
+    },
     {
       before: innenVorher3,
       after: innenNachher3,
