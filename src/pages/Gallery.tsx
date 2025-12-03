@@ -29,6 +29,9 @@ import tuerVorher from '@/assets/Tuer_Vorher.jpeg';
 import tuerNachher from '@/assets/Tuer_Nachher.jpeg';
 import scheinwerferVorher from '@/assets/Scheinwerfer_Vorher.jpeg';
 import scheinwerferNachher from '@/assets/Scheinwerfer_Nachher.jpeg';
+import gKlasseFront from '@/assets/G_Klasse_Front.jpeg';
+import gKlasseSeite from '@/assets/G_Klasse_Seite.jpeg';
+import gKlasseInnen from '@/assets/G_Klasse_Innen.jpeg';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Instagram, X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -188,6 +191,21 @@ const Gallery = () => {
       src: lamboFertigInnen, 
       alt: 'Lamborghini Innenraum - Luxus Detailing',
       description: 'Der Innenraum dieses Lamborghini wurde mit grösster Sorgfalt aufbereitet. Alcantara-Elemente wurden speziell gereinigt und gepflegt, Lederpartien erhielten eine Intensivbehandlung. Carbon-Interieur wurde schonend behandelt, alle Displays und Touchscreens professionell gereinigt. Perfektion bis ins kleinste Detail.'
+    },
+    { 
+      src: gKlasseFront, 
+      alt: 'Mercedes G-Klasse - Frontansicht',
+      description: 'Die ikonische Mercedes G-Klasse nach einer vollständigen Aussenaufbereitung. Der charakteristische Kühlergrill und die Scheinwerfer erstrahlen in neuem Glanz. Die gesamte Karosserie wurde professionell gereinigt, poliert und versiegelt.'
+    },
+    { 
+      src: gKlasseSeite, 
+      alt: 'Mercedes G-Klasse - Seitenansicht',
+      description: 'Die markante Silhouette der G-Klasse von der Seite. Die hochwertigen Felgen wurden aufbereitet und die gesamte Karosserie zeigt einen perfekten Tiefenglanz nach unserer Behandlung.'
+    },
+    { 
+      src: gKlasseInnen, 
+      alt: 'Mercedes G-Klasse - Luxus Innenraum',
+      description: 'Der exklusive Innenraum der Mercedes G-Klasse mit Ambientebeleuchtung. Alle Oberflächen wurden sorgfältig gereinigt und gepflegt. Das Leder wurde behandelt, Kunststoffe aufbereitet und alle Details perfektioniert.'
     },
   ];
 
