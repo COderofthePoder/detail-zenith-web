@@ -1,7 +1,7 @@
 import { 
   Droplets, Car, Sparkles, Shield, Wrench, 
   Brush, Package, PackageCheck, Crown, Lightbulb, 
-  Zap, Wind, Dog, Sun 
+  Zap, Wind, Dog, Sun, ChevronDown
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -16,15 +16,61 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import lamboBackground from '@/assets/Lambo_Fertig_Background.jpeg';
+
+// Vehicle class definitions with price multipliers
+type VehicleClass = 'kleinwagen' | 'limousine' | 'kombi' | 'coupe' | 'cabrio' | 'suv' | 'pickup' | 'minivan' | 'bus';
+
+const vehicleClasses: { id: VehicleClass; label: string; multiplier: number }[] = [
+  { id: 'kleinwagen', label: 'Kleinwagen', multiplier: 0.85 },
+  { id: 'limousine', label: 'Limousine', multiplier: 1.0 },
+  { id: 'coupe', label: 'Coupé', multiplier: 1.0 },
+  { id: 'cabrio', label: 'Cabrio', multiplier: 1.05 },
+  { id: 'kombi', label: 'Kombi', multiplier: 1.1 },
+  { id: 'suv', label: 'SUV', multiplier: 1.2 },
+  { id: 'pickup', label: 'Pickup', multiplier: 1.25 },
+  { id: 'minivan', label: 'Minivan', multiplier: 1.25 },
+  { id: 'bus', label: 'Bus', multiplier: 1.4 },
+];
+
+// Helper function to calculate adjusted price
+const adjustPrice = (priceString: string, multiplier: number): string => {
+  // Check if price already contains vehicle class info (like "Kleinwagen: CHF 850 / ...")
+  if (priceString.includes('Kleinwagen') || priceString.includes('Mittelklasse') || priceString.includes('SUV:')) {
+    return priceString; // Return original for multi-class pricing
+  }
+  
+  // Parse price ranges like "CHF 80 – 150" or single prices like "CHF 300"
+  const priceRegex = /CHF\s*([\d']+)\s*(?:–\s*([\d']+))?/g;
+  
+  return priceString.replace(priceRegex, (match, min, max) => {
+    const minPrice = Math.round(parseInt(min.replace(/'/g, '')) * multiplier);
+    const formattedMin = minPrice >= 1000 ? minPrice.toLocaleString('de-CH').replace(',', "'") : minPrice.toString();
+    
+    if (max) {
+      const maxPrice = Math.round(parseInt(max.replace(/'/g, '')) * multiplier);
+      const formattedMax = maxPrice >= 1000 ? maxPrice.toLocaleString('de-CH').replace(',', "'") : maxPrice.toString();
+      return `CHF ${formattedMin} – ${formattedMax}`;
+    }
+    return `CHF ${formattedMin}`;
+  });
+};
 
 const Services = () => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+  const [selectedService, setSelectedService] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const mobileCardRef = useRef<HTMLDivElement>(null);
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleClass>('limousine');
 
   const categories = [
     { id: 'all', label: 'Alle Pakete' },
@@ -277,9 +323,26 @@ const Services = () => {
             <h1 className="mb-6">
               Unsere <span className="text-gradient">Pakete</span>
             </h1>
-            <p className="text-xl text-white drop-shadow-lg">
+            <p className="text-xl text-white drop-shadow-lg mb-8">
               Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basisreinigung bis zur Premium-Komplettaufbereitung
             </p>
+            
+            {/* Vehicle Class Selector */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
+              <span className="text-white/80 font-medium">Fahrzeugklasse:</span>
+              <Select value={selectedVehicle} onValueChange={(value: VehicleClass) => setSelectedVehicle(value)}>
+                <SelectTrigger className="w-[200px] bg-secondary/90 border-primary/30 text-foreground">
+                  <SelectValue placeholder="Wähle Fahrzeugklasse" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-border z-50">
+                  {vehicleClasses.map((vc) => (
+                    <SelectItem key={vc.id} value={vc.id} className="hover:bg-secondary cursor-pointer">
+                      {vc.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
       </section>
@@ -340,7 +403,9 @@ const Services = () => {
                   <div className="mt-auto pt-4">
                     {currentService.detailedPrice && (
                       <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20 mb-4">
-                        <p className="text-xl font-bold text-primary">{currentService.detailedPrice}</p>
+                        <p className="text-xl font-bold text-primary">
+                          {adjustPrice(currentService.detailedPrice, vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1)}
+                        </p>
                       </div>
                     )}
                     <div className="h-px bg-border mb-4" />
@@ -401,7 +466,9 @@ const Services = () => {
                     <div className="mt-auto pt-4">
                       {service.detailedPrice && (
                         <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20 mb-4">
-                          <p className="text-xl font-bold text-primary">{service.detailedPrice}</p>
+                          <p className="text-xl font-bold text-primary">
+                            {adjustPrice(service.detailedPrice, vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1)}
+                          </p>
                         </div>
                       )}
                       <div className="h-px bg-border mb-4" />
@@ -510,8 +577,11 @@ const Services = () => {
 
                 {selectedService.detailedPrice && (
                   <div className="bg-primary/10 rounded-lg p-4 border border-primary/20">
-                    <h4 className="text-lg font-semibold mb-2">Preis</h4>
-                    <p className="text-2xl font-bold text-primary">{selectedService.detailedPrice}</p>
+                    <h4 className="text-lg font-semibold mb-2">Preis für {vehicleClasses.find(v => v.id === selectedVehicle)?.label}</h4>
+                    <p className="text-2xl font-bold text-primary">
+                      {adjustPrice(selectedService.detailedPrice, vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1)}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-2">Preise variieren je nach Fahrzeugklasse</p>
                   </div>
                 )}
 
