@@ -1,7 +1,7 @@
 import { 
   Droplets, Car, Sparkles, Shield, Wrench, 
-  Brush, Package, PackageCheck, Crown, Lightbulb, 
-  Zap, Wind, Dog, Sun, ChevronDown
+  Package, PackageCheck, Crown, Lightbulb, 
+  Zap, Wind, Dog, Sun, Truck, Bus as BusIcon, CarFront
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -16,14 +16,57 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import lamboBackground from '@/assets/Lambo_Fertig_Background.jpeg';
+
+// Vehicle class icons mapping
+const vehicleIcons: Record<string, React.ReactNode> = {
+  kleinwagen: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M5 17h14M7 13l1-4h8l1 4M7 17V13h10v4M6 13h-.5a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5H7M17 13h.5a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5H17M8 15.5a1 1 0 11-2 0 1 1 0 012 0zM18 15.5a1 1 0 11-2 0 1 1 0 012 0z"/>
+    </svg>
+  ),
+  limousine: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M3 17h18M5 13l2-5h10l2 5M5 17V13h14v4M5 13h-.5a1 1 0 01-1-1v-.5a.5.5 0 01.5-.5H5M19 13h.5a1 1 0 001-1v-.5a.5.5 0 00-.5-.5H19M7 15.5a1 1 0 11-2 0 1 1 0 012 0zM19 15.5a1 1 0 11-2 0 1 1 0 012 0z"/>
+    </svg>
+  ),
+  coupe: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M3 16h18M5 12l3-4h6l4 4M5 16V12h14v4M6 12H4.5a.5.5 0 01-.5-.5v-.5a.5.5 0 01.5-.5H6M18 12h1.5a.5.5 0 00.5-.5v-.5a.5.5 0 00-.5-.5H18M7 14.5a1 1 0 11-2 0 1 1 0 012 0zM19 14.5a1 1 0 11-2 0 1 1 0 012 0z"/>
+    </svg>
+  ),
+  cabrio: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M3 16h18M5 12l3-4h8M5 16V12h14v4M7 14.5a1 1 0 11-2 0 1 1 0 012 0zM19 14.5a1 1 0 11-2 0 1 1 0 012 0z"/>
+      <path d="M16 8l3 4" strokeDasharray="2 2"/>
+    </svg>
+  ),
+  kombi: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M2 17h20M4 13l2-5h12v5M4 17V13h16v4M4 13H3a1 1 0 01-1-1v-.5a.5.5 0 01.5-.5H4M20 13h1a1 1 0 001-1v-.5a.5.5 0 00-.5-.5H20M6 15.5a1 1 0 11-2 0 1 1 0 012 0zM20 15.5a1 1 0 11-2 0 1 1 0 012 0z"/>
+    </svg>
+  ),
+  suv: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M2 16h20M4 11l2-4h12l2 4M4 16V11h16v5M3 11h-.5a.5.5 0 01-.5-.5V10a.5.5 0 01.5-.5H4M20 11h.5a.5.5 0 00.5-.5V10a.5.5 0 00-.5-.5H20M7 14.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20 14.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+    </svg>
+  ),
+  pickup: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M2 16h20M4 11l2-4h6v4M4 16V11h8M12 11h8v5M3 11h-.5a.5.5 0 01-.5-.5V10a.5.5 0 01.5-.5H4M21 16h.5a.5.5 0 00.5-.5V12a.5.5 0 00-.5-.5H20M6 14.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM21 14.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+    </svg>
+  ),
+  minivan: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M2 17h20M3 12l2-5h14v5M3 17V12h18v5M3 12H2a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5h2M21 12h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-2M6 15a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM21 15a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+    </svg>
+  ),
+  bus: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M3 18h18M4 10V6h16v4M4 18V10h16v8M4 10H3a.5.5 0 01-.5-.5V8a.5.5 0 01.5-.5h2M20 10h1a.5.5 0 00.5-.5V8a.5.5 0 00-.5-.5h-2M7 16a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20 16a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 10V6M12 10V6M16 10V6"/>
+    </svg>
+  ),
+};
 
 // Vehicle class definitions with price multipliers
 type VehicleClass = 'kleinwagen' | 'limousine' | 'kombi' | 'coupe' | 'cabrio' | 'suv' | 'pickup' | 'minivan' | 'bus';
@@ -327,21 +370,27 @@ const Services = () => {
               Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basisreinigung bis zur Premium-Komplettaufbereitung
             </p>
             
-            {/* Vehicle Class Selector */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-              <span className="text-white/80 font-medium">Fahrzeugklasse:</span>
-              <Select value={selectedVehicle} onValueChange={(value: VehicleClass) => setSelectedVehicle(value)}>
-                <SelectTrigger className="w-[200px] bg-secondary/90 border-primary/30 text-foreground">
-                  <SelectValue placeholder="Wähle Fahrzeugklasse" />
-                </SelectTrigger>
-                <SelectContent className="bg-card border-border z-50">
-                  {vehicleClasses.map((vc) => (
-                    <SelectItem key={vc.id} value={vc.id} className="hover:bg-secondary cursor-pointer">
-                      {vc.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            {/* Vehicle Class Selector - Visual Grid */}
+            <div className="mt-8">
+              <p className="text-white/80 font-medium mb-4">Wähle deine Fahrzeugklasse:</p>
+              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2 sm:gap-3 max-w-4xl mx-auto">
+                {vehicleClasses.map((vc) => (
+                  <button
+                    key={vc.id}
+                    onClick={() => setSelectedVehicle(vc.id)}
+                    className={`flex flex-col items-center gap-1 p-2 sm:p-3 rounded-xl transition-all duration-300 ${
+                      selectedVehicle === vc.id
+                        ? 'bg-primary text-primary-foreground shadow-glow scale-105'
+                        : 'bg-secondary/80 hover:bg-secondary text-foreground hover:scale-105'
+                    }`}
+                  >
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 ${selectedVehicle === vc.id ? 'text-primary-foreground' : 'text-primary'}`}>
+                      {vehicleIcons[vc.id]}
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium text-center leading-tight">{vc.label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
