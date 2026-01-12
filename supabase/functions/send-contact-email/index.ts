@@ -12,6 +12,18 @@ interface ContactEmailRequest {
   message: string;
 }
 
+// HTML escape function to prevent XSS attacks
+function escapeHtml(text: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -20,6 +32,26 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const { name, email, phone, message }: ContactEmailRequest = await req.json();
+
+    // Validate and sanitize inputs
+    if (!name || typeof name !== 'string' || name.length > 100) {
+      throw new Error("Invalid name");
+    }
+    if (!email || typeof email !== 'string' || email.length > 255) {
+      throw new Error("Invalid email");
+    }
+    if (!message || typeof message !== 'string' || message.length > 5000) {
+      throw new Error("Invalid message");
+    }
+    if (phone && (typeof phone !== 'string' || phone.length > 30)) {
+      throw new Error("Invalid phone");
+    }
+
+    // Escape all user inputs for HTML
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safePhone = phone ? escapeHtml(phone) : null;
+    const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
 
     console.log("Sending contact email from:", email);
 
@@ -39,14 +71,14 @@ const handler = async (req: Request): Promise<Response> => {
         from: "DS-Detailing Kontakt <kontakt@ds-detailin.com>",
         to: ["ds.detailing@hotmail.com"],
         reply_to: email,
-        subject: `Neue Kontaktanfrage von ${name}`,
+        subject: `Neue Kontaktanfrage von ${safeName}`,
         html: `
           <h2>Neue Kontaktanfrage</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>E-Mail:</strong> ${email}</p>
-          ${phone ? `<p><strong>Telefon:</strong> ${phone}</p>` : ''}
+          <p><strong>Name:</strong> ${safeName}</p>
+          <p><strong>E-Mail:</strong> ${safeEmail}</p>
+          ${safePhone ? `<p><strong>Telefon:</strong> ${safePhone}</p>` : ''}
           <h3>Nachricht:</h3>
-          <p>${message.replace(/\n/g, '<br>')}</p>
+          <p>${safeMessage}</p>
         `,
       }),
     });
@@ -73,10 +105,10 @@ const handler = async (req: Request): Promise<Response> => {
         subject: "Ihre Anfrage bei DS-Detailing",
         html: `
           <h2>Vielen Dank für Ihre Anfrage!</h2>
-          <p>Hallo ${name},</p>
+          <p>Hallo ${safeName},</p>
           <p>wir haben Ihre Nachricht erhalten und werden uns schnellstmöglich bei Ihnen melden.</p>
           <h3>Ihre Nachricht:</h3>
-          <p>${message.replace(/\n/g, '<br>')}</p>
+          <p>${safeMessage}</p>
           <br>
           <p>Mit freundlichen Grüßen<br>
           Ihr DS-Detailing Team</p>
