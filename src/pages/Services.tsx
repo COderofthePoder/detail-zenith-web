@@ -18,19 +18,19 @@ import {
 } from '@/components/ui/dialog';
 import lamboBackground from '@/assets/Lambo_Fertig_Background.jpeg';
 
-// Vehicle class definitions with price multipliers and emojis
+// Vehicle class definitions with price multipliers
 type VehicleClass = 'kleinwagen' | 'limousine' | 'kombi' | 'coupe' | 'cabrio' | 'suv' | 'pickup' | 'minivan' | 'bus';
 
-const vehicleClasses: { id: VehicleClass; label: string; multiplier: number; emoji: string }[] = [
-  { id: 'kleinwagen', label: 'Kleinwagen', multiplier: 0.85, emoji: '🚗' },
-  { id: 'limousine', label: 'Limousine', multiplier: 1.0, emoji: '🚘' },
-  { id: 'coupe', label: 'Coupé', multiplier: 1.0, emoji: '🏎️' },
-  { id: 'cabrio', label: 'Cabrio', multiplier: 1.05, emoji: '🛞' },
-  { id: 'kombi', label: 'Kombi', multiplier: 1.1, emoji: '🚙' },
-  { id: 'suv', label: 'SUV', multiplier: 1.2, emoji: '🚜' },
-  { id: 'pickup', label: 'Pickup', multiplier: 1.25, emoji: '🛻' },
-  { id: 'minivan', label: 'Minivan', multiplier: 1.25, emoji: '🚐' },
-  { id: 'bus', label: 'Bus', multiplier: 1.4, emoji: '🚌' },
+const vehicleClasses: { id: VehicleClass; label: string; multiplier: number }[] = [
+  { id: 'kleinwagen', label: 'Kleinwagen', multiplier: 0.85 },
+  { id: 'limousine', label: 'Limousine', multiplier: 1.0 },
+  { id: 'coupe', label: 'Coupé', multiplier: 1.0 },
+  { id: 'cabrio', label: 'Cabrio', multiplier: 1.05 },
+  { id: 'kombi', label: 'Kombi', multiplier: 1.1 },
+  { id: 'suv', label: 'SUV', multiplier: 1.2 },
+  { id: 'pickup', label: 'Pickup', multiplier: 1.25 },
+  { id: 'minivan', label: 'Minivan', multiplier: 1.25 },
+  { id: 'bus', label: 'Bus', multiplier: 1.4 },
 ];
 
 // Helper function to calculate adjusted price
@@ -320,22 +320,21 @@ const Services = () => {
               Professionelle Fahrzeugpflege auf höchstem Niveau – von der Basisreinigung bis zur Premium-Komplettaufbereitung
             </p>
             
-            {/* Vehicle Class Selector - Visual Grid */}
+            {/* Vehicle Class Selector - Horizontal Slider */}
             <div className="mt-8">
               <p className="text-white/80 font-medium mb-4">Wähle deine Fahrzeugklasse:</p>
-              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2 sm:gap-3 max-w-4xl mx-auto">
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide max-w-full mx-auto justify-start md:justify-center px-4 -mx-4 md:mx-0 md:px-0">
                 {vehicleClasses.map((vc) => (
                   <button
                     key={vc.id}
                     onClick={() => setSelectedVehicle(vc.id)}
-                    className={`flex flex-col items-center gap-1 p-2 sm:p-3 rounded-xl transition-all duration-300 ${
+                    className={`flex-shrink-0 px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap ${
                       selectedVehicle === vc.id
-                        ? 'bg-primary text-primary-foreground shadow-glow scale-105'
-                        : 'bg-secondary/80 hover:bg-secondary text-foreground hover:scale-105'
+                        ? 'bg-primary text-primary-foreground shadow-glow'
+                        : 'bg-secondary/80 hover:bg-secondary text-foreground'
                     }`}
                   >
-                    <span className="text-2xl sm:text-3xl">{vc.emoji}</span>
-                    <span className="text-xs sm:text-sm font-medium text-center leading-tight">{vc.label}</span>
+                    {vc.label}
                   </button>
                 ))}
               </div>
