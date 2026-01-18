@@ -61,9 +61,9 @@ const Navigation = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link to="/kontakt">
+              <Link to="/termin">
                 <Phone className="w-4 h-4 mr-2" />
-                Termin buchen
+                Termin reservieren
               </Link>
             </Button>
           </div>

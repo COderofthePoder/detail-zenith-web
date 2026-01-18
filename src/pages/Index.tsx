@@ -188,11 +188,11 @@ const Index = () => {
           <div className="max-w-3xl mx-auto bg-background/80 backdrop-blur-md border border-border/50 rounded-3xl p-12">
             <h2 className="mb-6">Bereit für die perfekte Pflege?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Vereinbaren Sie jetzt einen Termin und erleben Sie, wie Ihr Fahrzeug in neuem Glanz erstrahlt
+              Reservieren Sie jetzt einen Termin und erleben Sie, wie Ihr Fahrzeug in neuem Glanz erstrahlt
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
-                <Link to="/kontakt">Termin buchen</Link>
+                <Link to="/termin">Termin reservieren</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 hover:border-white/50">
                 <Link to="/galerie">Galerie ansehen</Link>

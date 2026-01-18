@@ -535,11 +535,11 @@ const Services = () => {
           <div className="max-w-3xl mx-auto bg-background/80 backdrop-blur-md border border-border/50 rounded-2xl p-8 md:p-12">
             <h2 className="mb-6">Interesse an unseren Paketen?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Kontaktieren Sie uns für ein unverbindliches Angebot oder buchen Sie direkt Ihren Wunschtermin
+              Kontaktieren Sie uns für ein unverbindliches Angebot oder reservieren Sie direkt Ihren Wunschtermin
             </p>
             <div className="flex justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
-                <Link to="/kontakt">Jetzt Termin buchen</Link>
+                <Link to="/termin">Jetzt Termin reservieren</Link>
               </Button>
             </div>
           </div>
@@ -600,7 +600,7 @@ const Services = () => {
                   <h4 className="text-lg font-semibold mb-4">Interesse geweckt?</h4>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button asChild className="flex-1">
-                      <Link to="/kontakt">Jetzt Termin buchen</Link>
+                      <Link to="/termin">Jetzt Termin reservieren</Link>
                     </Button>
                     <Button asChild variant="outline" className="flex-1">
                       <a href="https://api.whatsapp.com/send/?phone=41765493697&text&type=phone_number&app_absent=0" target="_blank" rel="noopener">WhatsApp: +41 76 549 36 97</a>

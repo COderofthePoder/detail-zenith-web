@@ -152,7 +152,7 @@ const About = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
-                <Link to="/kontakt">Termin vereinbaren</Link>
+                <Link to="/termin">Termin reservieren</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-foreground/20 hover:bg-foreground/10">
                 <Link to="/leistungen">Unsere Leistungen</Link>

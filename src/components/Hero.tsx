@@ -32,8 +32,8 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
-              <Link to="/kontakt">
-                Termin buchen
+              <Link to="/termin">
+                Termin reservieren
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>

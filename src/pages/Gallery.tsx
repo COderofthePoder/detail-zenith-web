@@ -380,7 +380,7 @@ const Gallery = () => {
               Lassen Sie uns auch Ihr Fahrzeug in Perfektion erstrahlen
             </p>
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow">
-              <Link to="/kontakt">Jetzt Termin vereinbaren</Link>
+              <Link to="/termin">Jetzt Termin reservieren</Link>
             </Button>
           </div>
         </div>
