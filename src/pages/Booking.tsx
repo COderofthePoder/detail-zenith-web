@@ -19,41 +19,41 @@ import { cn } from '@/lib/utils';
 
 type VehicleClass = 'kleinwagen' | 'limousine' | 'kombi' | 'coupe' | 'cabrio' | 'suv' | 'pickup' | 'minivan' | 'bus';
 
-const vehicleClasses: { id: VehicleClass; label: string }[] = [
-  { id: 'kleinwagen', label: 'Kleinwagen' },
-  { id: 'limousine', label: 'Limousine' },
-  { id: 'coupe', label: 'Coupé' },
-  { id: 'cabrio', label: 'Cabrio' },
-  { id: 'kombi', label: 'Kombi' },
-  { id: 'suv', label: 'SUV' },
-  { id: 'pickup', label: 'Pickup' },
-  { id: 'minivan', label: 'Minivan' },
-  { id: 'bus', label: 'Bus' },
+const vehicleClasses: { id: VehicleClass; label: string; multiplier: number }[] = [
+  { id: 'kleinwagen', label: 'Kleinwagen', multiplier: 0.85 },
+  { id: 'limousine', label: 'Limousine', multiplier: 1.0 },
+  { id: 'coupe', label: 'Coupé', multiplier: 1.0 },
+  { id: 'cabrio', label: 'Cabrio', multiplier: 1.05 },
+  { id: 'kombi', label: 'Kombi', multiplier: 1.1 },
+  { id: 'suv', label: 'SUV', multiplier: 1.2 },
+  { id: 'pickup', label: 'Pickup', multiplier: 1.25 },
+  { id: 'minivan', label: 'Minivan', multiplier: 1.25 },
+  { id: 'bus', label: 'Bus', multiplier: 1.4 },
 ];
 
 const services = [
   // Komplettpakete
-  { id: 'komplett-deluxe', title: 'Komplett Deluxe', category: 'komplett', icon: Crown },
-  { id: 'komplett-premium', title: 'Komplett Premium', category: 'komplett', icon: PackageCheck },
-  { id: 'komplett-basic', title: 'Komplett Basic', category: 'komplett', icon: Package },
+  { id: 'komplett-deluxe', title: 'Komplett Deluxe', category: 'komplett', icon: Crown, basePrice: 1175 },
+  { id: 'komplett-premium', title: 'Komplett Premium', category: 'komplett', icon: PackageCheck, basePrice: 240 },
+  { id: 'komplett-basic', title: 'Komplett Basic', category: 'komplett', icon: Package, basePrice: 195 },
   // Aussenpflege
-  { id: 'aussen-standard', title: 'Aussenpflege Standard', category: 'aussen', icon: Droplets },
+  { id: 'aussen-standard', title: 'Aussenpflege Standard', category: 'aussen', icon: Droplets, basePrice: 115 },
   // Innenreinigung
-  { id: 'innen-premium', title: 'Innen Premium', category: 'innen', icon: Sparkles },
-  { id: 'innen-basic', title: 'Innen Basic', category: 'innen', icon: Car },
+  { id: 'innen-premium', title: 'Innen Premium', category: 'innen', icon: Sparkles, basePrice: 149 },
+  { id: 'innen-basic', title: 'Innen Basic', category: 'innen', icon: Car, basePrice: 99 },
   // Politur
-  { id: 'politur-dreistufig', title: 'Dreistufige Politur', category: 'politur', icon: Zap },
-  { id: 'politur-zweistufig', title: 'Zweistufige Politur', category: 'politur', icon: Lightbulb },
-  { id: 'politur-einstufig', title: 'Einstufige Politur', category: 'politur', icon: Sparkles },
+  { id: 'politur-dreistufig', title: 'Dreistufige Politur', category: 'politur', icon: Zap, basePrice: 950 },
+  { id: 'politur-zweistufig', title: 'Zweistufige Politur', category: 'politur', icon: Lightbulb, basePrice: 750 },
+  { id: 'politur-einstufig', title: 'Einstufige Politur', category: 'politur', icon: Sparkles, basePrice: 450 },
   // Versiegelung
-  { id: 'keramik-3jahre', title: 'Keramikversiegelung (3 Jahre)', category: 'versiegelung', icon: Shield },
-  { id: 'keramik-1jahr', title: 'Keramikversiegelung (1 Jahr)', category: 'versiegelung', icon: Shield },
-  { id: 'felgenversiegelung', title: 'Felgenversiegelung', category: 'versiegelung', icon: Wrench },
+  { id: 'keramik-3jahre', title: 'Keramikversiegelung (3 Jahre)', category: 'versiegelung', icon: Shield, basePrice: 600 },
+  { id: 'keramik-1jahr', title: 'Keramikversiegelung (1 Jahr)', category: 'versiegelung', icon: Shield, basePrice: 300 },
+  { id: 'felgenversiegelung', title: 'Felgenversiegelung', category: 'versiegelung', icon: Wrench, basePrice: 150 },
   // Zusatz
-  { id: 'motorraumreinigung', title: 'Motorraumreinigung', category: 'zusatz', icon: Wrench },
-  { id: 'tierhaarentfernung', title: 'Tierhaarentfernung', category: 'zusatz', icon: Dog },
-  { id: 'cabrioverdeck', title: 'Cabrioverdeck-Reinigung', category: 'zusatz', icon: Wind },
-  { id: 'scheinwerfer', title: 'Scheinwerfer-Aufbereitung', category: 'zusatz', icon: Sun },
+  { id: 'motorraumreinigung', title: 'Motorraumreinigung', category: 'zusatz', icon: Wrench, basePrice: 110 },
+  { id: 'tierhaarentfernung', title: 'Tierhaarentfernung', category: 'zusatz', icon: Dog, basePrice: 100 },
+  { id: 'cabrioverdeck', title: 'Cabrioverdeck-Reinigung', category: 'zusatz', icon: Wind, basePrice: 100 },
+  { id: 'scheinwerfer', title: 'Scheinwerfer-Aufbereitung', category: 'zusatz', icon: Sun, basePrice: 125 },
 ];
 
 const categories = [
@@ -64,6 +64,10 @@ const categories = [
   { id: 'versiegelung', label: 'Versiegelung' },
   { id: 'zusatz', label: 'Zusatzleistungen' },
 ];
+
+const formatPrice = (price: number): string => {
+  return `CHF ${price.toLocaleString('de-CH')}`; 
+};
 
 const Booking = () => {
   const { toast } = useToast();
@@ -78,6 +82,23 @@ const Booking = () => {
     notes: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Calculate total price
+  const calculateTotal = () => {
+    if (!selectedVehicle) return 0;
+    const multiplier = vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1;
+    return selectedServices.reduce((total, serviceId) => {
+      const service = services.find(s => s.id === serviceId);
+      return total + Math.round((service?.basePrice || 0) * multiplier);
+    }, 0);
+  };
+
+  const getServicePrice = (serviceId: string) => {
+    if (!selectedVehicle) return 0;
+    const multiplier = vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1;
+    const service = services.find(s => s.id === serviceId);
+    return Math.round((service?.basePrice || 0) * multiplier);
+  };
 
   const handleServiceToggle = (serviceId: string) => {
     setSelectedServices(prev => 
@@ -115,9 +136,12 @@ const Booking = () => {
     setIsSubmitting(true);
 
     const vehicleLabel = vehicleClasses.find(v => v.id === selectedVehicle)?.label || '';
-    const serviceLabels = selectedServices.map(id => 
-      services.find(s => s.id === id)?.title || id
-    ).join(', ');
+    const total = calculateTotal();
+    const serviceDetails = selectedServices.map(id => {
+      const service = services.find(s => s.id === id);
+      const price = getServicePrice(id);
+      return `- ${service?.title}: ${formatPrice(price)}`;
+    }).join('\n');
     const dateStr = selectedDate ? format(selectedDate, 'PPP', { locale: de }) : '';
 
     const message = `
@@ -126,7 +150,11 @@ TERMINRESERVIERUNG
 Fahrzeugklasse: ${vehicleLabel}
 
 Gewünschte Leistungen:
-${serviceLabels}
+${serviceDetails}
+
+---
+GESCHÄTZTES TOTAL: ${formatPrice(total)}
+---
 
 Wunschtermin: ${dateStr}
 
@@ -235,20 +263,29 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
                 {categoryServices.map((service) => {
                   const Icon = service.icon;
                   const isSelected = selectedServices.includes(service.id);
+                  const price = getServicePrice(service.id);
                   return (
                     <button
                       key={service.id}
                       onClick={() => handleServiceToggle(service.id)}
                       className={cn(
-                        "p-4 rounded-xl font-medium transition-all duration-300 border-2 text-left flex items-center gap-3",
+                        "p-4 rounded-xl font-medium transition-all duration-300 border-2 text-left",
                         isSelected
                           ? "bg-primary text-primary-foreground border-primary shadow-glow"
                           : "bg-secondary/50 hover:bg-secondary border-transparent text-foreground"
                       )}
                     >
-                      <Icon className="w-6 h-6 flex-shrink-0" />
-                      <span>{service.title}</span>
-                      {isSelected && <Check className="w-5 h-5 ml-auto" />}
+                      <div className="flex items-center gap-3">
+                        <Icon className="w-6 h-6 flex-shrink-0" />
+                        <span className="flex-1">{service.title}</span>
+                        {isSelected && <Check className="w-5 h-5" />}
+                      </div>
+                      <div className={cn(
+                        "text-sm mt-2 font-bold",
+                        isSelected ? "text-primary-foreground/90" : "text-primary"
+                      )}>
+                        {formatPrice(price)}
+                      </div>
                     </button>
                   );
                 })}
@@ -257,6 +294,16 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
           );
         })}
       </div>
+
+      {/* Floating Total */}
+      {selectedServices.length > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-background/95 backdrop-blur-md border border-primary/50 rounded-full px-6 py-3 shadow-premium animate-scale-in">
+          <div className="flex items-center gap-4">
+            <span className="text-muted-foreground">{selectedServices.length} Leistung{selectedServices.length > 1 ? 'en' : ''}</span>
+            <span className="text-xl font-bold text-primary">{formatPrice(calculateTotal())}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 
@@ -291,10 +338,39 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
       {/* Summary */}
       <div className="card-shine border border-border rounded-xl p-4 mb-6">
         <h3 className="font-semibold mb-3">Zusammenfassung</h3>
-        <div className="space-y-2 text-sm">
-          <p><strong>Fahrzeug:</strong> {vehicleClasses.find(v => v.id === selectedVehicle)?.label}</p>
-          <p><strong>Leistungen:</strong> {selectedServices.map(id => services.find(s => s.id === id)?.title).join(', ')}</p>
-          <p><strong>Termin:</strong> {selectedDate && format(selectedDate, 'PPP', { locale: de })}</p>
+        <div className="space-y-3 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Fahrzeug:</span>
+            <span className="font-medium">{vehicleClasses.find(v => v.id === selectedVehicle)?.label}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Termin:</span>
+            <span className="font-medium">{selectedDate && format(selectedDate, 'PPP', { locale: de })}</span>
+          </div>
+          
+          <div className="border-t border-border pt-3 mt-3">
+            <p className="text-muted-foreground mb-2">Leistungen:</p>
+            <div className="space-y-1">
+              {selectedServices.map(id => {
+                const service = services.find(s => s.id === id);
+                const price = getServicePrice(id);
+                return (
+                  <div key={id} className="flex justify-between">
+                    <span>{service?.title}</span>
+                    <span className="font-medium">{formatPrice(price)}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="border-t border-primary/30 pt-3 mt-3 bg-primary/5 -mx-4 px-4 py-3 rounded-lg">
+            <div className="flex justify-between items-center">
+              <span className="text-lg font-semibold">Geschätztes Total:</span>
+              <span className="text-2xl font-bold text-primary">{formatPrice(calculateTotal())}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">* Endpreis kann je nach Zustand variieren</p>
+          </div>
         </div>
       </div>
 
