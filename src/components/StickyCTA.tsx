@@ -24,9 +24,9 @@ const StickyCTA = () => {
         size="lg"
         className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-premium rounded-full px-8"
       >
-        <Link to="/kontakt">
+        <Link to="/termin">
           <Phone className="w-5 h-5 mr-2" />
-          Termin buchen
+          Termin reservieren
         </Link>
       </Button>
     </div>
