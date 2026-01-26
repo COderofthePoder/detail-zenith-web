@@ -12,6 +12,40 @@ interface ContactEmailRequest {
   message: string;
 }
 
+// In-memory rate limiting (per instance)
+// For production, consider using a database or Redis
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 3600000; // 1 hour
+const RATE_LIMIT_MAX_REQUESTS = 5; // Max 5 requests per IP per hour
+
+function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  // Clean up old entries periodically
+  if (rateLimitMap.size > 10000) {
+    for (const [key, value] of rateLimitMap.entries()) {
+      if (value.resetTime < now) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+  
+  if (!record || record.resetTime < now) {
+    // New window or expired window
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return { allowed: true };
+  }
+  
+  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
+    const retryAfter = Math.ceil((record.resetTime - now) / 1000);
+    return { allowed: false, retryAfter };
+  }
+  
+  record.count++;
+  return { allowed: true };
+}
+
 // HTML escape function to prevent XSS attacks
 function escapeHtml(text: string): string {
   const map: Record<string, string> = {
@@ -24,6 +58,17 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, m => map[m]);
 }
 
+// Simple email format validation
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Honeypot check - if this field is filled, it's likely a bot
+function isHoneypotTriggered(body: Record<string, unknown>): boolean {
+  return !!(body.website || body.url || body.company_website);
+}
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -31,29 +76,69 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, phone, message }: ContactEmailRequest = await req.json();
+    // Get client IP for rate limiting
+    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+                     req.headers.get('x-real-ip') || 
+                     'unknown';
+    
+    // Check rate limit
+    const { allowed, retryAfter } = checkRateLimit(clientIp);
+    if (!allowed) {
+      console.log(`Rate limit exceeded for IP: ${clientIp}`);
+      return new Response(
+        JSON.stringify({ 
+          error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut.",
+          retryAfter 
+        }),
+        {
+          status: 429,
+          headers: { 
+            "Content-Type": "application/json",
+            "Retry-After": String(retryAfter),
+            ...corsHeaders 
+          },
+        }
+      );
+    }
+
+    const body = await req.json();
+    
+    // Check honeypot fields
+    if (isHoneypotTriggered(body)) {
+      console.log("Honeypot triggered, likely bot submission");
+      // Return success to not alert the bot, but don't send email
+      return new Response(
+        JSON.stringify({ success: true }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    const { name, email, phone, message }: ContactEmailRequest = body;
 
     // Validate and sanitize inputs
-    if (!name || typeof name !== 'string' || name.length > 100) {
-      throw new Error("Invalid name");
+    if (!name || typeof name !== 'string' || name.trim().length === 0 || name.length > 100) {
+      throw new Error("Ungültiger Name");
     }
-    if (!email || typeof email !== 'string' || email.length > 255) {
-      throw new Error("Invalid email");
+    if (!email || typeof email !== 'string' || email.length > 255 || !isValidEmail(email)) {
+      throw new Error("Ungültige E-Mail-Adresse");
     }
-    if (!message || typeof message !== 'string' || message.length > 5000) {
-      throw new Error("Invalid message");
+    if (!message || typeof message !== 'string' || message.trim().length === 0 || message.length > 5000) {
+      throw new Error("Ungültige Nachricht");
     }
     if (phone && (typeof phone !== 'string' || phone.length > 30)) {
-      throw new Error("Invalid phone");
+      throw new Error("Ungültige Telefonnummer");
     }
 
     // Escape all user inputs for HTML
-    const safeName = escapeHtml(name);
-    const safeEmail = escapeHtml(email);
-    const safePhone = phone ? escapeHtml(phone) : null;
-    const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
+    const safeName = escapeHtml(name.trim());
+    const safeEmail = escapeHtml(email.trim());
+    const safePhone = phone ? escapeHtml(phone.trim()) : null;
+    const safeMessage = escapeHtml(message.trim()).replace(/\n/g, '<br>');
 
-    console.log("Sending contact email from:", email);
+    console.log(`Sending contact email from: ${safeEmail} (IP: ${clientIp})`);
 
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     if (!RESEND_API_KEY) {
