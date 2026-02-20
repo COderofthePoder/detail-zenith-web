@@ -1,33 +1,36 @@
 import { Car } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export type VehicleClass = 
-  | 'kleinwagen' 
-  | 'limousine' 
-  | 'coupe-2' 
-  | 'coupe-4' 
-  | 'cabrio-2' 
-  | 'cabrio-4' 
-  | 'kombi' 
-  | 'compact-suv' 
-  | 'suv' 
-  | 'pickup' 
-  | 'minivan' 
+export type VehicleClass =
+  | 'coupe-2'
+  | 'cabrio-2'
+  | 'pickup-single'
+  | 'kleinwagen'
+  | 'coupe-4'
+  | 'cabrio-4'
+  | 'limousine'
+  | 'kombi'
+  | 'compact-suv'
+  | 'pickup-double'
+  | 'suv'
+  | 'minivan'
   | 'bus';
 
+// multiplier kept for legacy compatibility but prices are now exact-lookup based
 export const vehicleClasses: { id: VehicleClass; label: string; multiplier: number }[] = [
-  { id: 'kleinwagen', label: 'Kleinwagen', multiplier: 0.85 },
-  { id: 'limousine', label: 'Limousine', multiplier: 1.0 },
-  { id: 'coupe-2', label: 'Coupé 2-Sitzer', multiplier: 0.95 },
-  { id: 'coupe-4', label: 'Coupé 4-Sitzer', multiplier: 1.0 },
-  { id: 'cabrio-2', label: 'Cabrio 2-Sitzer', multiplier: 1.0 },
-  { id: 'cabrio-4', label: 'Cabrio 4-Sitzer', multiplier: 1.05 },
-  { id: 'kombi', label: 'Kombi', multiplier: 1.1 },
-  { id: 'compact-suv', label: 'Kompakt-SUV', multiplier: 1.1 },
-  { id: 'suv', label: 'SUV (bis 7-Sitzer)', multiplier: 1.25 },
-  { id: 'pickup', label: 'Pickup', multiplier: 1.25 },
-  { id: 'minivan', label: 'Minivan', multiplier: 1.25 },
-  { id: 'bus', label: 'Bus', multiplier: 1.4 },
+  { id: 'coupe-2',       label: 'Coupé 2-Sitzer',          multiplier: 0.85 },
+  { id: 'cabrio-2',      label: 'Cabrio 2-Sitzer',          multiplier: 0.85 },
+  { id: 'pickup-single', label: 'Pickup Single/King Cab',   multiplier: 0.9  },
+  { id: 'kleinwagen',    label: 'Kleinwagen',               multiplier: 0.85 },
+  { id: 'coupe-4',       label: 'Coupé 4-Sitzer',           multiplier: 1.0  },
+  { id: 'cabrio-4',      label: 'Cabrio 4-Sitzer',          multiplier: 1.05 },
+  { id: 'limousine',     label: 'Limousine',                multiplier: 1.0  },
+  { id: 'kombi',         label: 'Kombi',                    multiplier: 1.1  },
+  { id: 'compact-suv',   label: 'Kompakt-SUV',              multiplier: 1.1  },
+  { id: 'pickup-double', label: 'Pickup Doppelkabine',      multiplier: 1.1  },
+  { id: 'suv',           label: 'SUV (bis 7-Sitzer)',        multiplier: 1.25 },
+  { id: 'minivan',       label: 'Minivan',                  multiplier: 1.25 },
+  { id: 'bus',           label: 'Bus',                      multiplier: 1.4  },
 ];
 
 interface VehicleSelectionProps {
