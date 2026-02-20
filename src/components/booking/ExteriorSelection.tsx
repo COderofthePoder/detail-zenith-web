@@ -135,7 +135,7 @@ const ExteriorSelection = ({
           />
           <div>
             <p className="font-semibold">Exterior Detail</p>
-            <p className="text-sm text-muted-foreground">Komplette Aussenaufbereitung</p>
+            <p className="text-sm text-muted-foreground">Aussenaufbereitung</p>
             <p className="text-sm font-semibold text-primary">{formatPrice(extDetailPrice)}</p>
           </div>
         </label>

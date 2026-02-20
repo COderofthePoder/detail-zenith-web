@@ -119,7 +119,7 @@ const InteriorSelection = ({
           />
           <div>
             <p className="font-semibold">Interior Detail</p>
-            <p className="text-sm text-muted-foreground">Komplette Innenaufbereitung</p>
+            <p className="text-sm text-muted-foreground">Innenaufbereitung</p>
             <p className="text-sm font-semibold text-primary">{formatPrice(interiorDetailPrice)}</p>
           </div>
         </label>
