@@ -18,42 +18,52 @@ import {
 } from '@/components/ui/dialog';
 import lamboBackground from '@/assets/Lambo_Fertig_Background.jpeg';
 
-// Vehicle class definitions with price multipliers
-type VehicleClass = 'kleinwagen' | 'limousine' | 'kombi' | 'coupe' | 'cabrio' | 'suv' | 'pickup' | 'minivan' | 'bus';
+// Vehicle class definitions with exact prices per service
+type VehicleClass = 'coupe-2' | 'cabrio-2' | 'kleinwagen' | 'coupe-4' | 'cabrio-4' | 'limousine' | 'kombi' | 'compact-suv' | 'pickup-single' | 'pickup-double' | 'suv' | 'minivan' | 'bus';
 
-const vehicleClasses: { id: VehicleClass; label: string; multiplier: number }[] = [
-  { id: 'kleinwagen', label: 'Kleinwagen', multiplier: 0.85 },
-  { id: 'limousine', label: 'Limousine', multiplier: 1.0 },
-  { id: 'coupe', label: 'Coupé', multiplier: 1.0 },
-  { id: 'cabrio', label: 'Cabrio', multiplier: 1.05 },
-  { id: 'kombi', label: 'Kombi', multiplier: 1.1 },
-  { id: 'suv', label: 'SUV', multiplier: 1.2 },
-  { id: 'pickup', label: 'Pickup', multiplier: 1.25 },
-  { id: 'minivan', label: 'Minivan', multiplier: 1.25 },
-  { id: 'bus', label: 'Bus', multiplier: 1.4 },
+const vehicleClasses: { id: VehicleClass; label: string }[] = [
+  { id: 'coupe-2', label: 'Coupé 2-Sitzer' },
+  { id: 'cabrio-2', label: 'Cabrio 2-Sitzer' },
+  { id: 'kleinwagen', label: 'Kleinwagen' },
+  { id: 'coupe-4', label: 'Coupé 4-Sitzer' },
+  { id: 'cabrio-4', label: 'Cabrio 4-Sitzer' },
+  { id: 'limousine', label: 'Limousine' },
+  { id: 'kombi', label: 'Kombi' },
+  { id: 'compact-suv', label: 'Kompakt-SUV' },
+  { id: 'pickup-single', label: 'Pickup Single/King Cab' },
+  { id: 'pickup-double', label: 'Pickup Doppelkabine' },
+  { id: 'suv', label: 'SUV (bis 7-Sitzer)' },
+  { id: 'minivan', label: 'Minivan' },
+  { id: 'bus', label: 'Bus' },
 ];
 
-// Helper function to calculate adjusted price
-const adjustPrice = (priceString: string, multiplier: number): string => {
-  // Check if price already contains vehicle class info (like "Kleinwagen: CHF 850 / ...")
-  if (priceString.includes('Kleinwagen') || priceString.includes('Mittelklasse') || priceString.includes('SUV:')) {
-    return priceString; // Return original for multi-class pricing
-  }
-  
-  // Parse price ranges like "CHF 80 – 150" or single prices like "CHF 300"
-  const priceRegex = /CHF\s*([\d']+)\s*(?:–\s*([\d']+))?/g;
-  
-  return priceString.replace(priceRegex, (match, min, max) => {
-    const minPrice = Math.round(parseInt(min.replace(/'/g, '')) * multiplier);
-    const formattedMin = minPrice >= 1000 ? minPrice.toLocaleString('de-CH').replace(',', "'") : minPrice.toString();
-    
-    if (max) {
-      const maxPrice = Math.round(parseInt(max.replace(/'/g, '')) * multiplier);
-      const formattedMax = maxPrice >= 1000 ? maxPrice.toLocaleString('de-CH').replace(',', "'") : maxPrice.toString();
-      return `CHF ${formattedMin} – ${formattedMax}`;
-    }
-    return `CHF ${formattedMin}`;
-  });
+// Exact price table per vehicle class per service
+type PriceTable = Record<VehicleClass, number>;
+
+const prices: Record<string, PriceTable | number> = {
+  exteriorDetail:   { 'coupe-2': 90, 'cabrio-2': 90, 'kleinwagen': 100, 'coupe-4': 100, 'cabrio-4': 110, 'limousine': 120, 'kombi': 130, 'compact-suv': 140, 'pickup-single': 110, 'pickup-double': 140, 'suv': 150, 'minivan': 170, 'bus': 190 },
+  flugrost:         { 'coupe-2': 60, 'cabrio-2': 60, 'kleinwagen': 70, 'coupe-4': 70, 'cabrio-4': 70, 'limousine': 80, 'kombi': 80, 'compact-suv': 80, 'pickup-single': 80, 'pickup-double': 90, 'suv': 90, 'minivan': 100, 'bus': 110 },
+  reifenRadhaus:    30, // flat for all
+  politur1:         { 'coupe-2': 340, 'cabrio-2': 360, 'kleinwagen': 380, 'coupe-4': 410, 'cabrio-4': 430, 'limousine': 460, 'kombi': 500, 'compact-suv': 530, 'pickup-single': 510, 'pickup-double': 560, 'suv': 600, 'minivan': 650, 'bus': 720 },
+  politur2:         { 'coupe-2': 470, 'cabrio-2': 490, 'kleinwagen': 520, 'coupe-4': 550, 'cabrio-4': 570, 'limousine': 600, 'kombi': 650, 'compact-suv': 680, 'pickup-single': 620, 'pickup-double': 700, 'suv': 750, 'minivan': 810, 'bus': 910 },
+  politur3:         { 'coupe-2': 590, 'cabrio-2': 610, 'kleinwagen': 650, 'coupe-4': 680, 'cabrio-4': 720, 'limousine': 750, 'kombi': 810, 'compact-suv': 850, 'pickup-single': 780, 'pickup-double': 880, 'suv': 940, 'minivan': 1010, 'bus': 1140 },
+  frontscheibe:     { 'coupe-2': 80, 'cabrio-2': 80, 'kleinwagen': 80, 'coupe-4': 80, 'cabrio-4': 80, 'limousine': 90, 'kombi': 90, 'compact-suv': 90, 'pickup-single': 90, 'pickup-double': 90, 'suv': 90, 'minivan': 100, 'bus': 100 },
+  kunststoffAussen: { 'coupe-2': 50, 'cabrio-2': 50, 'kleinwagen': 50, 'coupe-4': 50, 'cabrio-4': 50, 'limousine': 60, 'kombi': 60, 'compact-suv': 60, 'pickup-single': 60, 'pickup-double': 60, 'suv': 70, 'minivan': 70, 'bus': 80 },
+  endrohr:          { 'coupe-2': 40, 'cabrio-2': 40, 'kleinwagen': 40, 'coupe-4': 40, 'cabrio-4': 40, 'limousine': 40, 'kombi': 40, 'compact-suv': 40, 'pickup-single': 40, 'pickup-double': 40, 'suv': 50, 'minivan': 50, 'bus': 50 },
+  keramik:          { 'coupe-2': 400, 'cabrio-2': 420, 'kleinwagen': 450, 'coupe-4': 470, 'cabrio-4': 500, 'limousine': 520, 'kombi': 560, 'compact-suv': 590, 'pickup-single': 540, 'pickup-double': 610, 'suv': 650, 'minivan': 700, 'bus': 790 },
+  keramikSpray:     { 'coupe-2': 80, 'cabrio-2': 80, 'kleinwagen': 90, 'coupe-4': 90, 'cabrio-4': 100, 'limousine': 100, 'kombi': 110, 'compact-suv': 110, 'pickup-single': 100, 'pickup-double': 110, 'suv': 120, 'minivan': 130, 'bus': 150 },
+  carnauba:         { 'coupe-2': 160, 'cabrio-2': 160, 'kleinwagen': 170, 'coupe-4': 180, 'cabrio-4': 180, 'limousine': 190, 'kombi': 210, 'compact-suv': 210, 'pickup-single': 200, 'pickup-double': 220, 'suv': 240, 'minivan': 250, 'bus': 280 },
+  scheiben:         { 'coupe-2': 50, 'cabrio-2': 50, 'kleinwagen': 50, 'coupe-4': 50, 'cabrio-4': 50, 'limousine': 50, 'kombi': 60, 'compact-suv': 60, 'pickup-single': 50, 'pickup-double': 60, 'suv': 60, 'minivan': 60, 'bus': 60 },
+  motorraum:        { 'coupe-2': 90, 'cabrio-2': 90, 'kleinwagen': 90, 'coupe-4': 100, 'cabrio-4': 100, 'limousine': 100, 'kombi': 110, 'compact-suv': 110, 'pickup-single': 110, 'pickup-double': 110, 'suv': 120, 'minivan': 120, 'bus': 130 },
+  unterboden:       { 'coupe-2': 100, 'cabrio-2': 100, 'kleinwagen': 100, 'coupe-4': 110, 'cabrio-4': 110, 'limousine': 110, 'kombi': 120, 'compact-suv': 130, 'pickup-single': 120, 'pickup-double': 130, 'suv': 140, 'minivan': 150, 'bus': 160 },
+};
+
+const getPrice = (key: string, vehicle: VehicleClass | null): string => {
+  if (!vehicle) return '';
+  const entry = prices[key];
+  if (entry === undefined) return '';
+  if (typeof entry === 'number') return `CHF ${entry}`;
+  return `CHF ${(entry as PriceTable)[vehicle]}`;
 };
 
 const Services = () => {
@@ -63,7 +73,7 @@ const Services = () => {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const mobileCardRef = useRef<HTMLDivElement>(null);
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleClass>('limousine');
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleClass | null>(null);
 
   const categories = [
     { id: 'all', label: 'Alle Pakete' },
@@ -82,18 +92,17 @@ const Services = () => {
       title: 'Aussenpflege Standard',
       description: 'Gründliche Handwäsche mit pH-neutralen Produkten, intensive Felgenreinigung, Scheibenreinigung innen & aussen, Reifenpflege und sanfte Wachsauffrischung.',
       detailedDescription: 'Unsere Aussenpflege Standard ist die perfekte Wahl für alle, die eine saubere und gepflegte Optik möchten. Die professionelle Handwäsche erfolgt mit pH-neutralen Shampoos, die Ihren Lack schonend reinigen. Die intensive Felgenreinigung entfernt Bremsstaub und hartnäckige Verschmutzungen. Scheiben werden innen und aussen kristallklar gereinigt. Abgerundet wird die Behandlung mit Reifenpflege und einer sanften Wachsauffrischung für Glanz und Schutz.',
-      detailedPrice: 'CHF 80 – 150',
+      priceKey: 'exteriorDetail',
       features: ['Professionelle Handwäsche', 'Intensive Felgenreinigung', 'Scheibenreinigung innen & aussen', 'Reifenpflege & Wachsauffrischung'],
       category: 'aussen',
     },
-    
     // Innenraumaufbereitung
     {
       icon: Sparkles,
       title: 'Innen Premium',
       description: 'Tiefenreinigung aller Sitzflächen, Teppiche und Himmel. Inklusive Lederpflege und Entfernung hartnäckiger Verschmutzungen für gründliche Auffrischung.',
       detailedDescription: 'Die Premium-Innenraumaufbereitung ist eine intensive Tiefenreinigung Ihres gesamten Innenraums. Alle Sitzflächen werden gründlich gereinigt – egal ob Textil oder Leder. Teppiche, Fussmatten und sogar der Himmel werden professionell behandelt. Ledersitze erhalten eine spezielle Pflegebehandlung, die das Material nährt und geschmeidig hält. Hartnäckige Verschmutzungen, Staub und Schmutz in allen Ritzen werden restlos entfernt. Ihr Innenraum wird hygienisch sauber und erstrahlt in neuem Glanz.',
-      detailedPrice: 'CHF 99 – 199',
+      priceKey: null as string | null,
       features: ['Tiefenreinigung Sitzflächen & Teppiche', 'Himmel-Reinigung', 'Lederpflege professionell', 'Entfernung hartnäckiger Verschmutzungen'],
       category: 'innen',
     },
@@ -102,18 +111,17 @@ const Services = () => {
       title: 'Innen Basic',
       description: 'Gründliches Staubsaugen, Reinigung und Pflege von Cockpit, Armaturen und Türverkleidungen. Glasreinigung innen für frischen, hygienischen Innenraum.',
       detailedDescription: 'Die Basic-Innenreinigung ist ideal für den Alltag und hält Ihren Innenraum frisch und hygienisch. Es wird gründlich gestaubsaugt – Teppiche, Sitze und Kofferraum werden von Staub und Schmutz befreit. Cockpit, Armaturen und Türverkleidungen werden sorgfältig gereinigt und gepflegt. Die Glasreinigung innen sorgt für klare Sicht. Perfekt für alle, die regelmässig für Ordnung und Sauberkeit sorgen möchten.',
-      detailedPrice: 'CHF 79 – 119',
+      priceKey: null as string | null,
       features: ['Gründliches Staubsaugen komplett', 'Cockpit & Armaturen-Reinigung', 'Türverkleidungen-Pflege', 'Glasreinigung innen'],
       category: 'innen',
     },
-    
     // Politur & Lackaufbereitung
     {
       icon: Zap,
       title: 'Dreistufige Politur (Showroom-Finish)',
       description: 'Intensive Lackkorrektur für höchste Ansprüche. Entfernt tiefe Kratzer, maximale Glätte und Hochglanzfinish. Perfekt für Premium-Fahrzeuge.',
       detailedDescription: 'Die dreistufige Politur ist unsere Königsklasse der Lackaufbereitung. In drei intensiven Arbeitsschritten entfernen wir tiefe Kratzer, Hologramme und Swirls vollständig. Durch mehrstufiges Schleifen und Polieren erreichen wir maximale Glätte und einen Hochglanz, der seinesgleichen sucht. Diese Behandlung ist perfekt für Präsentationsfahrzeuge oder Premium-Fahrzeuge, die perfekt aussehen sollen. Der Lack erstrahlt wie neu.',
-      detailedPrice: 'Kleinwagen: CHF 850 / Mittelklasse: CHF 950 / SUV: CHF 1\'090',
+      priceKey: 'politur3' as string | null,
       features: ['Tiefe Kratzerentfernung', 'Maximale Lackglätte', 'Hochglanzfinish', 'Ideal für Premium-Fahrzeuge'],
       category: 'politur',
     },
@@ -122,7 +130,7 @@ const Services = () => {
       title: 'Zweistufige Politur (Kratzerkorrektur & Glanz)',
       description: 'Entfernt mittlere Kratzer, Hologramme und leichte Swirls. Tiefenglanz und perfekte Vorbereitung für Versiegelungen.',
       detailedDescription: 'Die zweistufige Politur bietet eine professionelle Kratzerkorrektur in zwei Schritten. Im ersten Schritt werden mittlere Kratzer, Hologramme und leichte Swirls entfernt. Der zweite Schritt bringt den Tiefenglanz zurück und bereitet den Lack optimal für Versiegelungen vor. Diese Behandlung ist ideal für Fahrzeuge, die bereits sichtbare Gebrauchsspuren aufweisen und eine deutliche Aufwertung benötigen.',
-      detailedPrice: 'Kleinwagen: CHF 650 / Mittelklasse: CHF 750 / SUV: CHF 850',
+      priceKey: 'politur2' as string | null,
       features: ['Mittlere Kratzerentfernung', 'Hologramm-Beseitigung', 'Tiefenglanz', 'Vorbereitung für Versiegelung'],
       category: 'politur',
     },
@@ -131,18 +139,17 @@ const Services = () => {
       title: 'Einstufige Politur (Glanzauffrischung)',
       description: 'Entfernung leichter Kratzer, Oxidation und kleiner Gebrauchsspuren. Bringt den Lack zurück zum strahlenden Glanz und schützt die Oberfläche.',
       detailedDescription: 'Die einstufige Politur ist die ideale Glanzauffrischung für Ihren Lack. Sie entfernt leichte Kratzer, Oxidation und kleine Gebrauchsspuren effektiv. Der Lack wird aufgefrischt, zurück zum strahlenden Glanz gebracht und gleichzeitig geschützt und gepflegt. Diese Behandlung eignet sich perfekt für Fahrzeuge, die regelmässig gepflegt werden und nur leichte Auffrischung benötigen.',
-      detailedPrice: 'Kleinwagen: CHF 390 / Mittelklasse: CHF 450 / SUV: CHF 520',
+      priceKey: 'politur1' as string | null,
       features: ['Leichte Kratzerentfernung', 'Oxidations-Beseitigung', 'Glanzauffrischung', 'Lackschutz & -pflege'],
       category: 'politur',
     },
-    
     // Versiegelungen
     {
       icon: Shield,
       title: 'Keramikversiegelung (3 Jahre)',
       description: 'Extra langer Schutz für Ihren Lack. Sorgt für dauerhaft tiefen Glanz, minimiert Kratzer- und Witterungsschäden. Wasser- und schmutzabweisend.',
       detailedDescription: 'Die 3-Jahres-Keramikversiegelung bietet extra langen Schutz für Ihren Lack. Die hochwertige Versiegelung bildet eine extrem harte Schutzschicht, die dauerhaft tiefen Glanz garantiert und Kratzer sowie Witterungsschäden minimiert. UV-Strahlung, Vogelkot und Insekten können Ihrem Lack nichts mehr anhaben. Dank der extremen Hydrophobie perlen Wasser und Schmutz einfach ab – die Reinigung wird zum Kinderspiel.',
-      detailedPrice: 'CHF 600',
+      priceKey: 'keramik' as string | null,
       features: ['3 Jahre Schutz', 'UV-beständig', 'Wasser- & schmutzabweisend', 'Minimiert Kratzer'],
       category: 'versiegelung',
     },
@@ -151,7 +158,7 @@ const Services = () => {
       title: 'Keramikversiegelung (1 Jahr)',
       description: 'Hochwertiger Langzeitschutz für Ihren Lack. Wasser- und schmutzabweisend, UV-beständig, erleichtert die Pflege erheblich.',
       detailedDescription: 'Die 1-Jahres-Keramikversiegelung ist der perfekte Langzeitschutz für Ihren Lack. Sie bildet eine harte Schutzschicht, die vor UV-Strahlung, Umwelteinflüssen, Vogelkot und Insekten schützt. Die Versiegelung ist extrem hydrophob – Wasser und Schmutz perlen einfach ab. Die Pflege wird deutlich erleichtert, und Ihr Fahrzeug behält den tiefen Glanz über ein Jahr lang.',
-      detailedPrice: 'CHF 300',
+      priceKey: 'keramikSpray' as string | null,
       features: ['1 Jahr Schutz', 'UV-beständig', 'Hydrophober Effekt', 'Erleichterte Pflege'],
       category: 'versiegelung',
     },
@@ -160,18 +167,17 @@ const Services = () => {
       title: 'Felgenversiegelung (pro Satz)',
       description: 'Schützt Felgen vor Bremsstaub, Schmutz und Korrosion. Erleichtert die Reinigung erheblich und erhält den Glanz dauerhaft.',
       detailedDescription: 'Die Felgenversiegelung schützt Ihre Felgen dauerhaft vor Bremsstaub, Schmutz und Korrosion. Felgen sind permanenten Belastungen ausgesetzt – unsere Versiegelung bildet eine schützende Barriere, die die Reinigung deutlich erleichtert. Bremsstaub und Verschmutzungen haften kaum noch an der Oberfläche. Der Glanz bleibt länger erhalten, und Ihre Felgen sehen dauerhaft wie neu aus.',
-      detailedPrice: 'CHF 150',
+      priceKey: null as string | null,
       features: ['Schutz vor Bremsstaub', 'Korrosionsschutz', 'Erleichterte Reinigung', 'Dauerhafter Glanz'],
       category: 'versiegelung',
     },
-    
     // Komplettpakete
     {
       icon: Crown,
       title: 'Komplett Deluxe',
       description: 'Das ultimative Premium-Paket für höchste Ansprüche. Komplette Innenraumaufbereitung, professionelle Aussenpflege und dreistufige Politur für Showroom-Finish.',
       detailedDescription: 'Unser Deluxe-Paket ist die Königsklasse der Fahrzeugaufbereitung. Es kombiniert intensive Innenraumreinigung aller Sitzflächen, Teppiche und Flächen mit professioneller Aussenpflege inklusive Handwäsche, Felgen- und Scheibenreinigung. Das Highlight: Eine dreistufige Politur mit intensiver Lackkorrektur für höchste Ansprüche, die tiefe Kratzer entfernt und maximale Glätte erreicht. Ihr Fahrzeug erstrahlt in neuem Glanz – innen wie aussen perfekt.',
-      detailedPrice: 'CHF 1\'150 – 1\'200',
+      priceKey: null as string | null,
       features: ['Innenraumtiefenreinigung Premium', 'Komplette Aussenpflege Standard', 'Dreistufige Politur (Showroom-Finish)', 'Hochglanzfinish & Lackkorrektur'],
       category: 'komplett',
     },
@@ -180,7 +186,7 @@ const Services = () => {
       title: 'Komplett Premium',
       description: 'Premium-Komplettpaket für anspruchsvolle Fahrzeugpflege. Umfassende Innenraumaufbereitung plus professionelle Aussenpflege für ein rundum gepflegtes Fahrzeug.',
       detailedDescription: 'Das Premium-Paket bietet eine umfassende Aufbereitung Ihres Fahrzeugs. Die Innenraumaufbereitung umfasst Tiefenreinigung aller Sitzflächen (Textil oder Leder), Teppiche und Himmel, inklusive Lederpflege und Entfernung hartnäckiger Verschmutzungen. Die Aussenpflege beinhaltet gründliche Handwäsche, intensive Felgenreinigung, Scheibenreinigung innen & aussen, Reifenpflege und sanfte Wachsauffrischung. Ideal für alle, die ihrem Fahrzeug eine Rundum-Erneuerung gönnen möchten.',
-      detailedPrice: 'CHF 169 – 310',
+      priceKey: null as string | null,
       features: ['Innenraumtiefenreinigung Premium', 'Lederpflege & Fleckenentfernung', 'Aussenpflege Standard komplett', 'Felgen- & Scheibenreinigung'],
       category: 'komplett',
     },
@@ -189,18 +195,17 @@ const Services = () => {
       title: 'Komplett Basic',
       description: 'Perfektes Einstiegspaket für gründliche Reinigung innen und aussen. Ideal für alle, die ein gepflegtes Gesamtbild zum attraktiven Preis suchen.',
       detailedDescription: 'Das Basic-Paket kombiniert unsere bewährte Innenreinigung mit professioneller Aussenpflege. Innen wird gründlich gestaubsaugt, Cockpit und Armaturen gereinigt und gepflegt, Glasreinigung durchgeführt. Aussen erfolgt eine gründliche Handwäsche mit pH-neutralen Produkten, intensive Felgenreinigung, Scheibenreinigung und Reifenpflege. Abgerundet wird das Paket mit einer sanften Wachsauffrischung für Glanz und Schutz. Das perfekte Paket für den Alltag.',
-      detailedPrice: 'CHF 149 – 240',
+      priceKey: null as string | null,
       features: ['Innenreinigung Basic komplett', 'Aussenpflege Standard', 'Cockpit & Armaturen-Pflege', 'Wachsauffrischung'],
       category: 'komplett',
     },
-    
     // Zusatzleistungen
     {
       icon: Wrench,
       title: 'Motorraumreinigung',
       description: 'Gründliche Reinigung des Motorraums. Entfernung von Staub, Schmutz, Öl- und Fettablagerungen. Sorgt für sauberes Erscheinungsbild und Werterhalt.',
       detailedDescription: 'Die Motorraumreinigung sorgt für ein sauberes Erscheinungsbild unter der Haube. Wir entfernen gründlich Staub, Schmutz, Öl- und Fettablagerungen. Empfindliche Bauteile werden geschützt, während der gesamte Motorraum professionell gereinigt wird. Ein sauberer Motorraum erhöht den Werterhalt Ihres Fahrzeugs und erleichtert Wartungsarbeiten.',
-      detailedPrice: 'CHF 90 – 130',
+      priceKey: 'motorraum' as string | null,
       features: ['Gründliche Reinigung', 'Öl- & Fettentfernung', 'Schutz empfindlicher Bauteile', 'Werterhalt'],
       category: 'zusatz',
     },
@@ -209,7 +214,7 @@ const Services = () => {
       title: 'Tierhaarentfernung',
       description: 'Professionelle Entfernung hartnäckiger Tierhaare aus Sitzen, Teppichen und Polstern. Sorgt für sauberes, hygienisches Interieur.',
       detailedDescription: 'Tierhaare können hartnäckig sein und sich tief in Polstern, Sitzen und Teppichen festsetzen. Unsere professionelle Tierhaarentfernung nutzt spezielle Techniken und Werkzeuge, um selbst die hartnäckigsten Haare restlos zu entfernen. Das Ergebnis ist ein sauberes, hygienisches Interieur und der Werterhalt Ihres Fahrzeugs. Ideal für Tierbesitzer.',
-      detailedPrice: 'CHF 80 – 120',
+      priceKey: null as string | null,
       features: ['Professionelle Entfernung', 'Sitze, Teppiche & Polster', 'Hygienisches Interieur', 'Werterhalt'],
       category: 'zusatz',
     },
@@ -218,7 +223,7 @@ const Services = () => {
       title: 'Cabrioverdeck-Reinigung & Imprägnierung',
       description: 'Reinigung, Pflege und Imprägnierung von Stoff- oder Textilverdecken. Schützt vor Witterung und erhält die Optik.',
       detailedDescription: 'Cabrioverdecke aus Stoff oder Textil benötigen spezielle Pflege. Unsere Behandlung umfasst gründliche Reinigung, intensive Pflege und abschliessende Imprägnierung. Die Imprägnierung schützt vor Witterungseinflüssen, Nässe und UV-Strahlung. Das Verdeck behält seine Optik und Funktionalität über Jahre hinweg. Perfekt für Cabrio-Besitzer, die ihr Verdeck optimal schützen möchten.',
-      detailedPrice: 'CHF 80 – 120',
+      priceKey: null as string | null,
       features: ['Reinigung & Pflege', 'Imprägnierung', 'Witterungsschutz', 'Optik-Erhalt'],
       category: 'zusatz',
     },
@@ -227,7 +232,7 @@ const Services = () => {
       title: 'Scheinwerfer-Aufbereitung',
       description: 'Wiederherstellung von Klarheit und Glanz der Scheinwerfer. Verbessert Optik und Lichtleistung erheblich.',
       detailedDescription: 'Vergilbte oder matte Scheinwerfer beeinträchtigen nicht nur die Optik, sondern auch die Lichtleistung. Unsere Scheinwerfer-Aufbereitung stellt die ursprüngliche Klarheit und den Glanz wieder her. Durch professionelles Polieren und Versiegeln werden die Scheinwerfer wie neu. Die Lichtleistung verbessert sich deutlich, und Ihr Fahrzeug sieht wieder aus wie neu.',
-      detailedPrice: 'CHF 100 – 150',
+      priceKey: null as string | null,
       features: ['Klarheits-Wiederherstellung', 'Glanzpolitur', 'Verbesserte Lichtleistung', 'Optik-Aufwertung'],
       category: 'zusatz',
     },
@@ -322,7 +327,7 @@ const Services = () => {
             
             {/* Vehicle Class Selector - Horizontal Slider */}
             <div className="mt-8">
-              <p className="text-white/80 font-medium mb-4">Wähle deine Fahrzeugklasse:</p>
+              <p className="text-white/80 font-medium mb-4">Wähle deine Fahrzeugklasse um Preise zu sehen:</p>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide max-w-full mx-auto justify-start md:justify-center px-4 -mx-4 md:mx-0 md:px-0">
                 {vehicleClasses.map((vc) => (
                   <button
@@ -397,13 +402,17 @@ const Services = () => {
                     <p className="text-muted-foreground leading-relaxed">{currentService.description}</p>
                   </div>
                   <div className="mt-auto pt-4">
-                    {currentService.detailedPrice && (
+                    {currentService.priceKey && selectedVehicle ? (
                       <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20 mb-4">
                         <p className="text-xl font-bold text-primary">
-                          {adjustPrice(currentService.detailedPrice, vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1)}
+                          {getPrice(currentService.priceKey, selectedVehicle)}
                         </p>
                       </div>
-                    )}
+                    ) : currentService.priceKey && !selectedVehicle ? (
+                      <div className="bg-secondary/50 rounded-lg px-4 py-3 border border-border mb-4">
+                        <p className="text-sm text-muted-foreground">Fahrzeugklasse wählen für Preisanzeige</p>
+                      </div>
+                    ) : null}
                     <div className="h-px bg-border mb-4" />
                     <ul className="space-y-2">
                       {currentService.features.map((feature) => (
@@ -460,13 +469,17 @@ const Services = () => {
                       <p className="text-muted-foreground leading-relaxed">{service.description}</p>
                     </div>
                     <div className="mt-auto pt-4">
-                      {service.detailedPrice && (
+                      {service.priceKey && selectedVehicle ? (
                         <div className="bg-primary/10 rounded-lg px-4 py-3 border border-primary/20 mb-4">
                           <p className="text-xl font-bold text-primary">
-                            {adjustPrice(service.detailedPrice, vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1)}
+                            {getPrice(service.priceKey, selectedVehicle)}
                           </p>
                         </div>
-                      )}
+                      ) : service.priceKey && !selectedVehicle ? (
+                        <div className="bg-secondary/50 rounded-lg px-4 py-3 border border-border mb-4">
+                          <p className="text-sm text-muted-foreground">Fahrzeugklasse wählen für Preisanzeige</p>
+                        </div>
+                      ) : null}
                       <div className="h-px bg-border mb-4" />
                       <ul className="space-y-2">
                         {service.features.map((feature) => (
@@ -571,11 +584,13 @@ const Services = () => {
                   </p>
                 </div>
 
-                {selectedService.detailedPrice && (
+                {selectedService.priceKey && (
                   <div className="bg-primary/10 rounded-lg p-4 border border-primary/20">
-                    <h4 className="text-lg font-semibold mb-2">Preis für {vehicleClasses.find(v => v.id === selectedVehicle)?.label}</h4>
+                    <h4 className="text-lg font-semibold mb-2">
+                      {selectedVehicle ? `Preis für ${vehicleClasses.find(v => v.id === selectedVehicle)?.label}` : 'Preis'}
+                    </h4>
                     <p className="text-2xl font-bold text-primary">
-                      {adjustPrice(selectedService.detailedPrice, vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1)}
+                      {selectedVehicle ? getPrice(selectedService.priceKey, selectedVehicle) : '– Fahrzeugklasse wählen –'}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">Preise variieren je nach Fahrzeugklasse</p>
                   </div>
