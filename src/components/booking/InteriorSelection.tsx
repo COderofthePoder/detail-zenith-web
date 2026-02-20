@@ -5,26 +5,39 @@ import {
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import ExtraItem from './ExtraItem';
-import { VehicleClass, vehicleClasses } from './VehicleSelection';
+import { VehicleClass } from './VehicleSelection';
+import {
+  interiorDetailPrices,
+  lederReinigungPrices,
+  shampooStoffPrices,
+  alcantaraPrices,
+  fleckenGeruchPrices,
+  kunststoffUVPrices,
+  impraegnierungPrices,
+  kindersitzPrice,
+  tierhaarPrices,
+  lederVersiegelungPrices,
+  getExactPrice,
+} from '@/lib/prices';
 
 export interface InteriorExtra {
   id: string;
   title: string;
   icon: typeof Sparkles;
-  basePrice: number;
+  priceTable: Record<VehicleClass, number> | number;
   maxQuantity: number;
 }
 
 export const interiorExtras: InteriorExtra[] = [
-  { id: 'shampoo-stoff', title: 'Shampoonierung von Stoffpolstern inkl. Extraktion', icon: Droplets, basePrice: 80, maxQuantity: 1 },
-  { id: 'leder-reinigung', title: 'Leder-Tiefenreinigung & Lederpflege', icon: Armchair, basePrice: 120, maxQuantity: 1 },
-  { id: 'alcantara', title: 'Alcantara-Spezialreinigung', icon: Layers, basePrice: 100, maxQuantity: 1 },
-  { id: 'flecken-geruch', title: 'Flecken- & Geruchsentfernung (Getränke, Nikotin, Tiergerüche)', icon: Wind, basePrice: 90, maxQuantity: 1 },
-  { id: 'kunststoff-uv', title: 'Kunststoff- & Gummipflege mit UV-Schutz', icon: Shield, basePrice: 50, maxQuantity: 1 },
-  { id: 'kindersitz', title: 'Kindersitz-Reinigung', icon: Baby, basePrice: 35, maxQuantity: 5 },
-  { id: 'tierhaar', title: 'Tierhaar-Spezialentfernung', icon: Dog, basePrice: 100, maxQuantity: 1 },
-  { id: 'impraegnierung', title: 'Imprägnierung von Stoff- & Teppichflächen', icon: Bug, basePrice: 80, maxQuantity: 1 },
-  { id: 'leder-versiegelung', title: 'Leder-Versiegelung', icon: Lock, basePrice: 150, maxQuantity: 1 },
+  { id: 'shampoo-stoff',      title: 'Shampoonierung von Stoffpolstern inkl. Extraktion', icon: Droplets,  priceTable: shampooStoffPrices,      maxQuantity: 1 },
+  { id: 'leder-reinigung',    title: 'Leder-Tiefenreinigung & Lederpflege',               icon: Armchair,  priceTable: lederReinigungPrices,    maxQuantity: 1 },
+  { id: 'alcantara',          title: 'Alcantara-Spezialreinigung',                         icon: Layers,    priceTable: alcantaraPrices,         maxQuantity: 1 },
+  { id: 'flecken-geruch',     title: 'Flecken- & Geruchsentfernung (Getränke, Nikotin, Tiergerüche)', icon: Wind, priceTable: fleckenGeruchPrices, maxQuantity: 1 },
+  { id: 'kunststoff-uv',      title: 'Kunststoff- & Gummipflege mit UV-Schutz',            icon: Shield,    priceTable: kunststoffUVPrices,      maxQuantity: 1 },
+  { id: 'kindersitz',         title: 'Kindersitz-Reinigung',                               icon: Baby,      priceTable: kindersitzPrice,         maxQuantity: 5 },
+  { id: 'tierhaar',           title: 'Tierhaar-Spezialentfernung',                         icon: Dog,       priceTable: tierhaarPrices,          maxQuantity: 1 },
+  { id: 'impraegnierung',     title: 'Imprägnierung von Stoff- & Teppichflächen',          icon: Bug,       priceTable: impraegnierungPrices,    maxQuantity: 1 },
+  { id: 'leder-versiegelung', title: 'Leder-Versiegelung',                                 icon: Lock,      priceTable: lederVersiegelungPrices, maxQuantity: 1 },
 ];
 
 interface InteriorSelectionProps {
@@ -37,9 +50,7 @@ interface InteriorSelectionProps {
   onQuantityChange: (id: string, quantity: number) => void;
 }
 
-const formatPrice = (price: number): string => {
-  return `CHF ${price.toLocaleString('de-CH')}`;
-};
+const formatPrice = (price: number): string => `CHF ${price.toLocaleString('de-CH')}`;
 
 const InteriorSelection = ({
   selectedVehicle,
@@ -50,23 +61,22 @@ const InteriorSelection = ({
   quantities,
   onQuantityChange,
 }: InteriorSelectionProps) => {
-  const multiplier = vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1;
-  
-  const getPrice = (basePrice: number) => Math.round(basePrice * multiplier);
+  const getPrice = (table: Record<VehicleClass, number> | number): number => {
+    if (!selectedVehicle) return 0;
+    return getExactPrice(table, selectedVehicle);
+  };
 
   const handleNoInteriorChange = (checked: boolean) => {
     onNoInteriorChange(checked);
-    if (checked) {
-      onInteriorDetailChange(false);
-    }
+    if (checked) onInteriorDetailChange(false);
   };
 
   const handleInteriorDetailChange = (checked: boolean) => {
     onInteriorDetailChange(checked);
-    if (checked) {
-      onNoInteriorChange(false);
-    }
+    if (checked) onNoInteriorChange(false);
   };
+
+  const interiorDetailPrice = selectedVehicle ? getExactPrice(interiorDetailPrices, selectedVehicle) : 0;
 
   return (
     <div className="animate-fade-up max-w-3xl mx-auto">
@@ -78,13 +88,13 @@ const InteriorSelection = ({
         <label
           className={cn(
             "flex items-center gap-4 p-5 rounded-xl border-2 cursor-pointer transition-all",
-            noInterior 
-              ? "bg-secondary border-foreground/20" 
+            noInterior
+              ? "bg-secondary border-foreground/20"
               : "bg-secondary/30 border-transparent hover:bg-secondary/50"
           )}
         >
-          <Checkbox 
-            checked={noInterior} 
+          <Checkbox
+            checked={noInterior}
             onCheckedChange={handleNoInteriorChange}
             className="w-6 h-6"
           />
@@ -97,20 +107,20 @@ const InteriorSelection = ({
         <label
           className={cn(
             "flex items-center gap-4 p-5 rounded-xl border-2 cursor-pointer transition-all",
-            interiorDetail 
-              ? "bg-primary/10 border-primary" 
+            interiorDetail
+              ? "bg-primary/10 border-primary"
               : "bg-secondary/30 border-transparent hover:bg-secondary/50"
           )}
         >
-          <Checkbox 
-            checked={interiorDetail} 
+          <Checkbox
+            checked={interiorDetail}
             onCheckedChange={handleInteriorDetailChange}
             className="w-6 h-6"
           />
           <div>
             <p className="font-semibold">Interior Detail</p>
             <p className="text-sm text-muted-foreground">Komplette Innenaufbereitung</p>
-            <p className="text-sm font-semibold text-primary">{formatPrice(getPrice(149))}</p>
+            <p className="text-sm font-semibold text-primary">{formatPrice(interiorDetailPrice)}</p>
           </div>
         </label>
       </div>
@@ -121,14 +131,14 @@ const InteriorSelection = ({
           <Sparkles className="w-5 h-5 text-primary" />
           Zusätzliche Extras
         </h3>
-        
+
         {interiorExtras.map((extra) => (
           <ExtraItem
             key={extra.id}
             id={extra.id}
             title={extra.title}
             icon={extra.icon}
-            price={getPrice(extra.basePrice)}
+            price={getPrice(extra.priceTable)}
             quantity={quantities[extra.id] || 0}
             maxQuantity={extra.maxQuantity}
             onIncrease={() => onQuantityChange(extra.id, (quantities[extra.id] || 0) + 1)}

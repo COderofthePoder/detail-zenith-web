@@ -1,37 +1,56 @@
-import { 
+import {
   Sparkles, Droplets, CircleDot, Zap, Lightbulb, Sun,
   Shield, Wind, Wrench, Car, Gauge, CloudRain
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import ExtraItem from './ExtraItem';
-import { VehicleClass, vehicleClasses } from './VehicleSelection';
+import { VehicleClass } from './VehicleSelection';
+import {
+  exteriorDetailPrices,
+  flugrostPrices,
+  reifenRadhausPrice,
+  politur1Prices,
+  politur2Prices,
+  politur3Prices,
+  frontscheibePrices,
+  kunststoffAussenPrices,
+  endrohPrices,
+  keramikPrices,
+  keramikSprayPrices,
+  carnaubaPrices,
+  scheibenPrices,
+  motorPrices,
+  unterbodenPrices,
+  cabrioPrices,
+  getExactPrice,
+} from '@/lib/prices';
 
 export interface ExteriorExtra {
   id: string;
   title: string;
   icon: typeof Sparkles;
-  basePrice: number;
+  priceTable: Record<VehicleClass, number> | number;
   maxQuantity: number;
   cabrioOnly?: boolean;
 }
 
 export const exteriorExtras: ExteriorExtra[] = [
-  { id: 'flugrost', title: 'Flugrostentfernung (chemisch)', icon: Droplets, basePrice: 80, maxQuantity: 1 },
-  { id: 'reifen-radhaus', title: 'Reifen & Radhaus-Intensivreinigung', icon: CircleDot, basePrice: 60, maxQuantity: 1 },
-  { id: 'politur-1', title: 'One-Step-Politur', icon: Sparkles, basePrice: 450, maxQuantity: 1 },
-  { id: 'politur-2', title: '2-Step-Politur', icon: Lightbulb, basePrice: 750, maxQuantity: 1 },
-  { id: 'politur-3', title: '3-Step-Politur', icon: Zap, basePrice: 950, maxQuantity: 1 },
-  { id: 'frontscheibe', title: 'Frontscheibenpolitur (Entfernung von Glas-Schmierfilm)', icon: Sun, basePrice: 80, maxQuantity: 1 },
-  { id: 'kunststoff-aussen', title: 'Kunststoff-Aussenpflege', icon: Shield, basePrice: 60, maxQuantity: 1 },
-  { id: 'endrohr', title: 'Endrohr- / Auspuffpolitur', icon: Gauge, basePrice: 50, maxQuantity: 1 },
-  { id: 'keramik', title: 'Keramikversiegelung', icon: Shield, basePrice: 600, maxQuantity: 1 },
-  { id: 'keramik-spray', title: 'Keramik-Spray-Versiegelung', icon: CloudRain, basePrice: 150, maxQuantity: 1 },
-  { id: 'carnauba', title: 'Carnabauwachsversiegelung', icon: Sparkles, basePrice: 200, maxQuantity: 1 },
-  { id: 'scheiben', title: 'Scheibenversiegelung', icon: Wind, basePrice: 100, maxQuantity: 1 },
-  { id: 'cabrio-verdeck', title: 'Cabrioverdeck-Imprägnierung', icon: Car, basePrice: 120, maxQuantity: 1, cabrioOnly: true },
-  { id: 'motorraum', title: 'Motorraum-Reinigung', icon: Wrench, basePrice: 110, maxQuantity: 1 },
-  { id: 'unterboden', title: 'Unterbodenreinigung / Unterbodenwäsche', icon: Droplets, basePrice: 100, maxQuantity: 1 },
+  { id: 'flugrost',        title: 'Flugrostentfernung (chemisch)',                        icon: Droplets,   priceTable: flugrostPrices,       maxQuantity: 1 },
+  { id: 'reifen-radhaus',  title: 'Reifen & Radhaus-Intensivreinigung',                   icon: CircleDot,  priceTable: reifenRadhausPrice,   maxQuantity: 1 },
+  { id: 'politur-1',       title: 'One-Step-Politur',                                     icon: Sparkles,   priceTable: politur1Prices,       maxQuantity: 1 },
+  { id: 'politur-2',       title: '2-Step-Politur',                                       icon: Lightbulb,  priceTable: politur2Prices,       maxQuantity: 1 },
+  { id: 'politur-3',       title: '3-Step-Politur',                                       icon: Zap,        priceTable: politur3Prices,       maxQuantity: 1 },
+  { id: 'frontscheibe',    title: 'Frontscheibenpolitur (Entfernung von Glas-Schmierfilm)', icon: Sun,      priceTable: frontscheibePrices,   maxQuantity: 1 },
+  { id: 'kunststoff-aussen', title: 'Kunststoff-Aussenpflege',                            icon: Shield,     priceTable: kunststoffAussenPrices, maxQuantity: 1 },
+  { id: 'endrohr',         title: 'Endrohr- / Auspuffpolitur',                            icon: Gauge,      priceTable: endrohPrices,         maxQuantity: 1 },
+  { id: 'keramik',         title: 'Keramikversiegelung',                                  icon: Shield,     priceTable: keramikPrices,        maxQuantity: 1 },
+  { id: 'keramik-spray',   title: 'Keramik-Spray-Versiegelung',                           icon: CloudRain,  priceTable: keramikSprayPrices,   maxQuantity: 1 },
+  { id: 'carnauba',        title: 'Carnabauwachsversiegelung',                            icon: Sparkles,   priceTable: carnaubaPrices,       maxQuantity: 1 },
+  { id: 'scheiben',        title: 'Scheibenversiegelung',                                 icon: Wind,       priceTable: scheibenPrices,       maxQuantity: 1 },
+  { id: 'cabrio-verdeck',  title: 'Cabrioverdeck-Imprägnierung',                          icon: Car,        priceTable: cabrioPrices,         maxQuantity: 1, cabrioOnly: true },
+  { id: 'motorraum',       title: 'Motorraum-Reinigung',                                  icon: Wrench,     priceTable: motorPrices,          maxQuantity: 1 },
+  { id: 'unterboden',      title: 'Unterbodenreinigung / Unterbodenwäsche',               icon: Droplets,   priceTable: unterbodenPrices,     maxQuantity: 1 },
 ];
 
 interface ExteriorSelectionProps {
@@ -44,9 +63,7 @@ interface ExteriorSelectionProps {
   onQuantityChange: (id: string, quantity: number) => void;
 }
 
-const formatPrice = (price: number): string => {
-  return `CHF ${price.toLocaleString('de-CH')}`;
-};
+const formatPrice = (price: number): string => `CHF ${price.toLocaleString('de-CH')}`;
 
 const ExteriorSelection = ({
   selectedVehicle,
@@ -57,26 +74,25 @@ const ExteriorSelection = ({
   quantities,
   onQuantityChange,
 }: ExteriorSelectionProps) => {
-  const multiplier = vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1;
   const isCabrio = selectedVehicle?.includes('cabrio');
-  
-  const getPrice = (basePrice: number) => Math.round(basePrice * multiplier);
+
+  const getPrice = (table: Record<VehicleClass, number> | number): number => {
+    if (!selectedVehicle) return 0;
+    return getExactPrice(table, selectedVehicle);
+  };
 
   const handleNoExteriorChange = (checked: boolean) => {
     onNoExteriorChange(checked);
-    if (checked) {
-      onExteriorDetailChange(false);
-    }
+    if (checked) onExteriorDetailChange(false);
   };
 
   const handleExteriorDetailChange = (checked: boolean) => {
     onExteriorDetailChange(checked);
-    if (checked) {
-      onNoExteriorChange(false);
-    }
+    if (checked) onNoExteriorChange(false);
   };
 
   const visibleExtras = exteriorExtras.filter(extra => !extra.cabrioOnly || isCabrio);
+  const extDetailPrice = selectedVehicle ? getExactPrice(exteriorDetailPrices, selectedVehicle) : 0;
 
   return (
     <div className="animate-fade-up max-w-3xl mx-auto">
@@ -88,13 +104,13 @@ const ExteriorSelection = ({
         <label
           className={cn(
             "flex items-center gap-4 p-5 rounded-xl border-2 cursor-pointer transition-all",
-            noExterior 
-              ? "bg-secondary border-foreground/20" 
+            noExterior
+              ? "bg-secondary border-foreground/20"
               : "bg-secondary/30 border-transparent hover:bg-secondary/50"
           )}
         >
-          <Checkbox 
-            checked={noExterior} 
+          <Checkbox
+            checked={noExterior}
             onCheckedChange={handleNoExteriorChange}
             className="w-6 h-6"
           />
@@ -107,20 +123,20 @@ const ExteriorSelection = ({
         <label
           className={cn(
             "flex items-center gap-4 p-5 rounded-xl border-2 cursor-pointer transition-all",
-            exteriorDetail 
-              ? "bg-primary/10 border-primary" 
+            exteriorDetail
+              ? "bg-primary/10 border-primary"
               : "bg-secondary/30 border-transparent hover:bg-secondary/50"
           )}
         >
-          <Checkbox 
-            checked={exteriorDetail} 
+          <Checkbox
+            checked={exteriorDetail}
             onCheckedChange={handleExteriorDetailChange}
             className="w-6 h-6"
           />
           <div>
             <p className="font-semibold">Exterior Detail</p>
             <p className="text-sm text-muted-foreground">Komplette Aussenaufbereitung</p>
-            <p className="text-sm font-semibold text-primary">{formatPrice(getPrice(115))}</p>
+            <p className="text-sm font-semibold text-primary">{formatPrice(extDetailPrice)}</p>
           </div>
         </label>
       </div>
@@ -131,14 +147,14 @@ const ExteriorSelection = ({
           <Sparkles className="w-5 h-5 text-primary" />
           Zusätzliche Extras
         </h3>
-        
+
         {visibleExtras.map((extra) => (
           <ExtraItem
             key={extra.id}
             id={extra.id}
             title={extra.title}
             icon={extra.icon}
-            price={getPrice(extra.basePrice)}
+            price={getPrice(extra.priceTable)}
             quantity={quantities[extra.id] || 0}
             maxQuantity={extra.maxQuantity}
             onIncrease={() => onQuantityChange(extra.id, (quantities[extra.id] || 0) + 1)}

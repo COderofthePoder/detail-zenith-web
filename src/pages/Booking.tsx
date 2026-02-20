@@ -16,6 +16,11 @@ import { cn } from '@/lib/utils';
 import VehicleSelection, { VehicleClass, vehicleClasses } from '@/components/booking/VehicleSelection';
 import InteriorSelection, { interiorExtras } from '@/components/booking/InteriorSelection';
 import ExteriorSelection, { exteriorExtras } from '@/components/booking/ExteriorSelection';
+import {
+  interiorDetailPrices,
+  exteriorDetailPrices,
+  getExactPrice,
+} from '@/lib/prices';
 
 const formatPrice = (price: number): string => {
   return `CHF ${price.toLocaleString('de-CH')}`; 
@@ -50,36 +55,40 @@ const Booking = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const multiplier = vehicleClasses.find(v => v.id === selectedVehicle)?.multiplier || 1;
   const isCabrio = selectedVehicle?.includes('cabrio');
+
+  const getItemPrice = (priceTable: Record<VehicleClass, number> | number): number => {
+    if (!selectedVehicle) return 0;
+    return getExactPrice(priceTable, selectedVehicle);
+  };
 
   // Calculate total price
   const calculateTotal = () => {
     let total = 0;
-    
+
     // Interior Detail base price
-    if (interiorDetail) {
-      total += Math.round(149 * multiplier);
+    if (interiorDetail && selectedVehicle) {
+      total += getExactPrice(interiorDetailPrices, selectedVehicle);
     }
-    
+
     // Interior extras
     interiorExtras.forEach(extra => {
       const qty = interiorQuantities[extra.id] || 0;
-      total += Math.round(extra.basePrice * multiplier) * qty;
+      total += getItemPrice(extra.priceTable) * qty;
     });
-    
+
     // Exterior Detail base price
-    if (exteriorDetail) {
-      total += Math.round(115 * multiplier);
+    if (exteriorDetail && selectedVehicle) {
+      total += getExactPrice(exteriorDetailPrices, selectedVehicle);
     }
-    
+
     // Exterior extras
     exteriorExtras.forEach(extra => {
       if (extra.cabrioOnly && !isCabrio) return;
       const qty = exteriorQuantities[extra.id] || 0;
-      total += Math.round(extra.basePrice * multiplier) * qty;
+      total += getItemPrice(extra.priceTable) * qty;
     });
-    
+
     return total;
   };
 
@@ -122,14 +131,14 @@ const Booking = () => {
     if (noInterior) {
       lines.push('Innenreinigung: Keine');
     } else {
-      if (interiorDetail) {
-        lines.push(`- Interior Detail: ${formatPrice(Math.round(149 * multiplier))}`);
+      if (interiorDetail && selectedVehicle) {
+        lines.push(`- Interior Detail: ${formatPrice(getExactPrice(interiorDetailPrices, selectedVehicle))}`);
       }
       interiorExtras.forEach(extra => {
         const qty = interiorQuantities[extra.id] || 0;
         if (qty > 0) {
-          const price = Math.round(extra.basePrice * multiplier) * qty;
-          lines.push(`- ${extra.title}${qty > 1 ? ` (${qty}x)` : ''}: ${formatPrice(price)}`);
+          const unitPrice = selectedVehicle ? getExactPrice(extra.priceTable, selectedVehicle) : 0;
+          lines.push(`- ${extra.title}${qty > 1 ? ` (${qty}x)` : ''}: ${formatPrice(unitPrice * qty)}`);
         }
       });
     }
@@ -140,15 +149,15 @@ const Booking = () => {
     if (noExterior) {
       lines.push('Aussenreinigung: Keine');
     } else {
-      if (exteriorDetail) {
-        lines.push(`- Exterior Detail: ${formatPrice(Math.round(115 * multiplier))}`);
+      if (exteriorDetail && selectedVehicle) {
+        lines.push(`- Exterior Detail: ${formatPrice(getExactPrice(exteriorDetailPrices, selectedVehicle))}`);
       }
       exteriorExtras.forEach(extra => {
         if (extra.cabrioOnly && !isCabrio) return;
         const qty = exteriorQuantities[extra.id] || 0;
         if (qty > 0) {
-          const price = Math.round(extra.basePrice * multiplier) * qty;
-          lines.push(`- ${extra.title}: ${formatPrice(price)}`);
+          const unitPrice = selectedVehicle ? getExactPrice(extra.priceTable, selectedVehicle) : 0;
+          lines.push(`- ${extra.title}: ${formatPrice(unitPrice * qty)}`);
         }
       });
     }
@@ -301,20 +310,20 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
                 <p className="text-muted-foreground italic">Keine Innenreinigung</p>
               ) : (
                 <div className="space-y-1 ml-2">
-                  {interiorDetail && (
+                  {interiorDetail && selectedVehicle && (
                     <div className="flex justify-between">
                       <span>Interior Detail</span>
-                      <span className="font-medium">{formatPrice(Math.round(149 * multiplier))}</span>
+                      <span className="font-medium">{formatPrice(getExactPrice(interiorDetailPrices, selectedVehicle))}</span>
                     </div>
                   )}
                   {interiorExtras.map(extra => {
                     const qty = interiorQuantities[extra.id] || 0;
                     if (qty === 0) return null;
-                    const price = Math.round(extra.basePrice * multiplier) * qty;
+                    const unitPrice = selectedVehicle ? getExactPrice(extra.priceTable, selectedVehicle) : 0;
                     return (
                       <div key={extra.id} className="flex justify-between">
                         <span>{extra.title}{qty > 1 ? ` (${qty}x)` : ''}</span>
-                        <span className="font-medium">{formatPrice(price)}</span>
+                        <span className="font-medium">{formatPrice(unitPrice * qty)}</span>
                       </div>
                     );
                   })}
@@ -328,21 +337,21 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
                 <p className="text-muted-foreground italic">Keine Aussenreinigung</p>
               ) : (
                 <div className="space-y-1 ml-2">
-                  {exteriorDetail && (
+                  {exteriorDetail && selectedVehicle && (
                     <div className="flex justify-between">
                       <span>Exterior Detail</span>
-                      <span className="font-medium">{formatPrice(Math.round(115 * multiplier))}</span>
+                      <span className="font-medium">{formatPrice(getExactPrice(exteriorDetailPrices, selectedVehicle))}</span>
                     </div>
                   )}
                   {exteriorExtras.map(extra => {
                     if (extra.cabrioOnly && !isCabrio) return null;
                     const qty = exteriorQuantities[extra.id] || 0;
                     if (qty === 0) return null;
-                    const price = Math.round(extra.basePrice * multiplier) * qty;
+                    const unitPrice = selectedVehicle ? getExactPrice(extra.priceTable, selectedVehicle) : 0;
                     return (
                       <div key={extra.id} className="flex justify-between">
                         <span>{extra.title}</span>
-                        <span className="font-medium">{formatPrice(price)}</span>
+                        <span className="font-medium">{formatPrice(unitPrice * qty)}</span>
                       </div>
                     );
                   })}
