@@ -13,11 +13,19 @@ import Booking from "./pages/Booking";
 import Impressum from "./pages/Impressum";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 import LoadingScreen from "./components/LoadingScreen";
 import ScrollToTop from "./components/ScrollToTop";
+import { useSeedAdmin } from "./hooks/useSeedAdmin";
 import heroImage from "@/assets/hero-background.jpg";
 
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  useSeedAdmin();
+  return null;
+};
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +71,8 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+      <BrowserRouter>
+          <AppContent />
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
@@ -74,6 +83,8 @@ const App = () => {
             <Route path="/termin" element={<Booking />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/datenschutz" element={<Privacy />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
