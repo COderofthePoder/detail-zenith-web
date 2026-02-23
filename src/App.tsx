@@ -3,9 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import LoadingScreen from "./components/LoadingScreen";
+import heroImage from "@/assets/hero-background.jpg";
 
 const Services = lazy(() => import("./pages/Services"));
 const Gallery = lazy(() => import("./pages/Gallery"));
@@ -20,7 +21,6 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 import ScrollToTop from "./components/ScrollToTop";
 import { useSeedAdmin } from "./hooks/useSeedAdmin";
 
-
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -29,6 +29,27 @@ const AppContent = () => {
 };
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroImage;
+
+    img.onload = () => {
+      setTimeout(() => setIsLoading(false), 300);
+    };
+
+    img.onerror = () => {
+      setTimeout(() => setIsLoading(false), 2000);
+    };
+
+    const fallback = setTimeout(() => setIsLoading(false), 5000);
+    return () => clearTimeout(fallback);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
