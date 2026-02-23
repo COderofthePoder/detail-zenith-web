@@ -158,15 +158,41 @@ const handler = async (req: Request): Promise<Response> => {
         reply_to: email,
         subject: `Neue Kontaktanfrage von ${safeName}`,
         html: `
-          <div style="text-align: center; margin-bottom: 24px;">
-            <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing Logo" style="max-width: 180px; height: auto;" />
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #1a1a1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #1a1a1a; padding: 32px 16px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
+        <!-- Logo -->
+        <tr><td align="center" style="padding-bottom: 24px;">
+          <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing" style="max-width: 160px; height: auto;" />
+        </td></tr>
+        <!-- Main Card -->
+        <tr><td>
+          <div style="background-color: #2a2a2a; border-radius: 16px; padding: 32px; border: 1px solid #333;">
+            <h2 style="color: #f97316; margin: 0 0 20px 0; font-size: 22px; text-align: center;">Neue Kontaktanfrage</h2>
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr><td style="padding: 8px 0; color: #999; font-size: 14px; width: 100px;">Name</td><td style="padding: 8px 0; color: #fff; font-size: 14px; font-weight: 600;">${safeName}</td></tr>
+              <tr><td style="padding: 8px 0; color: #999; font-size: 14px;">E-Mail</td><td style="padding: 8px 0; color: #fff; font-size: 14px; font-weight: 600;">${safeEmail}</td></tr>
+              ${safePhone ? `<tr><td style="padding: 8px 0; color: #999; font-size: 14px;">Telefon</td><td style="padding: 8px 0; color: #fff; font-size: 14px; font-weight: 600;">${safePhone}</td></tr>` : ''}
+            </table>
+            <div style="margin-top: 20px; border-top: 1px solid #444; padding-top: 20px;">
+              <p style="color: #999; font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Nachricht</p>
+              <p style="color: #e0e0e0; font-size: 15px; line-height: 1.6; margin: 0;">${safeMessage}</p>
+            </div>
           </div>
-          <h2>Neue Kontaktanfrage</h2>
-          <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>E-Mail:</strong> ${safeEmail}</p>
-          ${safePhone ? `<p><strong>Telefon:</strong> ${safePhone}</p>` : ''}
-          <h3>Nachricht:</h3>
-          <p>${safeMessage}</p>
+        </td></tr>
+        <!-- Footer -->
+        <tr><td align="center" style="padding-top: 24px;">
+          <p style="color: #666; font-size: 12px; margin: 0;">© DS-Detailing · Premium Auto-Aufbereitung</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>
         `,
       }),
     });
@@ -192,29 +218,53 @@ const handler = async (req: Request): Promise<Response> => {
         to: [email],
         subject: "Ihre Anfrage bei DS-Detailing",
         html: `
-          <div style="text-align: center; margin-bottom: 24px;">
-            <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing Logo" style="max-width: 180px; height: auto;" />
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #1a1a1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #1a1a1a; padding: 32px 16px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
+        <!-- Logo -->
+        <tr><td align="center" style="padding-bottom: 24px;">
+          <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing" style="max-width: 160px; height: auto;" />
+        </td></tr>
+        <!-- Main Card -->
+        <tr><td>
+          <div style="background-color: #2a2a2a; border-radius: 16px; padding: 32px; border: 1px solid #333;">
+            <h2 style="color: #f97316; margin: 0 0 16px 0; font-size: 22px; text-align: center;">Vielen Dank für Ihre Anfrage!</h2>
+            <p style="color: #e0e0e0; font-size: 15px; line-height: 1.6; text-align: center; margin: 0 0 20px 0;">
+              Hallo ${safeName}, wir haben Ihre Nachricht erhalten und werden uns schnellstmöglich bei Ihnen melden.
+            </p>
+            <div style="border-top: 1px solid #444; padding-top: 20px; margin-top: 8px;">
+              <p style="color: #999; font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Ihre Nachricht</p>
+              <p style="color: #e0e0e0; font-size: 15px; line-height: 1.6; margin: 0;">${safeMessage}</p>
+            </div>
           </div>
-          <h2>Vielen Dank für Ihre Anfrage!</h2>
-          <p>Hallo ${safeName},</p>
-          <p>wir haben Ihre Nachricht erhalten und werden uns schnellstmöglich bei Ihnen melden.</p>
-          <h3>Ihre Nachricht:</h3>
-          <p>${safeMessage}</p>
-          <br>
-          <div style="background-color: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 16px; margin: 20px 0;">
-            <p style="margin: 0 0 8px 0; font-weight: bold; color: #856404;">⚠️ Hinweis zur Terminplanung</p>
-            <p style="margin: 0; color: #856404; font-size: 14px;">
-              Wir reservieren den Slot exklusiv für dich. Daher gilt: Absagen/Umplanungen bitte mindestens 24 Stunden vor Terminstart.
-              Bei kurzfristiger Absage oder Nichterscheinen verrechnen wir eine Ausfallpauschale von CHF 100.–.
+        </td></tr>
+        <!-- Warning Card -->
+        <tr><td style="padding-top: 16px;">
+          <div style="background-color: #3a2a00; border-radius: 12px; padding: 20px; border: 1px solid #5a4000;">
+            <p style="color: #fbbf24; font-weight: 700; font-size: 14px; margin: 0 0 8px 0;">⚠️ Hinweis zur Terminplanung</p>
+            <p style="color: #d4a000; font-size: 13px; line-height: 1.5; margin: 0;">
+              Wir reservieren den Slot exklusiv für dich. Absagen/Umplanungen bitte mindestens 24 Stunden vor Terminstart. Bei kurzfristiger Absage oder Nichterscheinen verrechnen wir eine Ausfallpauschale von CHF 100.–.
             </p>
           </div>
-          <p>Mit freundlichen Grüßen<br>
-          Ihr DS-Detailing Team</p>
-          <p style="color: #666; font-size: 12px; margin-top: 20px;">
-            DS-Detailing<br>
-            Telefon: +41 76 549 36 97 / +41 79 261 09 98<br>
-            E-Mail: ds.detailing@hotmail.com
+        </td></tr>
+        <!-- Footer -->
+        <tr><td align="center" style="padding-top: 24px;">
+          <p style="color: #999; font-size: 14px; margin: 0 0 4px 0;">Mit freundlichen Grüßen<br><strong style="color: #f97316;">Ihr DS-Detailing Team</strong></p>
+          <p style="color: #666; font-size: 12px; margin: 12px 0 0 0;">
+            📞 +41 76 549 36 97 / +41 79 261 09 98<br>
+            ✉️ ds.detailing@hotmail.com
           </p>
+          <p style="color: #555; font-size: 11px; margin: 16px 0 0 0;">© DS-Detailing · Premium Auto-Aufbereitung</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>
         `,
       }),
     });
