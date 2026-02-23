@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
 import Navigation from '@/components/Navigation';
@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import VehicleSelection, { VehicleClass, vehicleClasses } from '@/components/booking/VehicleSelection';
@@ -43,8 +43,59 @@ const Booking = () => {
   const [exteriorDetail, setExteriorDetail] = useState(false);
   const [exteriorQuantities, setExteriorQuantities] = useState<Record<string, number>>({});
   
-  // Step 4: Date
+  // Step 4: Date & Time
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [busySlots, setBusySlots] = useState<{ start: string; end: string }[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+
+  // Available time slots (08:00 - 18:00, every hour)
+  const timeSlots = Array.from({ length: 11 }, (_, i) => {
+    const hour = 8 + i;
+    return `${String(hour).padStart(2, '0')}:00`;
+  });
+
+  const isSlotBusy = useCallback((slot: string) => {
+    const slotHour = parseInt(slot.split(':')[0]);
+    const slotStart = slotHour;
+    const slotEnd = slotHour + 2; // 2h duration
+
+    return busySlots.some(busy => {
+      const busyStart = new Date(busy.start);
+      const busyEnd = new Date(busy.end);
+      const busyStartHour = busyStart.getHours() + busyStart.getMinutes() / 60;
+      const busyEndHour = busyEnd.getHours() + busyEnd.getMinutes() / 60;
+      // Check overlap
+      return slotStart < busyEndHour && slotEnd > busyStartHour;
+    });
+  }, [busySlots]);
+
+  const fetchAvailability = useCallback(async (date: Date) => {
+    setLoadingSlots(true);
+    setSelectedTime(null);
+    setBusySlots([]);
+    try {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      const { data, error } = await supabase.functions.invoke('check-calendar-availability', {
+        body: { date: `${y}-${m}-${d}` },
+      });
+      if (!error && data?.busySlots) {
+        setBusySlots(data.busySlots);
+      }
+    } catch (e) {
+      console.error('Failed to check availability:', e);
+    } finally {
+      setLoadingSlots(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedDate) {
+      fetchAvailability(selectedDate);
+    }
+  }, [selectedDate, fetchAvailability]);
   
   // Step 5: Creator Code + Contact
   const [creatorCode, setCreatorCode] = useState('');
@@ -155,7 +206,7 @@ const Booking = () => {
       case 3:
         return true;
       case 4:
-        return selectedDate !== undefined;
+        return selectedDate !== undefined && selectedTime !== null;
       case 5:
         return formData.name && formData.email;
       default:
@@ -229,7 +280,7 @@ ${buildServiceSummary()}
 GESCHÄTZTES TOTAL: ${formatPrice(total)}${codeInfo}
 ---
 
-Wunschtermin: ${dateStr}
+Wunschtermin: ${dateStr}${selectedTime ? ` um ${selectedTime} Uhr (ca. 2h)` : ''}
 
 ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
     `.trim();
@@ -267,6 +318,8 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
             summary: `DS-Detailing: ${vehicleLabel} – ${formData.name}`,
             description: buildServiceSummary() + (validatedCode ? `\n\nCreator Code: ${validatedCode.code} (-${validatedCode.discount_percentage}%)\nTotal: ${formatPrice(finalTotal)}` : `\n\nTotal: ${formatPrice(total)}`),
             date: dateStr,
+            time: selectedTime || '09:00',
+            durationHours: 2,
             customerName: formData.name,
             customerEmail: formData.email,
             customerPhone: formData.phone,
@@ -291,6 +344,8 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
       setExteriorDetail(false);
       setExteriorQuantities({});
       setSelectedDate(undefined);
+      setSelectedTime(null);
+      setBusySlots([]);
       setFormData({ name: '', email: '', phone: '', notes: '' });
       setCreatorCode('');
       setValidatedCode(null);
@@ -339,7 +394,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
   const renderStep4 = () => (
     <div className="animate-fade-up">
       <h2 className="text-2xl font-bold mb-6 text-center">Wähle deinen Wunschtermin</h2>
-      <div className="flex justify-center">
+      <div className="flex flex-col lg:flex-row justify-center items-start gap-6">
         <div className="card-shine border border-border rounded-xl p-4 inline-block">
           <Calendar
             mode="single"
@@ -350,11 +405,54 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
             className={cn("p-3 pointer-events-auto")}
           />
         </div>
+
+        {selectedDate && (
+          <div className="card-shine border border-border rounded-xl p-4 w-full lg:w-auto">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              Uhrzeit wählen
+            </h3>
+            {loadingSlots ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                <span className="ml-2 text-muted-foreground">Verfügbarkeit wird geprüft...</span>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                {timeSlots.map((slot) => {
+                  const busy = isSlotBusy(slot);
+                  return (
+                    <button
+                      key={slot}
+                      disabled={busy}
+                      onClick={() => setSelectedTime(slot)}
+                      className={cn(
+                        "px-3 py-2 rounded-lg text-sm font-medium transition-all border",
+                        busy
+                          ? "line-through text-muted-foreground/50 border-border bg-secondary/50 cursor-not-allowed"
+                          : selectedTime === slot
+                          ? "bg-primary text-primary-foreground border-primary shadow-glow"
+                          : "border-border hover:border-primary/50 hover:bg-primary/5"
+                      )}
+                    >
+                      {slot}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {selectedTime && (
+              <p className="text-sm text-muted-foreground mt-3">
+                Dauer: ca. 2 Stunden ({selectedTime} – {String(parseInt(selectedTime.split(':')[0]) + 2).padStart(2, '0')}:00)
+              </p>
+            )}
+          </div>
+        )}
       </div>
       {selectedDate && (
         <p className="text-center mt-4 text-lg">
           <CalendarIcon className="w-5 h-5 inline mr-2" />
-          Ausgewählt: <strong>{format(selectedDate, 'PPP', { locale: de })}</strong>
+          Ausgewählt: <strong>{format(selectedDate, 'PPP', { locale: de })}{selectedTime ? ` um ${selectedTime} Uhr` : ''}</strong>
         </p>
       )}
     </div>
@@ -377,7 +475,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Termin:</span>
-              <span className="font-medium">{selectedDate && format(selectedDate, 'PPP', { locale: de })}</span>
+              <span className="font-medium">{selectedDate && format(selectedDate, 'PPP', { locale: de })}{selectedTime ? ` um ${selectedTime} Uhr` : ''}</span>
             </div>
             
             <div className="border-t border-border pt-3 mt-3">
