@@ -57,8 +57,6 @@ const Booking = () => {
 
   const isSlotBusy = useCallback((slot: string) => {
     const slotHour = parseInt(slot.split(':')[0]);
-    const slotStart = slotHour;
-    const slotEnd = slotHour + 2; // 2h duration
 
     return busySlots.some(busy => {
       // Parse hours directly from the datetime string to avoid UTC conversion
@@ -68,8 +66,8 @@ const Booking = () => {
       if (!startMatch || !endMatch) return false;
       const busyStartHour = parseInt(startMatch[1]) + parseInt(startMatch[2]) / 60;
       const busyEndHour = parseInt(endMatch[1]) + parseInt(endMatch[2]) / 60;
-      // Check overlap
-      return slotStart < busyEndHour && slotEnd > busyStartHour;
+      // Check if this hour falls within the busy period
+      return slotHour >= busyStartHour && slotHour < busyEndHour;
     });
   }, [busySlots]);
 
@@ -397,28 +395,28 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
   const renderStep4 = () => (
     <div className="animate-fade-up">
       <h2 className="text-2xl font-bold mb-6 text-center">Wähle deinen Wunschtermin</h2>
-      <div className="flex flex-col lg:flex-row justify-center items-start gap-6">
-        <div className="card-shine border border-border rounded-xl p-4 inline-block">
+      <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-4 lg:gap-6">
+        <div className="card-shine border border-border rounded-xl p-3 sm:p-4 w-full max-w-[340px]">
           <Calendar
             mode="single"
             selected={selectedDate}
             onSelect={setSelectedDate}
             disabled={(date) => date < new Date() || date.getDay() === 0}
             locale={de}
-            className={cn("p-3 pointer-events-auto")}
+            className={cn("p-2 sm:p-3 pointer-events-auto")}
           />
         </div>
 
         {selectedDate && (
-          <div className="card-shine border border-border rounded-xl p-4 w-full lg:w-auto">
-            <h3 className="font-semibold mb-3 flex items-center gap-2">
+          <div className="card-shine border border-border rounded-xl p-3 sm:p-4 w-full max-w-[340px] lg:max-w-none lg:w-auto">
+            <h3 className="font-semibold mb-3 flex items-center gap-2 text-sm sm:text-base">
               <Clock className="w-4 h-4" />
               Uhrzeit wählen
             </h3>
             {loadingSlots ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="w-6 h-6 animate-spin text-primary" />
-                <span className="ml-2 text-muted-foreground">Verfügbarkeit wird geprüft...</span>
+                <span className="ml-2 text-muted-foreground text-sm">Verfügbarkeit wird geprüft...</span>
               </div>
             ) : (
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -430,7 +428,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
                       disabled={busy}
                       onClick={() => setSelectedTime(slot)}
                       className={cn(
-                        "px-3 py-2 rounded-lg text-sm font-medium transition-all border",
+                        "px-2 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border",
                         busy
                           ? "line-through text-muted-foreground/50 border-border bg-secondary/50 cursor-not-allowed"
                           : selectedTime === slot
@@ -445,7 +443,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
               </div>
             )}
             {selectedTime && (
-              <p className="text-sm text-muted-foreground mt-3">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-3">
                 Dauer: ca. 2 Stunden ({selectedTime} – {String(parseInt(selectedTime.split(':')[0]) + 2).padStart(2, '0')}:00)
               </p>
             )}
@@ -453,8 +451,8 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
         )}
       </div>
       {selectedDate && (
-        <p className="text-center mt-4 text-lg">
-          <CalendarIcon className="w-5 h-5 inline mr-2" />
+        <p className="text-center mt-4 text-sm sm:text-lg">
+          <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
           Ausgewählt: <strong>{format(selectedDate, 'PPP', { locale: de })}{selectedTime ? ` um ${selectedTime} Uhr` : ''}</strong>
         </p>
       )}
@@ -660,13 +658,13 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-8 bg-background">
+      <section className="pt-24 sm:pt-32 pb-6 sm:pb-8 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="mb-4">
+            <h1 className="mb-4 text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
               <span className="text-gradient">Termin</span> reservieren
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-base sm:text-xl text-muted-foreground">
               In nur 5 Schritten zu deinem Wunschtermin
             </p>
           </div>
@@ -713,10 +711,10 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
 
           {/* Floating Total */}
           {total > 0 && step < 5 && (
-            <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 bg-background/95 backdrop-blur-md border border-primary/50 rounded-full px-6 py-3 shadow-premium animate-scale-in">
-              <div className="flex items-center gap-4">
-                <span className="text-muted-foreground">Zwischensumme</span>
-                <span className="text-xl font-bold text-primary">{formatPrice(total)}</span>
+            <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 bg-background/95 backdrop-blur-md border border-primary/50 rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-premium animate-scale-in">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <span className="text-sm sm:text-base text-muted-foreground">Zwischensumme</span>
+                <span className="text-lg sm:text-xl font-bold text-primary">{formatPrice(total)}</span>
               </div>
             </div>
           )}
