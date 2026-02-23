@@ -258,7 +258,10 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
 
       // Sync to Google Calendar
       try {
-        const dateStr = selectedDate ? selectedDate.toISOString().split('T')[0] : '';
+        const y = selectedDate!.getFullYear();
+        const m = String(selectedDate!.getMonth() + 1).padStart(2, '0');
+        const d = String(selectedDate!.getDate()).padStart(2, '0');
+        const dateStr = `${y}-${m}-${d}`;
         await supabase.functions.invoke('create-calendar-event', {
           body: {
             summary: `DS-Detailing: ${vehicleLabel} – ${formData.name}`,
