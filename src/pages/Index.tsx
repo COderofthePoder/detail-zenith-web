@@ -75,7 +75,10 @@ const Index = () => {
           style={{
             objectPosition: 'center 70%'
           }} 
-          loading="eager" 
+          loading="eager"
+          fetchPriority="high"
+          width={1920}
+          height={1080}
         />
         <div className="absolute inset-0 bg-gradient-overlay" />
       </div>
