@@ -6,15 +6,13 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// Build a JWT from the service-account JSON key and exchange it for an access token
 async function getAccessToken(serviceAccountKey: string): Promise<string> {
   const sa = JSON.parse(serviceAccountKey);
-
   const header = { alg: "RS256", typ: "JWT" };
   const now = Math.floor(Date.now() / 1000);
   const claimSet = {
     iss: sa.client_email,
-    scope: "https://www.googleapis.com/auth/calendar.events",
+    scope: "https://www.googleapis.com/auth/calendar.readonly",
     aud: "https://oauth2.googleapis.com/token",
     iat: now,
     exp: now + 3600,
@@ -28,7 +26,6 @@ async function getAccessToken(serviceAccountKey: string): Promise<string> {
 
   const unsignedToken = `${enc(header)}.${enc(claimSet)}`;
 
-  // Import the RSA private key
   const pemBody = sa.private_key
     .replace(/-----BEGIN PRIVATE KEY-----/, "")
     .replace(/-----END PRIVATE KEY-----/, "")
@@ -57,7 +54,6 @@ async function getAccessToken(serviceAccountKey: string): Promise<string> {
 
   const jwt = `${unsignedToken}.${sig}`;
 
-  // Exchange JWT for access token
   const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -76,17 +72,6 @@ async function getAccessToken(serviceAccountKey: string): Promise<string> {
   return access_token;
 }
 
-interface CalendarEventRequest {
-  summary: string;
-  description: string;
-  date: string; // ISO date string e.g. "2025-03-15"
-  time: string; // HH:MM format e.g. "09:00"
-  durationHours?: number; // default 2
-  customerName: string;
-  customerEmail: string;
-  customerPhone?: string;
-}
-
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -103,68 +88,57 @@ serve(async (req: Request) => {
       throw new Error("GOOGLE_CALENDAR_ID is not configured");
     }
 
-    const body: CalendarEventRequest = await req.json();
-    const { summary, description, date, time, durationHours = 2, customerName, customerEmail, customerPhone } = body;
-
-    if (!summary || !date || !time || !customerName) {
-      throw new Error("Missing required fields: summary, date, time, customerName");
+    const { date } = await req.json();
+    if (!date) {
+      throw new Error("Missing required field: date (YYYY-MM-DD)");
     }
 
     const accessToken = await getAccessToken(GOOGLE_SERVICE_ACCOUNT_KEY);
 
-    // Build start/end with Europe/Zurich timezone
-    const startDateTime = `${date}T${time}:00`;
-    const [hours, minutes] = time.split(':').map(Number);
-    const endHours = hours + durationHours;
-    const endTime = `${String(endHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    const endDateTime = `${date}T${endTime}:00`;
+    // Fetch events for the given date (Europe/Zurich timezone)
+    const timeMin = `${date}T00:00:00+01:00`;
+    const timeMax = `${date}T23:59:59+01:00`;
 
-    const event = {
-      summary,
-      description: [
-        description,
-        "",
-        `Kunde: ${customerName}`,
-        `E-Mail: ${customerEmail}`,
-        customerPhone ? `Telefon: ${customerPhone}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n"),
-      start: { dateTime: startDateTime, timeZone: "Europe/Zurich" },
-      end: { dateTime: endDateTime, timeZone: "Europe/Zurich" },
-      reminders: { useDefault: true },
-    };
+    const url = new URL(
+      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(GOOGLE_CALENDAR_ID)}/events`
+    );
+    url.searchParams.set("timeMin", timeMin);
+    url.searchParams.set("timeMax", timeMax);
+    url.searchParams.set("singleEvents", "true");
+    url.searchParams.set("orderBy", "startTime");
+    url.searchParams.set("timeZone", "Europe/Zurich");
 
-    const calendarUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
-      GOOGLE_CALENDAR_ID
-    )}/events`;
-
-    const calRes = await fetch(calendarUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(event),
+    const res = await fetch(url.toString(), {
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    if (!calRes.ok) {
-      const err = await calRes.text();
-      throw new Error(`Google Calendar API failed [${calRes.status}]: ${err}`);
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Google Calendar API failed [${res.status}]: ${err}`);
     }
 
-    const calData = await calRes.json();
-    console.log("Calendar event created:", calData.id);
+    const data = await res.json();
+
+    // Extract busy time ranges
+    const busySlots = (data.items || [])
+      .filter((event: any) => event.status !== "cancelled")
+      .map((event: any) => ({
+        start: event.start?.dateTime || event.start?.date,
+        end: event.end?.dateTime || event.end?.date,
+        summary: event.summary || "Belegt",
+      }));
+
+    console.log(`Found ${busySlots.length} events on ${date}`);
 
     return new Response(
-      JSON.stringify({ success: true, eventId: calData.id }),
+      JSON.stringify({ success: true, busySlots }),
       {
         status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
   } catch (error: unknown) {
-    console.error("Error creating calendar event:", error);
+    console.error("Error checking availability:", error);
     const msg = error instanceof Error ? error.message : "Unknown error";
     return new Response(JSON.stringify({ success: false, error: msg }), {
       status: 500,
