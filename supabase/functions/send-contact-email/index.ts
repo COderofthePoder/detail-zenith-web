@@ -158,6 +158,9 @@ const handler = async (req: Request): Promise<Response> => {
         reply_to: email,
         subject: `Neue Kontaktanfrage von ${safeName}`,
         html: `
+          <div style="text-align: center; margin-bottom: 24px;">
+            <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing Logo" style="max-width: 180px; height: auto;" />
+          </div>
           <h2>Neue Kontaktanfrage</h2>
           <p><strong>Name:</strong> ${safeName}</p>
           <p><strong>E-Mail:</strong> ${safeEmail}</p>
@@ -189,6 +192,9 @@ const handler = async (req: Request): Promise<Response> => {
         to: [email],
         subject: "Ihre Anfrage bei DS-Detailing",
         html: `
+          <div style="text-align: center; margin-bottom: 24px;">
+            <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing Logo" style="max-width: 180px; height: auto;" />
+          </div>
           <h2>Vielen Dank für Ihre Anfrage!</h2>
           <p>Hallo ${safeName},</p>
           <p>wir haben Ihre Nachricht erhalten und werden uns schnellstmöglich bei Ihnen melden.</p>
