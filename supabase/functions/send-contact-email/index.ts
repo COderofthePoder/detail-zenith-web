@@ -195,6 +195,13 @@ const handler = async (req: Request): Promise<Response> => {
           <h3>Ihre Nachricht:</h3>
           <p>${safeMessage}</p>
           <br>
+          <div style="background-color: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 16px; margin: 20px 0;">
+            <p style="margin: 0 0 8px 0; font-weight: bold; color: #856404;">⚠️ Hinweis zur Terminplanung</p>
+            <p style="margin: 0; color: #856404; font-size: 14px;">
+              Wir reservieren den Slot exklusiv für dich. Daher gilt: Absagen/Umplanungen bitte mindestens 24 Stunden vor Terminstart.
+              Bei kurzfristiger Absage oder Nichterscheinen verrechnen wir eine Ausfallpauschale von CHF 100.–.
+            </p>
+          </div>
           <p>Mit freundlichen Grüßen<br>
           Ihr DS-Detailing Team</p>
           <p style="color: #666; font-size: 12px; margin-top: 20px;">

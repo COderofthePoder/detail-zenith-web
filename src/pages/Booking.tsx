@@ -591,6 +591,14 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
               )}
               <p className="text-xs text-muted-foreground mt-1">* Endpreis kann je nach Zustand variieren</p>
             </div>
+
+            {/* Cancellation Policy Notice */}
+            <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3 mt-3">
+              <p className="text-sm font-semibold text-destructive mb-1">⚠️ Hinweis zur Terminplanung</p>
+              <p className="text-xs text-muted-foreground">
+                Wir reservieren den Slot exklusiv für dich. Daher gilt: Absagen/Umplanungen bitte mindestens 24 Stunden vor Terminstart. Bei kurzfristiger Absage oder Nichterscheinen verrechnen wir eine Ausfallpauschale von CHF 100.–.
+              </p>
+            </div>
           </div>
         </div>
 
