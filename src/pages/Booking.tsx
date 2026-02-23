@@ -151,9 +151,9 @@ const Booking = () => {
       case 1:
         return selectedVehicle !== null;
       case 2:
-        return noInterior || interiorDetail || Object.values(interiorQuantities).some(q => q > 0);
+        return true;
       case 3:
-        return noExterior || exteriorDetail || Object.values(exteriorQuantities).some(q => q > 0);
+        return true;
       case 4:
         return selectedDate !== undefined;
       case 5:
