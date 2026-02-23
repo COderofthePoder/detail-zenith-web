@@ -255,6 +255,23 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
         });
       }
 
+      // Sync to Google Calendar
+      try {
+        const dateStr = selectedDate ? selectedDate.toISOString().split('T')[0] : '';
+        await supabase.functions.invoke('create-calendar-event', {
+          body: {
+            summary: `DS-Detailing: ${vehicleLabel} – ${formData.name}`,
+            description: buildServiceSummary() + (validatedCode ? `\n\nCreator Code: ${validatedCode.code} (-${validatedCode.discount_percentage}%)\nTotal: ${formatPrice(finalTotal)}` : `\n\nTotal: ${formatPrice(total)}`),
+            date: dateStr,
+            customerName: formData.name,
+            customerEmail: formData.email,
+            customerPhone: formData.phone,
+          },
+        });
+      } catch (calError) {
+        console.error('Calendar sync failed (non-blocking):', calError);
+      }
+
       toast({
         title: 'Terminanfrage erfolgreich versendet!',
         description: 'Wir haben Ihre Reservierung erhalten und melden uns schnellstmöglich bei Ihnen.',
