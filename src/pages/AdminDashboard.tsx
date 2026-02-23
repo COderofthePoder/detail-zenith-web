@@ -7,8 +7,15 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import {
   LogOut, Plus, Trash2, Tag, Users, TrendingUp, ToggleLeft, ToggleRight,
-  Shield, Copy, CheckCircle
+  Shield, Copy, CheckCircle, Calendar
 } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import logo from '@/assets/logo.png';
 
 interface CreatorCode {
@@ -20,8 +27,24 @@ interface CreatorCode {
   is_active: boolean;
   created_at: string;
   usage_count?: number;
-  total_discount?: number;
+  total_after_discount?: number;
 }
+
+const MONTHS = [
+  { value: 'all', label: 'Alle Monate' },
+  { value: '01', label: 'Januar' },
+  { value: '02', label: 'Februar' },
+  { value: '03', label: 'März' },
+  { value: '04', label: 'April' },
+  { value: '05', label: 'Mai' },
+  { value: '06', label: 'Juni' },
+  { value: '07', label: 'Juli' },
+  { value: '08', label: 'August' },
+  { value: '09', label: 'September' },
+  { value: '10', label: 'Oktober' },
+  { value: '11', label: 'November' },
+  { value: '12', label: 'Dezember' },
+];
 
 const AdminDashboard = () => {
   const [codes, setCodes] = useState<CreatorCode[]>([]);
@@ -29,6 +52,8 @@ const AdminDashboard = () => {
   const [creating, setCreating] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState<string>('all');
+  const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
   const [newCode, setNewCode] = useState({
     code: '',
     creator_name: '',
@@ -71,24 +96,34 @@ const AdminDashboard = () => {
     // Fetch usage stats per code
     const { data: usages } = await supabase
       .from('code_usages')
-      .select('code_id, discount_amount');
+      .select('code_id, discount_amount, booking_total, used_at');
 
-    const usageMap: Record<string, { count: number; total: number }> = {};
-    (usages || []).forEach((u) => {
-      if (!usageMap[u.code_id]) usageMap[u.code_id] = { count: 0, total: 0 };
+    // Filter by selected month/year
+    const filtered = (usages || []).filter((u) => {
+      if (selectedMonth === 'all') return true;
+      const d = new Date(u.used_at);
+      return (
+        String(d.getMonth() + 1).padStart(2, '0') === selectedMonth &&
+        String(d.getFullYear()) === selectedYear
+      );
+    });
+
+    const usageMap: Record<string, { count: number; totalAfterDiscount: number }> = {};
+    filtered.forEach((u) => {
+      if (!usageMap[u.code_id]) usageMap[u.code_id] = { count: 0, totalAfterDiscount: 0 };
       usageMap[u.code_id].count += 1;
-      usageMap[u.code_id].total += Number(u.discount_amount || 0);
+      usageMap[u.code_id].totalAfterDiscount += Number(u.booking_total || 0) - Number(u.discount_amount || 0);
     });
 
     const enriched = (codesData || []).map((c) => ({
       ...c,
       usage_count: usageMap[c.id]?.count || 0,
-      total_discount: usageMap[c.id]?.total || 0,
+      total_after_discount: usageMap[c.id]?.totalAfterDiscount || 0,
     }));
 
     setCodes(enriched);
     setLoading(false);
-  }, [toast]);
+  }, [toast, selectedMonth, selectedYear]);
 
   useEffect(() => {
     const init = async () => {
@@ -156,7 +191,7 @@ const AdminDashboard = () => {
   };
 
   const totalUsages = codes.reduce((sum, c) => sum + (c.usage_count || 0), 0);
-  const totalDiscount = codes.reduce((sum, c) => sum + (c.total_discount || 0), 0);
+  const totalAfterDiscount = codes.reduce((sum, c) => sum + (c.total_after_discount || 0), 0);
   const activeCodes = codes.filter((c) => c.is_active).length;
 
   return (
@@ -179,6 +214,33 @@ const AdminDashboard = () => {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        {/* Month Filter */}
+        <div className="flex items-center gap-3">
+          <Calendar className="w-5 h-5 text-muted-foreground" />
+          <Select value={selectedMonth} onValueChange={(v) => setSelectedMonth(v)}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {MONTHS.map((m) => (
+                <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {selectedMonth !== 'all' && (
+            <Select value={selectedYear} onValueChange={(v) => setSelectedYear(v)}>
+              <SelectTrigger className="w-[100px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[2025, 2026, 2027].map((y) => (
+                  <SelectItem key={y} value={String(y)}>{y}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        </div>
+
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-card border border-border rounded-xl p-5 flex items-center gap-4">
@@ -204,8 +266,8 @@ const AdminDashboard = () => {
               <TrendingUp className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <p className="text-2xl font-bold">CHF {totalDiscount.toFixed(0)}</p>
-              <p className="text-sm text-muted-foreground">Gesamt Rabatt gegeben</p>
+              <p className="text-2xl font-bold">CHF {totalAfterDiscount.toFixed(0)}</p>
+              <p className="text-sm text-muted-foreground">Total nach Rabatt</p>
             </div>
           </div>
         </div>
@@ -330,10 +392,10 @@ const AdminDashboard = () => {
                       <p className="text-xl font-bold">{code.usage_count}</p>
                       <p className="text-xs text-muted-foreground">Verwendet</p>
                     </div>
-                    <div>
-                      <p className="text-xl font-bold">CHF {(code.total_discount || 0).toFixed(0)}</p>
-                      <p className="text-xs text-muted-foreground">Rabatt total</p>
-                    </div>
+                     <div>
+                       <p className="text-xl font-bold">CHF {(code.total_after_discount || 0).toFixed(0)}</p>
+                       <p className="text-xs text-muted-foreground">Total nach Rabatt</p>
+                     </div>
                   </div>
 
                   {/* Actions */}
