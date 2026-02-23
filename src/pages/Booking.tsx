@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import VehicleSelection, { VehicleClass, vehicleClasses } from '@/components/booking/VehicleSelection';
@@ -46,7 +46,12 @@ const Booking = () => {
   // Step 4: Date
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   
-  // Step 5: Contact
+  // Step 5: Creator Code + Contact
+  const [creatorCode, setCreatorCode] = useState('');
+  const [validatedCode, setValidatedCode] = useState<{ id: string; code: string; discount_percentage: number; creator_name: string } | null>(null);
+  const [codeError, setCodeError] = useState('');
+  const [codeLoading, setCodeLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -106,6 +111,40 @@ const Booking = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleValidateCode = async () => {
+    const code = creatorCode.trim().toUpperCase();
+    if (!code) return;
+    setCodeLoading(true);
+    setCodeError('');
+    setValidatedCode(null);
+
+    const { data, error } = await supabase
+      .from('creator_codes')
+      .select('id, code, discount_percentage, creator_name')
+      .eq('code', code)
+      .eq('is_active', true)
+      .maybeSingle();
+
+    if (error || !data) {
+      setCodeError('Ungültiger oder abgelaufener Code.');
+    } else {
+      setValidatedCode(data);
+    }
+    setCodeLoading(false);
+  };
+
+  const handleRemoveCode = () => {
+    setValidatedCode(null);
+    setCreatorCode('');
+    setCodeError('');
+  };
+
+  const discountAmount = validatedCode
+    ? Math.round(calculateTotal() * validatedCode.discount_percentage / 100)
+    : 0;
+
+  const finalTotal = calculateTotal() - discountAmount;
 
   const canProceed = () => {
     switch (step) {
@@ -174,6 +213,10 @@ const Booking = () => {
     const total = calculateTotal();
     const dateStr = selectedDate ? format(selectedDate, 'PPP', { locale: de }) : '';
 
+    const codeInfo = validatedCode
+      ? `\nCreator Code: ${validatedCode.code} (-${validatedCode.discount_percentage}%)\nRabatt: -${formatPrice(discountAmount)}\nTotal nach Rabatt: ${formatPrice(finalTotal)}`
+      : '';
+
     const message = `
 TERMINRESERVIERUNG
 
@@ -183,7 +226,7 @@ Gewünschte Leistungen:
 ${buildServiceSummary()}
 
 ---
-GESCHÄTZTES TOTAL: ${formatPrice(total)}
+GESCHÄTZTES TOTAL: ${formatPrice(total)}${codeInfo}
 ---
 
 Wunschtermin: ${dateStr}
@@ -203,6 +246,15 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
 
       if (error) throw error;
 
+      // Track creator code usage
+      if (validatedCode) {
+        await supabase.from('code_usages').insert({
+          code_id: validatedCode.id,
+          booking_total: total,
+          discount_amount: discountAmount,
+        });
+      }
+
       toast({
         title: 'Terminanfrage erfolgreich versendet!',
         description: 'Wir haben Ihre Reservierung erhalten und melden uns schnellstmöglich bei Ihnen.',
@@ -219,6 +271,9 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
       setExteriorQuantities({});
       setSelectedDate(undefined);
       setFormData({ name: '', email: '', phone: '', notes: '' });
+      setCreatorCode('');
+      setValidatedCode(null);
+      setCodeError('');
     } catch (error) {
       console.error('Error sending booking:', error);
       toast({
@@ -359,11 +414,61 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
               )}
             </div>
 
+            {/* Creator Code Input */}
+            <div className="border-t border-border pt-3 mt-3">
+              <p className="text-muted-foreground mb-2 font-semibold flex items-center gap-2">
+                <Tag className="w-4 h-4" />
+                Creator Code (optional)
+              </p>
+              {validatedCode ? (
+                <div className="flex items-center justify-between bg-primary/10 rounded-lg px-3 py-2">
+                  <div>
+                    <span className="font-mono font-bold text-primary">{validatedCode.code}</span>
+                    <span className="text-sm text-muted-foreground ml-2">-{validatedCode.discount_percentage}%</span>
+                  </div>
+                  <button onClick={handleRemoveCode} className="text-muted-foreground hover:text-destructive transition-colors">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <Input
+                    value={creatorCode}
+                    onChange={(e) => { setCreatorCode(e.target.value.toUpperCase()); setCodeError(''); }}
+                    placeholder="Code eingeben"
+                    className="font-mono uppercase"
+                    onKeyDown={(e) => e.key === 'Enter' && handleValidateCode()}
+                  />
+                  <Button type="button" variant="outline" size="sm" onClick={handleValidateCode} disabled={codeLoading || !creatorCode.trim()}>
+                    {codeLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Einlösen'}
+                  </Button>
+                </div>
+              )}
+              {codeError && <p className="text-sm text-destructive mt-1">{codeError}</p>}
+            </div>
+
             <div className="border-t border-primary/30 pt-3 mt-3 bg-primary/5 -mx-4 px-4 py-3 rounded-lg">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold">Geschätztes Total:</span>
-                <span className="text-2xl font-bold text-primary">{formatPrice(total)}</span>
+                <span className="text-lg font-semibold">Zwischensumme:</span>
+                <span className={cn("text-xl font-bold", validatedCode ? "line-through text-muted-foreground" : "text-primary")}>{formatPrice(total)}</span>
               </div>
+              {validatedCode && (
+                <>
+                  <div className="flex justify-between items-center mt-1">
+                    <span className="text-sm text-muted-foreground">Rabatt ({validatedCode.code}, -{validatedCode.discount_percentage}%)</span>
+                    <span className="text-sm font-medium text-primary">-{formatPrice(discountAmount)}</span>
+                  </div>
+                  <div className="flex justify-between items-center mt-2 border-t border-primary/20 pt-2">
+                    <span className="text-lg font-semibold">Total nach Rabatt:</span>
+                    <span className="text-2xl font-bold text-primary">{formatPrice(finalTotal)}</span>
+                  </div>
+                </>
+              )}
+              {!validatedCode && (
+                <div className="flex justify-between items-center">
+                  <span className="sr-only">total</span>
+                </div>
+              )}
               <p className="text-xs text-muted-foreground mt-1">* Endpreis kann je nach Zustand variieren</p>
             </div>
           </div>
