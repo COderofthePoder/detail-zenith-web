@@ -61,10 +61,13 @@ const Booking = () => {
     const slotEnd = slotHour + 2; // 2h duration
 
     return busySlots.some(busy => {
-      const busyStart = new Date(busy.start);
-      const busyEnd = new Date(busy.end);
-      const busyStartHour = busyStart.getHours() + busyStart.getMinutes() / 60;
-      const busyEndHour = busyEnd.getHours() + busyEnd.getMinutes() / 60;
+      // Parse hours directly from the datetime string to avoid UTC conversion
+      // Format: "2026-02-26T09:00:00+01:00" or "2026-02-26T09:00:00"
+      const startMatch = busy.start?.match(/T(\d{2}):(\d{2})/);
+      const endMatch = busy.end?.match(/T(\d{2}):(\d{2})/);
+      if (!startMatch || !endMatch) return false;
+      const busyStartHour = parseInt(startMatch[1]) + parseInt(startMatch[2]) / 60;
+      const busyEndHour = parseInt(endMatch[1]) + parseInt(endMatch[2]) / 60;
       // Check overlap
       return slotStart < busyEndHour && slotEnd > busyStartHour;
     });
