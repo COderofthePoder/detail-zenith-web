@@ -235,7 +235,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
     `.trim();
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
+      const { error, data } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: formData.name,
           email: formData.email,
@@ -244,6 +244,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
         },
       });
 
+      console.log('send-contact-email response:', { error, data });
       if (error) throw error;
 
       // Track creator code usage
