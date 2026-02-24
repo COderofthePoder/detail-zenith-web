@@ -167,7 +167,7 @@ const handler = async (req: Request): Promise<Response> => {
       <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
         <!-- Logo -->
         <tr><td align="center" style="padding-bottom: 24px;">
-          <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing" style="max-width: 176px; height: auto;" />
+          <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing" style="max-width: 210px; height: auto;" />
         </td></tr>
         <!-- Main Card -->
         <tr><td>
@@ -227,7 +227,7 @@ const handler = async (req: Request): Promise<Response> => {
       <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
         <!-- Logo -->
         <tr><td align="center" style="padding-bottom: 24px;">
-          <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing" style="max-width: 176px; height: auto;" />
+          <img src="https://dvnapflludhnncmuakla.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="DS-Detailing" style="max-width: 210px; height: auto;" />
         </td></tr>
         <!-- Main Card -->
         <tr><td>
