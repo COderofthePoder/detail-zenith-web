@@ -756,7 +756,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
                 className="px-8 bg-primary hover:bg-primary/90"
               >
                 <Send className="w-4 h-4 mr-2" />
-                {isSubmitting ? 'Wird gesendet...' : 'Termin anfragen'}
+                {isSubmitting ? 'Wird gesendet...' : 'Termin buchen'}
               </Button>
             )}
           </div>
