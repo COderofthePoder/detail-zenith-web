@@ -63,11 +63,29 @@ export const useMember = () => {
   const fetchMemberData = async (userId: string) => {
     setLoading(true);
     try {
-      const { data: memberData } = await supabase
+      let { data: memberData } = await supabase
         .from('members')
         .select('*')
         .eq('user_id', userId)
         .maybeSingle();
+
+      // If no member profile exists yet, create one from auth metadata
+      if (!memberData) {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        const meta = authUser?.user_metadata;
+        if (meta?.first_name && meta?.last_name) {
+          const { data: newMember, error: insertErr } = await supabase.from('members').insert({
+            user_id: userId,
+            first_name: meta.first_name,
+            last_name: meta.last_name,
+            phone: meta.phone || null,
+          }).select().single();
+          
+          if (!insertErr && newMember) {
+            memberData = newMember;
+          }
+        }
+      }
 
       if (memberData) {
         setMember(memberData as MemberProfile);
