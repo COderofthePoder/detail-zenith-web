@@ -119,6 +119,7 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
+              {/* Hidden until member launch
               {isLoggedIn ? (
                 <Link to="/mitglieder" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
                   Mein Bereich
@@ -128,6 +129,7 @@ const Navigation = () => {
                   Jetzt Mitglied werden
                 </Link>
               )}
+              */}
             </div>
           </div>
         )}
