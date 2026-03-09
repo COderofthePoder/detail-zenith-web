@@ -35,7 +35,7 @@ const Navigation = () => {
     { path: '/galerie', label: 'Galerie' },
     { path: '/ueber-uns', label: 'Über Uns' },
     { path: '/kontakt', label: 'Kontakt' },
-    { path: '/mitglieder', label: 'Mitgliederbereich' },
+    // { path: '/mitglieder', label: 'Mitgliederbereich' }, // Hidden until launch
   ];
 
   return (
@@ -72,7 +72,7 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - Hidden until member launch
           <div className="hidden md:block">
             {isLoggedIn ? (
               <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -90,6 +90,7 @@ const Navigation = () => {
               </Button>
             )}
           </div>
+          */}
 
           {/* Mobile Menu Button */}
           <button
@@ -118,6 +119,7 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
+              {/* Hidden until member launch
               {isLoggedIn ? (
                 <Link to="/mitglieder" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
                   Mein Bereich
@@ -127,6 +129,7 @@ const Navigation = () => {
                   Jetzt Mitglied werden
                 </Link>
               )}
+              */}
             </div>
           </div>
         )}
