@@ -120,6 +120,48 @@ export type Database = {
           },
         ]
       }
+      member_reviews: {
+        Row: {
+          booking_id: string
+          created_at: string
+          id: string
+          member_id: string
+          rating: number
+          text: string
+        }
+        Insert: {
+          booking_id: string
+          created_at?: string
+          id?: string
+          member_id: string
+          rating: number
+          text: string
+        }
+        Update: {
+          booking_id?: string
+          created_at?: string
+          id?: string
+          member_id?: string
+          rating?: number
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_reviews_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: true
+            referencedRelation: "member_bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_reviews_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       members: {
         Row: {
           created_at: string

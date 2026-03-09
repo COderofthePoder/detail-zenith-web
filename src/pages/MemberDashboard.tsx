@@ -8,10 +8,11 @@ import { Badge } from '@/components/ui/badge';
 import { useMember } from '@/hooks/useMember';
 import { LogOut, Star, Gift, Receipt, TrendingUp, Calendar, Sparkles, Crown } from 'lucide-react';
 import LoadingScreen from '@/components/LoadingScreen';
+import ReviewSection from '@/components/member/ReviewSection';
 
 const MemberDashboard = () => {
   const navigate = useNavigate();
-  const { user, member, stampCard, bookings, loading, signOut, availableFreeWashes, totalSpent } = useMember();
+  const { user, member, stampCard, bookings, reviews, loading, signOut, availableFreeWashes, totalSpent, refetch } = useMember();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -197,6 +198,14 @@ const MemberDashboard = () => {
               )}
             </CardContent>
           </Card>
+
+          {/* Reviews */}
+          <ReviewSection
+            memberId={member.id}
+            bookings={bookings}
+            reviews={reviews}
+            onReviewSubmitted={refetch}
+          />
         </div>
       </section>
       <Footer />

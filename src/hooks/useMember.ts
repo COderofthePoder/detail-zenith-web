@@ -28,11 +28,20 @@ export interface MemberBooking {
   booked_at: string;
 }
 
+export interface MemberReview {
+  id: string;
+  booking_id: string;
+  rating: number;
+  text: string;
+  created_at: string;
+}
+
 export const useMember = () => {
   const [user, setUser] = useState<User | null>(null);
   const [member, setMember] = useState<MemberProfile | null>(null);
   const [stampCard, setStampCard] = useState<StampCard | null>(null);
   const [bookings, setBookings] = useState<MemberBooking[]>([]);
+  const [reviews, setReviews] = useState<MemberReview[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,6 +53,7 @@ export const useMember = () => {
         setMember(null);
         setStampCard(null);
         setBookings([]);
+        setReviews([]);
         setLoading(false);
       }
     });
@@ -90,13 +100,15 @@ export const useMember = () => {
       if (memberData) {
         setMember(memberData as MemberProfile);
 
-        const [stampRes, bookingsRes] = await Promise.all([
+        const [stampRes, bookingsRes, reviewsRes] = await Promise.all([
           supabase.from('stamp_cards').select('*').eq('member_id', memberData.id).maybeSingle(),
           supabase.from('member_bookings').select('*').eq('member_id', memberData.id).order('booked_at', { ascending: false }),
+          supabase.from('member_reviews').select('*').eq('member_id', memberData.id).order('created_at', { ascending: false }),
         ]);
 
         setStampCard(stampRes.data as StampCard | null);
         setBookings((bookingsRes.data as MemberBooking[]) || []);
+        setReviews((reviewsRes.data as MemberReview[]) || []);
       }
     } catch (err) {
       console.error('Error fetching member data:', err);
@@ -115,5 +127,5 @@ export const useMember = () => {
 
   const totalSpent = bookings.reduce((sum, b) => sum + Number(b.total_price), 0);
 
-  return { user, member, stampCard, bookings, loading, signOut, availableFreeWashes, totalSpent, refetch: () => user && fetchMemberData(user.id) };
+  return { user, member, stampCard, bookings, reviews, loading, signOut, availableFreeWashes, totalSpent, refetch: () => user && fetchMemberData(user.id) };
 };
