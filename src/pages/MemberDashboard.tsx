@@ -198,6 +198,14 @@ const MemberDashboard = () => {
               )}
             </CardContent>
           </Card>
+
+          {/* Reviews */}
+          <ReviewSection
+            memberId={member.id}
+            bookings={bookings}
+            reviews={reviews}
+            onReviewSubmitted={refetch}
+          />
         </div>
       </section>
       <Footer />
