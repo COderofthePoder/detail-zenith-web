@@ -8,15 +8,25 @@ import logo from '@/assets/logo.png';
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session?.user);
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   const navLinks = [
@@ -25,6 +35,7 @@ const Navigation = () => {
     { path: '/galerie', label: 'Galerie' },
     { path: '/ueber-uns', label: 'Über Uns' },
     { path: '/kontakt', label: 'Kontakt' },
+    { path: '/mitglieder', label: 'Mitgliederbereich' },
   ];
 
   return (
@@ -51,7 +62,9 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === link.path ? 'text-primary' : 'text-muted-foreground'
+                  location.pathname === link.path || (link.path === '/mitglieder' && location.pathname.startsWith('/mitglieder'))
+                    ? 'text-primary' 
+                    : 'text-muted-foreground'
                 }`}
               >
                 {link.label}
@@ -61,12 +74,21 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link to="/termin">
-                <Phone className="w-4 h-4 mr-2" />
-                Termin reservieren
-              </Link>
-            </Button>
+            {isLoggedIn ? (
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Link to="/mitglieder">
+                  <User className="w-4 h-4 mr-2" />
+                  Mein Bereich
+                </Link>
+              </Button>
+            ) : (
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Link to="/mitglieder/registrieren">
+                  <Crown className="w-4 h-4 mr-2" />
+                  Jetzt Mitglied werden
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,12 +110,23 @@ const Navigation = () => {
                   to={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`text-sm font-medium transition-colors hover:text-primary ${
-                    location.pathname === link.path ? 'text-primary' : 'text-muted-foreground'
+                    location.pathname === link.path || (link.path === '/mitglieder' && location.pathname.startsWith('/mitglieder'))
+                      ? 'text-primary' 
+                      : 'text-muted-foreground'
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
+              {isLoggedIn ? (
+                <Link to="/mitglieder" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
+                  Mein Bereich
+                </Link>
+              ) : (
+                <Link to="/mitglieder/registrieren" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
+                  Jetzt Mitglied werden
+                </Link>
+              )}
             </div>
           </div>
         )}
