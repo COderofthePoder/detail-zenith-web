@@ -72,7 +72,7 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - Hidden until member launch
           <div className="hidden md:block">
             {isLoggedIn ? (
               <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -90,6 +90,7 @@ const Navigation = () => {
               </Button>
             )}
           </div>
+          */}
 
           {/* Mobile Menu Button */}
           <button
