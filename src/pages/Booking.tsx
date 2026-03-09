@@ -351,9 +351,38 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
         console.error('Calendar sync failed (non-blocking):', calError);
       }
 
+      // Member: save booking + add stamp
+      if (memberData) {
+        try {
+          const bookingPrice = useFreewash ? 0 : finalTotal;
+          await supabase.from('member_bookings').insert({
+            member_id: memberData.memberId,
+            service_description: `${vehicleLabel} – ${buildServiceSummary().replace(/\n/g, ', ')}`,
+            total_price: bookingPrice,
+            discount_applied: discountAmount,
+            was_free_wash: useFreewash,
+            stamp_earned: !useFreewash,
+          });
+
+          // Add stamp (only if not a free wash)
+          if (!useFreewash) {
+            await supabase.rpc('add_stamp', { p_member_id: memberData.memberId });
+          }
+
+          // Use free wash
+          if (useFreewash) {
+            await supabase.from('stamp_cards')
+              .update({ free_washes_used: (memberData.freeWashesAvailable > 0 ? memberData.freeWashesAvailable - 1 : 0) + (memberData.stamps >= 10 ? 0 : 0) })
+              .eq('member_id', memberData.memberId);
+          }
+        } catch (memberErr) {
+          console.error('Member booking tracking failed (non-blocking):', memberErr);
+        }
+      }
+
       toast({
         title: 'Terminanfrage erfolgreich versendet!',
-        description: 'Wir haben Ihre Reservierung erhalten und melden uns schnellstmöglich bei Ihnen.',
+        description: memberData ? 'Buchung gespeichert! Du hast einen Stempel erhalten.' : 'Wir haben Ihre Reservierung erhalten und melden uns schnellstmöglich bei Ihnen.',
       });
 
       // Reset form
