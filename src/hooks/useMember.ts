@@ -100,13 +100,15 @@ export const useMember = () => {
       if (memberData) {
         setMember(memberData as MemberProfile);
 
-        const [stampRes, bookingsRes] = await Promise.all([
+        const [stampRes, bookingsRes, reviewsRes] = await Promise.all([
           supabase.from('stamp_cards').select('*').eq('member_id', memberData.id).maybeSingle(),
           supabase.from('member_bookings').select('*').eq('member_id', memberData.id).order('booked_at', { ascending: false }),
+          supabase.from('member_reviews').select('*').eq('member_id', memberData.id).order('created_at', { ascending: false }),
         ]);
 
         setStampCard(stampRes.data as StampCard | null);
         setBookings((bookingsRes.data as MemberBooking[]) || []);
+        setReviews((reviewsRes.data as MemberReview[]) || []);
       }
     } catch (err) {
       console.error('Error fetching member data:', err);
