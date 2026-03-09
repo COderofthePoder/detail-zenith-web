@@ -35,7 +35,7 @@ const Navigation = () => {
     { path: '/galerie', label: 'Galerie' },
     { path: '/ueber-uns', label: 'Über Uns' },
     { path: '/kontakt', label: 'Kontakt' },
-    { path: '/mitglieder', label: 'Mitgliederbereich' },
+    // { path: '/mitglieder', label: 'Mitgliederbereich' }, // Hidden until launch
   ];
 
   return (
