@@ -1,0 +1,1 @@
+INSERT INTO public.members (user_id, first_name, last_name) VALUES ('834ac844-5a94-4e83-987b-65f0682fd2e4', 'Robin', 'Fäh');
