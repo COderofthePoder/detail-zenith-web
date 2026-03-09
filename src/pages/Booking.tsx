@@ -113,6 +113,26 @@ const Booking = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Member state
+  const [memberData, setMemberData] = useState<{ memberId: string; stamps: number; freeWashesAvailable: number } | null>(null);
+  const [useFreewash, setUseFreewash] = useState(false);
+
+  useEffect(() => {
+    const fetchMember = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) return;
+      const { data: member } = await supabase.from('members').select('id').eq('user_id', session.user.id).maybeSingle();
+      if (!member) return;
+      const { data: card } = await supabase.from('stamp_cards').select('stamps, free_washes_earned, free_washes_used').eq('member_id', member.id).maybeSingle();
+      setMemberData({
+        memberId: member.id,
+        stamps: card?.stamps ?? 0,
+        freeWashesAvailable: card ? card.free_washes_earned - card.free_washes_used : 0,
+      });
+    };
+    fetchMember();
+  }, []);
+
   const isCabrio = selectedVehicle?.includes('cabrio');
 
   const getItemPrice = (priceTable: Record<VehicleClass, number> | number): number => {
