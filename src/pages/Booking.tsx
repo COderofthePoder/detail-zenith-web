@@ -286,12 +286,13 @@ const Booking = () => {
     const total = calculateTotal();
     const dateStr = selectedDate ? format(selectedDate, 'PPP', { locale: de }) : '';
 
+    const freeWashInfo = useFreewash ? '\n🎁 GRATIS-WÄSCHE (Stempelkarte eingelöst)' : '';
     const codeInfo = validatedCode
       ? `\nCreator Code: ${validatedCode.code} (-${validatedCode.discount_percentage}%)\nRabatt: -${formatPrice(discountAmount)}\nTotal nach Rabatt: ${formatPrice(finalTotal)}`
       : '';
 
     const message = `
-TERMINRESERVIERUNG
+TERMINRESERVIERUNG${memberData ? ' (Mitglied)' : ''}
 
 Fahrzeugklasse: ${vehicleLabel}
 
@@ -299,7 +300,7 @@ Gewünschte Leistungen:
 ${buildServiceSummary()}
 
 ---
-GESCHÄTZTES TOTAL: ${formatPrice(total)}${codeInfo}
+GESCHÄTZTES TOTAL: ${useFreewash ? 'CHF 0 (Gratis-Wäsche)' : formatPrice(total)}${codeInfo}${freeWashInfo}
 ---
 
 Wunschtermin: ${dateStr}${selectedTime ? ` um ${selectedTime} Uhr (ca. 2h)` : ''}
