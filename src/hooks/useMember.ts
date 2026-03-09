@@ -53,6 +53,7 @@ export const useMember = () => {
         setMember(null);
         setStampCard(null);
         setBookings([]);
+        setReviews([]);
         setLoading(false);
       }
     });
