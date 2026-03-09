@@ -8,9 +8,10 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2, Clock } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2, Clock, Gift, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import VehicleSelection, { VehicleClass, vehicleClasses } from '@/components/booking/VehicleSelection';
