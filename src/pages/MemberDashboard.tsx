@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { useMember } from '@/hooks/useMember';
 import { LogOut, Star, Gift, Receipt, TrendingUp, Calendar, Sparkles, Crown } from 'lucide-react';
 import LoadingScreen from '@/components/LoadingScreen';
+import ReviewSection from '@/components/member/ReviewSection';
 
 const MemberDashboard = () => {
   const navigate = useNavigate();
