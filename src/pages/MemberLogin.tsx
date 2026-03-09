@@ -24,14 +24,6 @@ const MemberLogin = () => {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
 
-      // Check if user is a member
-      const { data: member } = await supabase.from('members').select('id').limit(1).maybeSingle();
-      if (!member) {
-        await supabase.auth.signOut();
-        toast({ title: 'Fehler', description: 'Kein Mitgliederkonto gefunden. Bitte registriere dich zuerst.', variant: 'destructive' });
-        return;
-      }
-
       toast({ title: 'Willkommen zurück!' });
       navigate('/mitglieder');
     } catch (error: any) {
