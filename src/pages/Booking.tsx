@@ -8,9 +8,10 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2, Clock } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Send, Calendar as CalendarIcon, Tag, X, Loader2, Clock, Gift, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import VehicleSelection, { VehicleClass, vehicleClasses } from '@/components/booking/VehicleSelection';
@@ -111,6 +112,26 @@ const Booking = () => {
     notes: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Member state
+  const [memberData, setMemberData] = useState<{ memberId: string; stamps: number; freeWashesAvailable: number } | null>(null);
+  const [useFreewash, setUseFreewash] = useState(false);
+
+  useEffect(() => {
+    const fetchMember = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) return;
+      const { data: member } = await supabase.from('members').select('id').eq('user_id', session.user.id).maybeSingle();
+      if (!member) return;
+      const { data: card } = await supabase.from('stamp_cards').select('stamps, free_washes_earned, free_washes_used').eq('member_id', member.id).maybeSingle();
+      setMemberData({
+        memberId: member.id,
+        stamps: card?.stamps ?? 0,
+        freeWashesAvailable: card ? card.free_washes_earned - card.free_washes_used : 0,
+      });
+    };
+    fetchMember();
+  }, []);
 
   const isCabrio = selectedVehicle?.includes('cabrio');
 
@@ -265,12 +286,13 @@ const Booking = () => {
     const total = calculateTotal();
     const dateStr = selectedDate ? format(selectedDate, 'PPP', { locale: de }) : '';
 
+    const freeWashInfo = useFreewash ? '\n🎁 GRATIS-WÄSCHE (Stempelkarte eingelöst)' : '';
     const codeInfo = validatedCode
       ? `\nCreator Code: ${validatedCode.code} (-${validatedCode.discount_percentage}%)\nRabatt: -${formatPrice(discountAmount)}\nTotal nach Rabatt: ${formatPrice(finalTotal)}`
       : '';
 
     const message = `
-TERMINRESERVIERUNG
+TERMINRESERVIERUNG${memberData ? ' (Mitglied)' : ''}
 
 Fahrzeugklasse: ${vehicleLabel}
 
@@ -278,7 +300,7 @@ Gewünschte Leistungen:
 ${buildServiceSummary()}
 
 ---
-GESCHÄTZTES TOTAL: ${formatPrice(total)}${codeInfo}
+GESCHÄTZTES TOTAL: ${useFreewash ? 'CHF 0 (Gratis-Wäsche)' : formatPrice(total)}${codeInfo}${freeWashInfo}
 ---
 
 Wunschtermin: ${dateStr}${selectedTime ? ` um ${selectedTime} Uhr (ca. 2h)` : ''}
@@ -330,9 +352,36 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
         console.error('Calendar sync failed (non-blocking):', calError);
       }
 
+      // Member: save booking + add stamp
+      if (memberData) {
+        try {
+          const bookingPrice = useFreewash ? 0 : finalTotal;
+          await supabase.from('member_bookings').insert({
+            member_id: memberData.memberId,
+            service_description: `${vehicleLabel} – ${buildServiceSummary().replace(/\n/g, ', ')}`,
+            total_price: bookingPrice,
+            discount_applied: discountAmount,
+            was_free_wash: useFreewash,
+            stamp_earned: !useFreewash,
+          });
+
+          // Add stamp (only if not a free wash)
+          if (!useFreewash) {
+            await supabase.rpc('add_stamp', { p_member_id: memberData.memberId });
+          }
+
+          // Use free wash
+          if (useFreewash) {
+            await supabase.rpc('use_free_wash', { p_member_id: memberData.memberId });
+          }
+        } catch (memberErr) {
+          console.error('Member booking tracking failed (non-blocking):', memberErr);
+        }
+      }
+
       toast({
         title: 'Terminanfrage erfolgreich versendet!',
-        description: 'Wir haben Ihre Reservierung erhalten und melden uns schnellstmöglich bei Ihnen.',
+        description: memberData ? 'Buchung gespeichert! Du hast einen Stempel erhalten.' : 'Wir haben Ihre Reservierung erhalten und melden uns schnellstmöglich bei Ihnen.',
       });
 
       // Reset form
@@ -351,6 +400,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
       setCreatorCode('');
       setValidatedCode(null);
       setCodeError('');
+      setUseFreewash(false);
     } catch (error) {
       console.error('Error sending booking:', error);
       toast({
@@ -567,27 +617,81 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
               {codeError && <p className="text-sm text-destructive mt-1">{codeError}</p>}
             </div>
 
-            <div className="border-t border-primary/30 pt-3 mt-3 bg-primary/5 -mx-4 px-4 py-3 rounded-lg">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold">Zwischensumme:</span>
-                <span className={cn("text-xl font-bold", validatedCode ? "line-through text-muted-foreground" : "text-primary")}>{formatPrice(total)}</span>
-              </div>
-              {validatedCode && (
-                <>
-                  <div className="flex justify-between items-center mt-1">
-                    <span className="text-sm text-muted-foreground">Rabatt ({validatedCode.code}, -{validatedCode.discount_percentage}%)</span>
-                    <span className="text-sm font-medium text-primary">-{formatPrice(discountAmount)}</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-2 border-t border-primary/20 pt-2">
-                    <span className="text-lg font-semibold">Total nach Rabatt:</span>
-                    <span className="text-2xl font-bold text-primary">{formatPrice(finalTotal)}</span>
-                  </div>
-                </>
-              )}
-              {!validatedCode && (
-                <div className="flex justify-between items-center">
-                  <span className="sr-only">total</span>
+            {/* Member Free Wash Option */}
+            {memberData && (
+              <div className="border-t border-border pt-3 mt-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <Star className="w-4 h-4 text-primary" />
+                  <p className="text-muted-foreground font-semibold">Mitglieder-Vorteile</p>
                 </div>
+                <div className="bg-muted/30 rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">Aktuelle Stempel:</span>
+                    <span className="font-semibold">{memberData.stamps}/10</span>
+                  </div>
+                  {memberData.freeWashesAvailable > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setUseFreewash(!useFreewash)}
+                      className={cn(
+                        "w-full flex items-center justify-between rounded-lg px-3 py-2 border transition-all",
+                        useFreewash
+                          ? "bg-green-500/10 border-green-500/50 text-green-400"
+                          : "border-border hover:border-primary/50"
+                      )}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Gift className="w-4 h-4" />
+                        <span className="text-sm font-medium">Gratis-Wäsche einlösen</span>
+                      </div>
+                      <Badge className={cn(
+                        "text-xs",
+                        useFreewash ? "bg-green-500/20 text-green-400 border-green-500/30" : "bg-primary/20 text-primary border-primary/30"
+                      )}>
+                        {memberData.freeWashesAvailable}x verfügbar
+                      </Badge>
+                    </button>
+                  )}
+                  {!useFreewash && (
+                    <p className="text-xs text-muted-foreground">
+                      Diese Buchung gibt dir +1 Stempel 🎉
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="border-t border-primary/30 pt-3 mt-3 bg-primary/5 -mx-4 px-4 py-3 rounded-lg">
+              {useFreewash ? (
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-semibold flex items-center gap-2">
+                    <Gift className="w-5 h-5" />
+                    Gratis-Wäsche
+                  </span>
+                  <div className="text-right">
+                    <span className="text-xl font-bold line-through text-muted-foreground mr-2">{formatPrice(finalTotal)}</span>
+                    <span className="text-2xl font-bold text-green-400">CHF 0</span>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-semibold">Zwischensumme:</span>
+                    <span className={cn("text-xl font-bold", validatedCode ? "line-through text-muted-foreground" : "text-primary")}>{formatPrice(total)}</span>
+                  </div>
+                  {validatedCode && (
+                    <>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-sm text-muted-foreground">Rabatt ({validatedCode.code}, -{validatedCode.discount_percentage}%)</span>
+                        <span className="text-sm font-medium text-primary">-{formatPrice(discountAmount)}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-2 border-t border-primary/20 pt-2">
+                        <span className="text-lg font-semibold">Total nach Rabatt:</span>
+                        <span className="text-2xl font-bold text-primary">{formatPrice(finalTotal)}</span>
+                      </div>
+                    </>
+                  )}
+                </>
               )}
               <p className="text-xs text-muted-foreground mt-1">* Endpreis kann je nach Zustand variieren</p>
             </div>
