@@ -615,6 +615,50 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
               {codeError && <p className="text-sm text-destructive mt-1">{codeError}</p>}
             </div>
 
+            {/* Member Free Wash Option */}
+            {memberData && (
+              <div className="border-t border-border pt-3 mt-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <Star className="w-4 h-4 text-primary" />
+                  <p className="text-muted-foreground font-semibold">Mitglieder-Vorteile</p>
+                </div>
+                <div className="bg-muted/30 rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">Aktuelle Stempel:</span>
+                    <span className="font-semibold">{memberData.stamps}/10</span>
+                  </div>
+                  {memberData.freeWashesAvailable > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setUseFreewash(!useFreewash)}
+                      className={cn(
+                        "w-full flex items-center justify-between rounded-lg px-3 py-2 border transition-all",
+                        useFreewash
+                          ? "bg-green-500/10 border-green-500/50 text-green-400"
+                          : "border-border hover:border-primary/50"
+                      )}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Gift className="w-4 h-4" />
+                        <span className="text-sm font-medium">Gratis-Wäsche einlösen</span>
+                      </div>
+                      <Badge className={cn(
+                        "text-xs",
+                        useFreewash ? "bg-green-500/20 text-green-400 border-green-500/30" : "bg-primary/20 text-primary border-primary/30"
+                      )}>
+                        {memberData.freeWashesAvailable}x verfügbar
+                      </Badge>
+                    </button>
+                  )}
+                  {!useFreewash && (
+                    <p className="text-xs text-muted-foreground">
+                      Diese Buchung gibt dir +1 Stempel 🎉
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="border-t border-primary/30 pt-3 mt-3 bg-primary/5 -mx-4 px-4 py-3 rounded-lg">
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">Zwischensumme:</span>
