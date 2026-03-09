@@ -170,7 +170,7 @@ const ReviewSection = ({ memberId, bookings, reviews, onReviewSubmitted }: Revie
                   </div>
                 )}
               </div>
-            ))
+            ))}
           </div>
         ) : reviews.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
