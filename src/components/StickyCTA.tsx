@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Phone } from 'lucide-react';
+import { Crown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -24,9 +24,9 @@ const StickyCTA = () => {
         size="lg"
         className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-premium rounded-full px-8"
       >
-        <Link to="/termin">
-          <Phone className="w-5 h-5 mr-2" />
-          Termin reservieren
+        <Link to="/mitglieder/registrieren">
+          <Crown className="w-5 h-5 mr-2" />
+          Jetzt Mitglied werden
         </Link>
       </Button>
     </div>

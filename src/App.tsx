@@ -17,6 +17,9 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const MemberRegister = lazy(() => import("./pages/MemberRegister"));
+const MemberLogin = lazy(() => import("./pages/MemberLogin"));
+const MemberDashboard = lazy(() => import("./pages/MemberDashboard"));
 import ScrollToTop from "./components/ScrollToTop";
 import { useSeedAdmin } from "./hooks/useSeedAdmin";
 import heroImage from "@/assets/hero-background.jpg";
@@ -87,6 +90,9 @@ const App = () => {
               <Route path="/datenschutz" element={<Privacy />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/mitglieder" element={<MemberDashboard />} />
+              <Route path="/mitglieder/registrieren" element={<MemberRegister />} />
+              <Route path="/mitglieder/login" element={<MemberLogin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
