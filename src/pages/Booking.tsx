@@ -371,9 +371,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
 
           // Use free wash
           if (useFreewash) {
-            await supabase.from('stamp_cards')
-              .update({ free_washes_used: (memberData.freeWashesAvailable > 0 ? memberData.freeWashesAvailable - 1 : 0) + (memberData.stamps >= 10 ? 0 : 0) })
-              .eq('member_id', memberData.memberId);
+            await supabase.rpc('use_free_wash', { p_member_id: memberData.memberId });
           }
         } catch (memberErr) {
           console.error('Member booking tracking failed (non-blocking):', memberErr);

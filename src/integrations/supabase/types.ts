@@ -216,6 +216,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      use_free_wash: { Args: { p_member_id: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin"
