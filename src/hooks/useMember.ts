@@ -28,6 +28,14 @@ export interface MemberBooking {
   booked_at: string;
 }
 
+export interface MemberReview {
+  id: string;
+  booking_id: string;
+  rating: number;
+  text: string;
+  created_at: string;
+}
+
 export const useMember = () => {
   const [user, setUser] = useState<User | null>(null);
   const [member, setMember] = useState<MemberProfile | null>(null);
