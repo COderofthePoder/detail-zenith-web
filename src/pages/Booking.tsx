@@ -400,6 +400,7 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
       setCreatorCode('');
       setValidatedCode(null);
       setCodeError('');
+      setUseFreewash(false);
     } catch (error) {
       console.error('Error sending booking:', error);
       toast({
