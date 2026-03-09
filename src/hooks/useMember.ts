@@ -41,6 +41,7 @@ export const useMember = () => {
   const [member, setMember] = useState<MemberProfile | null>(null);
   const [stampCard, setStampCard] = useState<StampCard | null>(null);
   const [bookings, setBookings] = useState<MemberBooking[]>([]);
+  const [reviews, setReviews] = useState<MemberReview[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
