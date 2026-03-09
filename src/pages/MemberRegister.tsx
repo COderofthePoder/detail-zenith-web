@@ -36,26 +36,20 @@ const MemberRegister = () => {
 
     setLoading(true);
     try {
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      const { error: authError } = await supabase.auth.signUp({
         email: form.email,
         password: form.password,
         options: {
           emailRedirectTo: window.location.origin + '/mitglieder',
+          data: {
+            first_name: form.firstName.trim(),
+            last_name: form.lastName.trim(),
+            phone: form.phone.trim() || null,
+          },
         },
       });
 
       if (authError) throw authError;
-
-      if (authData.user) {
-        const { error: memberError } = await supabase.from('members').insert({
-          user_id: authData.user.id,
-          first_name: form.firstName.trim(),
-          last_name: form.lastName.trim(),
-          phone: form.phone.trim() || null,
-        });
-
-        if (memberError) throw memberError;
-      }
 
       toast({
         title: 'Registrierung erfolgreich!',
