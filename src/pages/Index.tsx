@@ -212,7 +212,7 @@ const Index = () => {
               },
             ].map((item, index) => (
               <div key={item.title} className="text-center animate-fade-up" style={{ animationDelay: `${index * 80}ms` }}>
-                <div className="bg-background/80 backdrop-blur-md border border-border/50 rounded-2xl p-8 hover:bg-background/90 transition-all duration-300">
+                <div className="bg-background/80 backdrop-blur-md border border-border/50 rounded-2xl p-8 hover:bg-background/90 transition-all duration-300 h-full flex flex-col items-center justify-start">
                   <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <item.icon className="w-8 h-8 text-primary" />
                   </div>
