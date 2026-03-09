@@ -127,5 +127,5 @@ export const useMember = () => {
 
   const totalSpent = bookings.reduce((sum, b) => sum + Number(b.total_price), 0);
 
-  return { user, member, stampCard, bookings, loading, signOut, availableFreeWashes, totalSpent, refetch: () => user && fetchMemberData(user.id) };
+  return { user, member, stampCard, bookings, reviews, loading, signOut, availableFreeWashes, totalSpent, refetch: () => user && fetchMemberData(user.id) };
 };
