@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Sparkles, Shield, Clock, Award, Droplets, Car, Wrench, Palette, Truck } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -7,9 +8,45 @@ import ReviewCard from '@/components/ReviewCard';
 import StickyCTA from '@/components/StickyCTA';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import heroImage from '@/assets/hero-background.jpg';
 
+interface MemberReviewWithName {
+  id: string;
+  rating: number;
+  text: string;
+  created_at: string;
+  first_name: string;
+  last_name: string;
+}
+
 const Index = () => {
+  const [memberReviews, setMemberReviews] = useState<MemberReviewWithName[]>([]);
+
+  useEffect(() => {
+    const fetchMemberReviews = async () => {
+      const { data } = await supabase
+        .from('member_reviews')
+        .select('id, rating, text, created_at, members(first_name, last_name)')
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (data) {
+        setMemberReviews(
+          data.map((r: any) => ({
+            id: r.id,
+            rating: r.rating,
+            text: r.text,
+            created_at: r.created_at,
+            first_name: r.members?.first_name ?? '',
+            last_name: r.members?.last_name ?? '',
+          }))
+        );
+      }
+    };
+    fetchMemberReviews();
+  }, []);
+
   const services = [
     {
       icon: Droplets,
@@ -43,7 +80,7 @@ const Index = () => {
     },
   ];
 
-  const reviews = [
+  const staticReviews = [
     {
       name: 'Arben K.',
       rating: 5,
@@ -62,6 +99,29 @@ const Index = () => {
       text: 'Beste Autoaufbereitung in der Region! Pünktlich, professionell und das Ergebnis übertrifft alle Erwartungen. Top!',
       date: 'vor 3 Wochen',
     },
+  ];
+
+  const formatRelativeDate = (dateStr: string) => {
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+    if (diffDays < 1) return 'heute';
+    if (diffDays < 7) return `vor ${diffDays} Tagen`;
+    if (diffDays < 30) return `vor ${Math.floor(diffDays / 7)} Wochen`;
+    if (diffDays < 365) return `vor ${Math.floor(diffDays / 30)} Monaten`;
+    return `vor ${Math.floor(diffDays / 365)} Jahren`;
+  };
+
+  // Combine: member reviews first, then static
+  const allReviews = [
+    ...memberReviews.map(r => ({
+      name: `${r.first_name} ${r.last_name.charAt(0)}.`,
+      rating: r.rating,
+      text: r.text,
+      date: formatRelativeDate(r.created_at),
+      isVerifiedMember: true,
+    })),
+    ...staticReviews.map(r => ({ ...r, isVerifiedMember: false })),
   ];
 
   return (
@@ -176,8 +236,8 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {reviews.map((review, index) => (
-              <div key={review.name} className="animate-fade-up" style={{ animationDelay: `${index * 100}ms` }}>
+            {allReviews.slice(0, 6).map((review, index) => (
+              <div key={review.name + index} className="animate-fade-up" style={{ animationDelay: `${index * 100}ms` }}>
                 <ReviewCard {...review} />
               </div>
             ))}
