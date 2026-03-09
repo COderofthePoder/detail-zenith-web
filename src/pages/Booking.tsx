@@ -660,26 +660,36 @@ ${formData.notes ? `Anmerkungen:\n${formData.notes}` : ''}
             )}
 
             <div className="border-t border-primary/30 pt-3 mt-3 bg-primary/5 -mx-4 px-4 py-3 rounded-lg">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold">Zwischensumme:</span>
-                <span className={cn("text-xl font-bold", validatedCode ? "line-through text-muted-foreground" : "text-primary")}>{formatPrice(total)}</span>
-              </div>
-              {validatedCode && (
-                <>
-                  <div className="flex justify-between items-center mt-1">
-                    <span className="text-sm text-muted-foreground">Rabatt ({validatedCode.code}, -{validatedCode.discount_percentage}%)</span>
-                    <span className="text-sm font-medium text-primary">-{formatPrice(discountAmount)}</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-2 border-t border-primary/20 pt-2">
-                    <span className="text-lg font-semibold">Total nach Rabatt:</span>
-                    <span className="text-2xl font-bold text-primary">{formatPrice(finalTotal)}</span>
-                  </div>
-                </>
-              )}
-              {!validatedCode && (
+              {useFreewash ? (
                 <div className="flex justify-between items-center">
-                  <span className="sr-only">total</span>
+                  <span className="text-lg font-semibold flex items-center gap-2">
+                    <Gift className="w-5 h-5" />
+                    Gratis-Wäsche
+                  </span>
+                  <div className="text-right">
+                    <span className="text-xl font-bold line-through text-muted-foreground mr-2">{formatPrice(finalTotal)}</span>
+                    <span className="text-2xl font-bold text-green-400">CHF 0</span>
+                  </div>
                 </div>
+              ) : (
+                <>
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-semibold">Zwischensumme:</span>
+                    <span className={cn("text-xl font-bold", validatedCode ? "line-through text-muted-foreground" : "text-primary")}>{formatPrice(total)}</span>
+                  </div>
+                  {validatedCode && (
+                    <>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-sm text-muted-foreground">Rabatt ({validatedCode.code}, -{validatedCode.discount_percentage}%)</span>
+                        <span className="text-sm font-medium text-primary">-{formatPrice(discountAmount)}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-2 border-t border-primary/20 pt-2">
+                        <span className="text-lg font-semibold">Total nach Rabatt:</span>
+                        <span className="text-2xl font-bold text-primary">{formatPrice(finalTotal)}</span>
+                      </div>
+                    </>
+                  )}
+                </>
               )}
               <p className="text-xs text-muted-foreground mt-1">* Endpreis kann je nach Zustand variieren</p>
             </div>
