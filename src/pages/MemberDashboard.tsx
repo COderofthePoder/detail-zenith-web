@@ -12,7 +12,7 @@ import ReviewSection from '@/components/member/ReviewSection';
 
 const MemberDashboard = () => {
   const navigate = useNavigate();
-  const { user, member, stampCard, bookings, loading, signOut, availableFreeWashes, totalSpent } = useMember();
+  const { user, member, stampCard, bookings, reviews, loading, signOut, availableFreeWashes, totalSpent, refetch } = useMember();
 
   useEffect(() => {
     if (!loading && !user) {
