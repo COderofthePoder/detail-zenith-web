@@ -79,6 +79,112 @@ export type Database = {
         }
         Relationships: []
       }
+      member_bookings: {
+        Row: {
+          booked_at: string
+          discount_applied: number
+          id: string
+          member_id: string
+          service_description: string
+          stamp_earned: boolean
+          total_price: number
+          was_free_wash: boolean
+        }
+        Insert: {
+          booked_at?: string
+          discount_applied?: number
+          id?: string
+          member_id: string
+          service_description: string
+          stamp_earned?: boolean
+          total_price?: number
+          was_free_wash?: boolean
+        }
+        Update: {
+          booked_at?: string
+          discount_applied?: number
+          id?: string
+          member_id?: string
+          service_description?: string
+          stamp_earned?: boolean
+          total_price?: number
+          was_free_wash?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_bookings_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      members: {
+        Row: {
+          created_at: string
+          first_name: string
+          id: string
+          last_name: string
+          phone: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          first_name: string
+          id?: string
+          last_name: string
+          phone?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          phone?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      stamp_cards: {
+        Row: {
+          created_at: string
+          free_washes_earned: number
+          free_washes_used: number
+          id: string
+          member_id: string
+          stamps: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          free_washes_earned?: number
+          free_washes_used?: number
+          id?: string
+          member_id: string
+          stamps?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          free_washes_earned?: number
+          free_washes_used?: number
+          id?: string
+          member_id?: string
+          stamps?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stamp_cards_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -102,6 +208,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_stamp: { Args: { p_member_id: string }; Returns: undefined }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
