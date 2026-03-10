@@ -78,7 +78,7 @@ const Navigation = () => {
           </div>
 
           <div className="hidden md:block">
-            {isLoggedIn ? (
+            {isLoggedIn && firstName ? (
               <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/mitglieder">
                   <User className="w-4 h-4 mr-2" />
@@ -122,7 +122,7 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              {isLoggedIn ? (
+              {isLoggedIn && firstName ? (
                 <Link to="/mitglieder" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
                   Hallo, {firstName}!
                 </Link>
