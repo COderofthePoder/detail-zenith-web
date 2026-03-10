@@ -25,7 +25,31 @@ const MemberDashboard = () => {
   }, [loading, user, member, navigate]);
 
   if (loading) return <LoadingScreen />;
-  if (!member) return null;
+  if (!user || !member) {
+    return (
+      <>
+        <Navigation />
+        <section className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center">
+          <div className="text-center max-w-md">
+            <Crown className="w-16 h-16 text-primary mx-auto mb-6" />
+            <h1 className="text-3xl font-bold mb-4">Mitgliederbereich</h1>
+            <p className="text-muted-foreground mb-8">
+              Melde dich an oder werde Mitglied, um exklusive Vorteile zu geniessen.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild className="bg-primary hover:bg-primary/90">
+                <Link to="/mitglieder/login">Anmelden</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/mitglieder/registrieren">Jetzt Mitglied werden</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </>
+    );
+  }
 
   const stamps = stampCard?.stamps ?? 0;
   const stampSlots = Array.from({ length: 10 }, (_, i) => i < stamps);
