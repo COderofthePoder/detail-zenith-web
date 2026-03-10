@@ -41,7 +41,8 @@ const MemberVerify = () => {
       }
 
       toast({ title: 'E-Mail bestätigt! ✓', description: 'Willkommen bei DS Detailing!' });
-      navigate('/mitglieder');
+      // Force full reload to refresh member data (cached is_verified=false)
+      window.location.href = '/mitglieder';
     } catch (err: any) {
       toast({ title: 'Fehler', description: err.message, variant: 'destructive' });
     } finally {
