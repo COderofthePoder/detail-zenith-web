@@ -15,8 +15,6 @@ const StickyCTA = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Hidden until member launch
-  return null;
   if (!isVisible) return null;
 
   return (
