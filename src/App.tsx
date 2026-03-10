@@ -20,6 +20,7 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const MemberRegister = lazy(() => import("./pages/MemberRegister"));
 const MemberLogin = lazy(() => import("./pages/MemberLogin"));
 const MemberDashboard = lazy(() => import("./pages/MemberDashboard"));
+const MemberVerify = lazy(() => import("./pages/MemberVerify"));
 import ScrollToTop from "./components/ScrollToTop";
 import { useSeedAdmin } from "./hooks/useSeedAdmin";
 import heroImage from "@/assets/hero-background.jpg";
@@ -93,6 +94,7 @@ const App = () => {
               <Route path="/mitglieder" element={<MemberDashboard />} />
               <Route path="/mitglieder/registrieren" element={<MemberRegister />} />
               <Route path="/mitglieder/login" element={<MemberLogin />} />
+              <Route path="/mitglieder/verifizieren" element={<MemberVerify />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

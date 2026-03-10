@@ -18,7 +18,11 @@ const MemberDashboard = () => {
     if (!loading && !user) {
       navigate('/mitglieder/login');
     }
-  }, [loading, user, navigate]);
+    // Redirect unverified members to verification page
+    if (!loading && member && !member.is_verified) {
+      navigate('/mitglieder/verifizieren');
+    }
+  }, [loading, user, member, navigate]);
 
   if (loading) return <LoadingScreen />;
   if (!member) return null;
