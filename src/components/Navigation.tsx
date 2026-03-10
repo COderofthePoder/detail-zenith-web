@@ -21,11 +21,15 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    const updateUser = (user: SupaUser | null | undefined) => {
+      setIsLoggedIn(!!user);
+      setFirstName(user?.user_metadata?.first_name || '');
+    };
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsLoggedIn(!!session?.user);
+      updateUser(session?.user);
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setIsLoggedIn(!!session?.user);
+      updateUser(session?.user);
     });
     return () => subscription.unsubscribe();
   }, []);
