@@ -4,12 +4,13 @@ import { Menu, X, Crown, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/logo.png';
+import type { User as SupaUser } from '@supabase/supabase-js';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const location = useLocation();
+  const [firstName, setFirstName] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,11 +21,15 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    const updateUser = (user: SupaUser | null | undefined) => {
+      setIsLoggedIn(!!user);
+      setFirstName(user?.user_metadata?.first_name || '');
+    };
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsLoggedIn(!!session?.user);
+      updateUser(session?.user);
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setIsLoggedIn(!!session?.user);
+      updateUser(session?.user);
     });
     return () => subscription.unsubscribe();
   }, []);
@@ -77,7 +82,7 @@ const Navigation = () => {
               <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/mitglieder">
                   <User className="w-4 h-4 mr-2" />
-                  Mein Bereich
+                  Hallo, {firstName}!
                 </Link>
               </Button>
             ) : (
@@ -119,7 +124,7 @@ const Navigation = () => {
               ))}
               {isLoggedIn ? (
                 <Link to="/mitglieder" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
-                  Mein Bereich
+                  Hallo, {firstName}!
                 </Link>
               ) : (
                 <Link to="/mitglieder/registrieren" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
