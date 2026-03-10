@@ -79,6 +79,36 @@ export type Database = {
         }
         Relationships: []
       }
+      email_verifications: {
+        Row: {
+          code: string
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          user_id: string
+          verified: boolean
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          email: string
+          expires_at: string
+          id?: string
+          user_id: string
+          verified?: boolean
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          user_id?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
       member_bookings: {
         Row: {
           booked_at: string
@@ -167,6 +197,7 @@ export type Database = {
           created_at: string
           first_name: string
           id: string
+          is_verified: boolean
           last_name: string
           phone: string | null
           user_id: string
@@ -175,6 +206,7 @@ export type Database = {
           created_at?: string
           first_name: string
           id?: string
+          is_verified?: boolean
           last_name: string
           phone?: string | null
           user_id: string
@@ -183,6 +215,7 @@ export type Database = {
           created_at?: string
           first_name?: string
           id?: string
+          is_verified?: boolean
           last_name?: string
           phone?: string | null
           user_id?: string
