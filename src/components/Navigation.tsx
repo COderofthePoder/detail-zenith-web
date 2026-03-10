@@ -122,7 +122,7 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              {isLoggedIn ? (
+              {isLoggedIn && firstName ? (
                 <Link to="/mitglieder" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">
                   Hallo, {firstName}!
                 </Link>
