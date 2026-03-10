@@ -4,6 +4,7 @@ import { Menu, X, Crown, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/logo.png';
+import type { User as SupaUser } from '@supabase/supabase-js';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
