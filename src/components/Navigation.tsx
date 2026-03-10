@@ -10,7 +10,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const location = useLocation();
+  const [firstName, setFirstName] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
