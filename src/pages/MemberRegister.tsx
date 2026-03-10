@@ -36,11 +36,11 @@ const MemberRegister = () => {
 
     setLoading(true);
     try {
-      const { error: authError } = await supabase.auth.signUp({
+      // Sign up (auto-confirmed, no Supabase verification email)
+      const { data: signUpData, error: authError } = await supabase.auth.signUp({
         email: form.email,
         password: form.password,
         options: {
-          emailRedirectTo: window.location.origin + '/mitglieder',
           data: {
             first_name: form.firstName.trim(),
             last_name: form.lastName.trim(),
@@ -51,11 +51,24 @@ const MemberRegister = () => {
 
       if (authError) throw authError;
 
+      // Send verification code via our own edge function
+      const { error: codeError, data: codeData } = await supabase.functions.invoke('send-verification-code', {
+        body: {
+          email: form.email,
+          firstName: form.firstName.trim(),
+        },
+      });
+
+      if (codeError || codeData?.error) {
+        console.error('Verification code error:', codeError || codeData?.error);
+        // Still navigate to verify page, user can resend
+      }
+
       toast({
         title: 'Registrierung erfolgreich!',
-        description: 'Bitte bestätige deine E-Mail-Adresse, um dich anzumelden.',
+        description: 'Wir haben dir einen Bestätigungscode per E-Mail gesendet.',
       });
-      navigate('/mitglieder/login');
+      navigate('/mitglieder/verifizieren');
     } catch (error: any) {
       toast({
         title: 'Fehler',
