@@ -8,6 +8,7 @@ export interface MemberProfile {
   first_name: string;
   last_name: string;
   phone: string | null;
+  is_verified: boolean;
   created_at: string;
 }
 
