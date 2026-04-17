@@ -10,6 +10,7 @@ import {
   exteriorDetailPrices,
   flugrostPrices,
   reifenRadhausPrice,
+  keramikFelgenPrice,
   politur1Prices,
   politur2Prices,
   politur3Prices,
