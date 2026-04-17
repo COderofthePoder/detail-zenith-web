@@ -114,6 +114,9 @@ export const flugrostPrices: PriceRow = {
 // Reifen & Radhaus flat 30 CHF for all
 export const reifenRadhausPrice = 30;
 
+// Keramik Felgen Versiegelung flat 199 CHF for all
+export const keramikFelgenPrice = 199;
+
 export const politur1Prices: PriceRow = {
   'coupe-2':     340,  'cabrio-2':    360,  'pickup-single': 510,
   'kleinwagen':  380,  'coupe-4':    410,  'cabrio-4':     430,
