@@ -119,8 +119,8 @@ const About = () => {
                 beste Ausrüstung für optimale Ergebnisse.
               </p>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Unser Hauptsitz befindet sich an der <strong className="text-foreground">Willikonerstrasse 7 
-                in Oetwil am See</strong>. Hier koordinieren wir alle administrativen Aufgaben 
+                Unser Hauptsitz befindet sich an der <strong className="text-foreground">Breitistrasse 5C 
+                in Wetzikon</strong>. Hier koordinieren wir alle administrativen Aufgaben 
                 und stehen Ihnen für Fragen zur Verfügung.
               </p>
               <div className="space-y-3 text-sm">

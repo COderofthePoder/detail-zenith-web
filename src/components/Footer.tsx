@@ -86,7 +86,7 @@ const Footer = () => {
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
                 <div>
                   <p className="font-medium text-foreground">Hauptsitz</p>
-                  <p>Willikonerstrasse 7<br />8618 Oetwil am See</p>
+                  <p>Breitistrasse 5C<br />8623 Wetzikon</p>
                 </div>
               </li>
             </ul>

@@ -245,7 +245,7 @@ const Contact = () => {
                       <div className="flex-1">
                         <h3 className="font-semibold mb-3">Hauptsitz</h3>
                         <p className="text-muted-foreground text-sm">
-                          Willikonerstrasse 7<br />8618 Oetwil am See
+                          Breitistrasse 5C<br />8623 Wetzikon
                         </p>
                       </div>
                     </div>

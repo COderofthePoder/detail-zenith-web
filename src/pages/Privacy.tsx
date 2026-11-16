@@ -29,8 +29,8 @@ const Privacy = () => {
                 <div className="space-y-1">
                   <p className="text-foreground font-medium">DS-Detailing Kollektivgesellschaft</p>
                   <p>Endrit Kastrati & Sufjan Kadrija</p>
-                  <p>Willikonerstrasse 78</p>
-                  <p>8618 Oetwil am See</p>
+                  <p>Breitistrasse 5C</p>
+                  <p>8623 Wetzikon</p>
                   <p>Schweiz</p>
                   <p className="mt-2">
                     E-Mail:{' '}
